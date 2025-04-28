@@ -41,10 +41,10 @@ const CountdownTimer = () => {
       <div className="flex flex-col items-center gap-4 py-4">
         <div className="flex flex-col items-center">
           <h2 className="md:text-2xl text-lg font-bold text-[#105d97] uppercase">
-            Ưu Đãi Đặc Biệt Trong Tuần Của Đồng Phục Univi!
-          </h2>
+            ĐỒNG PHỤC THỂ THAO          
+            </h2>
           <p className="text-base text-gray-500">
-         Liên hệ ngay với Đồng phục Univi để nhận ưu đãi hấp dẫn! </p>
+            Liên hệ ngay với Đồng phục Univi để nhận ưu đãi hấp dẫn! </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex flex-col items-center">

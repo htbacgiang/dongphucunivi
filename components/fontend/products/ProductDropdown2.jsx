@@ -28,7 +28,7 @@ const ProductDropdown = () => {
       <Link
         href="/san-pham"
         className={`cursor-pointer uppercase ${
-          isScrolled ? "text-black" : "text-black"
+          isScrolled ? "text-[#105d97]" : "text-[#105d97]"
         } hover:text-blue-300 font-heading font-semibold transition-colors duration-200`}
       >
         Sản phẩm
@@ -67,7 +67,7 @@ const ProductDropdown = () => {
               </li>
               <li>
                 <Link href="/faq" className="hover:text-[#105d97]  py-2">
-                Đồng phục Golf - Tennis
+                Đồng phục Lễ Tân
                 </Link>
               </li>
               <li>

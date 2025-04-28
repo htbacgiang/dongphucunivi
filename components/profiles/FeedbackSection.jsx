@@ -1,87 +1,52 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const FeedbackSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [itemsPerSlide, setItemsPerSlide] = useState(5);
 
-  // Sample feedback data for Đồng Phục Univi
   const feedbacks = [
-    {
-      title: "Anh Nguyễn Văn A",
-      image: "/images/banner-1.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Chị Trần Thị B",
-      image: "/images/banner-1.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Phòng Gym EcoFit",
-      image: "/images/banner-2.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Cô Lê Minh C",
-      image: "/images/banner-3.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Anh Phạm Văn D",
-      image: "/images/banner-1.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Chị Hoàng Thị E",
-      image: "/images/banner-2.webp",
-      link: "/feedback",
-    },
-    {
-      title: "Đội Bóng F",
-      image: "/images/banner-3.webp",
-      link: "/feedback",
-    },
+    { title: "Anh Nguyễn Văn A", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
+    { title: "Chị Trần Thị B", image: "/product/dong-phuc-gym/2.webp", link: "/feedback" },
+    { title: "Phòng Gym EcoFit", image: "/product/dong-phuc-gym/3.webp", link: "/feedback" },
+    { title: "Cô Lê Minh C", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
+    { title: "Anh Phạm Văn D", image: "/product/dong-phuc-gym/3.webp", link: "/feedback" },
+    { title: "Chị Hoàng Thị E", image: "/product/dong-phuc-gym/2.webp", link: "/feedback" },
+    { title: "Đội Bóng F", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
   ];
 
-  // Navigation functions
-  const nextSlide = () => {
-    // Max slide depends on screen size (handled in isNextDisabled)
-    setCurrentSlide((prev) => prev + 1);
-  };
+  useEffect(() => {
+    const updateItemsPerSlide = () => {
+      setItemsPerSlide(window.innerWidth < 768 ? 2 : 5);
+      setCurrentSlide(0); // Reset slide on resize
+    };
+    updateItemsPerSlide();
+    window.addEventListener("resize", updateItemsPerSlide);
+    return () => window.removeEventListener("resize", updateItemsPerSlide);
+  }, []);
 
-  const prevSlide = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide((prev) => prev - 1);
-    }
-  };
+  const nextSlide = () => setCurrentSlide((prev) => prev + 1);
+  const prevSlide = () => setCurrentSlide((prev) => Math.max(0, prev - 1));
 
-  // Determine number of items per slide based on screen size
-  const getItemsPerSlide = () => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768 ? 2 : 5; // md breakpoint in Tailwind
-    }
-    return 5; // Default for server-side rendering
-  };
-
-  // Check if navigation buttons should be disabled
-  const itemsPerSlide = getItemsPerSlide();
   const isPrevDisabled = currentSlide === 0;
   const isNextDisabled = currentSlide >= feedbacks.length - itemsPerSlide;
-
-  // Calculate translateX based on item width (50% for 2 items, 20% for 5 items)
   const itemWidthPercentage = itemsPerSlide === 2 ? 50 : 20;
+
+  if (feedbacks.length === 0) {
+    return <div className="text-center">No feedback available.</div>;
+  }
 
   return (
     <div className="py-6">
       <div className="max-w-8xl mx-auto px-8 sm:px-6 lg:px-8">
-      <h2 className="text-center text-base sm:text-lg md:text-2xl font-bold text-[#105d97] mb-5 sm:mb-4 md:mb-10">
-        FEEDBACK KHÁCH HÀNG UNIVI
-      </h2>
+        <h2 className="text-center text-base sm:text-lg md:text-2xl font-bold text-[#105d97] mb-5 sm:mb-4 md:mb-10">
+          FEEDBACK KHÁCH HÀNG UNIVI
+        </h2>
         <div className="relative overflow-hidden">
-          {/* Slider Container */}
           <div
+            id="feedback-slider"
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * itemWidthPercentage}%)` }}
           >
@@ -98,27 +63,27 @@ const FeedbackSection = () => {
                     tabIndex={0}
                     aria-label={`Xem feedback từ ${feedback.title}`}
                   >
-                    <div className="relative">
+                    <div className="relative aspect-square">
                       <Image
                         src={feedback.image}
                         width={400}
-                        height={250}
-                        alt={feedback.title}
+                        height={400} // Đặt height bằng width để đảm bảo tỷ lệ vuông
+                        alt={`Feedback from ${feedback.title}`}
                         layout="responsive"
                         objectFit="cover"
                         loading="lazy"
+                        sizes="(max-width: 768px) 50vw, 20vw"
                         className="w-full rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out"
                       />
-                      
                       {hoveredIndex === index && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg transition-opacity duration-300">
-                          <span className="px-6 py-2 bg-[#105d97] text-white rounded-full hover:bg-[#105d97] transition-colors">
+                          <span className="px-6 py-2 bg-[#105d97] text-white rounded-full hover:bg-[#084a7a] transition-colors">
                             Xem Feedback
                           </span>
                         </div>
                       )}
                     </div>
-                    <h3 className="text-black text-xl font-bold mt-4 text-center">{feedback.title}</h3>
+                    <h3 className="text-black text-base font-bold mt-4 text-center">{feedback.title}</h3>
                   </div>
                 </Link>
               </div>

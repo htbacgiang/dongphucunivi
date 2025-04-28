@@ -8,6 +8,7 @@ const productsData = [
     isNew: true,
     isFeatured: true,
     category: 'dong-phuc-gym',
+    categoryNameVN: 'Đồng phục Gym',
     description:
       'Áo thể thao Univi Pro thiết kế hiện đại, chất vải co giãn 4 chiều, thoáng khí, thấm hút mồ hôi hiệu quả. Phù hợp cho luyện tập thể thao hoặc mặc hàng ngày thoải mái.',
     colors: [
@@ -30,6 +31,7 @@ const productsData = [
     isNew: false,
     isFeatured: false,
     category: 'dong-phuc-gym',
+    categoryNameVN: 'Đồng phục Gym',
     description:
       'Quần thể thao Univi với chất liệu nhẹ, bền và co giãn tốt, mang lại cảm giác dễ chịu-when vận động. Thiết kế đơn giản nhưng năng động, thích hợp cho mọi hoạt động thể thao.',
     colors: [
@@ -51,6 +53,7 @@ const productsData = [
     isNew: true,
     isFeatured: true,
     category: 'dong-phuc-gym',
+    categoryNameVN: 'Đồng phục Gym',
     description:
       'Giày thể thao Univi thiết kế trẻ trung, đế cao su chống trượt, lớp lót thoáng khí giúp di chuyển linh hoạt. Lý tưởng cho cả luyện tập thể thao lẫn dạo phố hàng ngày.',
     colors: [
@@ -72,6 +75,7 @@ const productsData = [
     isNew: false,
     isFeatured: true,
     category: 'dong-phuc-gym',
+    categoryNameVN: 'Đồng phục Gym',
     description:
       'Áo khoác thể thao Univi chống gió, giữ ấm tốt, vải mềm nhẹ và thoáng khí. Phù hợp cho hoạt động ngoài trời, tập luyện buổi sáng hay mặc thời trang năng động thường ngày.',
     colors: [
@@ -93,6 +97,7 @@ const productsData = [
     isNew: true,
     isFeatured: true,
     category: 'dong-phuc-yoga-pilates',
+    categoryNameVN: 'Đồng phục Yoga & Pilates',
     description:
       'Bộ đồ thể thao Univi Yoga Set gồm áo và quần đồng bộ, chất vải ôm sát cơ thể nhưng thoải mái, co giãn tốt, thích hợp cho yoga, gym hoặc mặc nhà với phong cách trẻ trung.',
     colors: [

@@ -154,7 +154,7 @@ const ProductsPage = ({ relatedPosts }) => {
             </p>
           </nav>
           <p className="text-2xl md:text-4xl font-bold text-white">
-            Univi Sport - ĐỒng phục Gym
+            Đồng phục Univi
           </p>
           <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
             Khám phá bộ sưu tập đồ phục thể thao mới nhất từ Univi Sport

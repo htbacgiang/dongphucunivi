@@ -163,7 +163,7 @@ const DongPhucGym = () => {
             </p>
           </nav>
           <h1 className="text-2xl md:text-4xl font-bold text-white">
-            Univi Sport - {displayCategory}
+            Đồng phục Univi - {displayCategory}
           </h1>
           <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
             Khám phá bộ sưu tập {displayCategory.toLowerCase()} mới nhất từ Univi Sport, thiết kế hiện đại và thoải mái.

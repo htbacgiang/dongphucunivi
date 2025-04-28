@@ -17,6 +17,8 @@ import HeroSection from "../components/univisport/HeroSectionProduct";
 import HeroSection1 from "../components/univisport/HeroSection1";
 import CountdownTimer from "../components/univisport/CountdownTimer";
 import PartnersSection from "../components/univisport/PartnersSection";
+import CategoryShop from "../components/univisport/CategoryShop";
+import FabricCardComponent from "../components/univisport/FabricCardComponent";
 export default function Home({ posts, meta }) {
   // JSON-LD Structured Data cho Đồng Phục Univi
   const jsonLdData = {
@@ -50,26 +52,9 @@ export default function Home({ posts, meta }) {
       <BannerTTG />
       <CountdownTimer />
       <CategoryGrid />
-      <div className="container mx-auto p-3 pb-10">
-        <HeroSection1 />
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              price={product.price}
-              discountPrice={product.discountPrice}
-              discount={product.discount}
-              isNew={product.isNew}
-              colors={product.colors}
-              image={product.image}
-              slug={product.slug}
-              layout="grid" // Default to grid layout
-            />
-          ))}
-        </div>
-      </div>
+      <CategoryShop />
+      <HeroSection1 />
+    <FabricCardComponent />
       {/* Sportswear Section */}
       <section className="container mx-auto p-3 pb-10">
         <HeroSection />

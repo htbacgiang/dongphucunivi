@@ -8,13 +8,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import products from '../../../components/univisport/data/products';
 import DefaultLayout from '../../../components/layout/DefaultLayout';
+import { FaPencilRuler, FaTshirt, FaIndustry, FaShippingFast } from 'react-icons/fa';
+
 
 // Breadcrumb Component (unchanged)
 function Breadcrumb({ product }) {
   const category = product?.category || 'Đồng phục';
   const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
   const productName = product?.name || 'Sản phẩm';
-
+  const categoryNameVN = product?.categoryNameVN || 'Đồng phục';
   return (
     <nav aria-label="Breadcrumb" className="mb-4 mt-[60px] md:mt-[80px]">
       <ol className="flex flex-wrap items-center space-x-2 text-base text-gray-600">
@@ -24,15 +26,15 @@ function Breadcrumb({ product }) {
           </Link>
         </li>
         <li>
-          <span className="mx-2">/</span>
+          <span className="">/</span>
         </li>
         <li>
           <Link href={`/san-pham/${categorySlug}`} className="hover:text-gray-800">
-            {category}
+            {categoryNameVN}
           </Link>
         </li>
         <li>
-          <span className="mx-2">/</span>
+          <span className="">/</span>
         </li>
         <li className="text-gray-800" aria-current="page">
           {productName}
@@ -182,8 +184,7 @@ export default function ProductDetailPage() {
               <Swiper
                 modules={[Navigation, Thumbs]}
                 spaceBetween={10}
-                slidesPerView={2}
-                breakpoints={{ 640: { slidesPerView: 3 }, 768: { slidesPerView: 4 } }}
+                slidesPerView={4}
                 loop={images.length > 1}
                 watchSlidesProgress
                 onSwiper={(swiper) => {
@@ -206,9 +207,8 @@ export default function ProductDetailPage() {
                         alt={`${product.name} Thumbnail ${index + 1}`}
                         layout="fill"
                         objectFit="contain"
-                        className={`rounded-lg border ${
-                          activeIndex === index ? 'border-green-500 border-2' : 'border-gray-300'
-                        }`}
+                        className={`rounded-lg border ${activeIndex === index ? 'border-[#105d97] border-2' : 'border-gray-300'
+                          }`}
                         loading="lazy"
                       />
                     </div>
@@ -255,7 +255,7 @@ export default function ProductDetailPage() {
             <div className="flex items-center gap-2 mt-2">
               {renderStars(product.rating || 0)}
               <span className="text-sm text-gray-500">
-                ({product.reviewCount || 0} đánh giá)
+                ({product.reviewCount || 0} khách hàng đã đánh giá)
               </span>
             </div>
 
@@ -271,59 +271,62 @@ export default function ProductDetailPage() {
                 </a>
               </div>
               <div className="flex justify-between">
+                <span className="text-gray-600">Chất liệu</span>
+                <span className="font-medium">{product.material || 'Không xác định'}</span>
+              </div>
+
+              <div className="flex justify-between">
                 <span className="text-gray-600">Danh mục</span>
                 <span className="font-medium">
-                  {product.category === 'dong-phuc-gym' ? 'Đồng phục Gym' : 'Đồng phục Yoga & Pilates'}
+                  {product.categoryNameVN}
                 </span>
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 flex gap-4">
               <a
                 href="#contact"
-                className="inline-block w-full text-center bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
+                className="flex-1 text-center bg-[#105d97] text-white py-3 rounded-lg hover:bg-[#105d97]"
               >
                 Liên hệ nhận báo giá
               </a>
-            </div>
-
-            <div className="mt-4">
               <a
                 href="tel:0925630000"
-                className="inline-block w-full text-center bg-red-500 text-white py-3 rounded-lg hover:bg-red-600"
+                className="flex-1 text-center bg-red-500 text-white py-3 rounded-lg hover:bg-red-600"
               >
-                Hotline: 0925 63 0000
+                Hotline: 0834.204.999
               </a>
             </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15v-2h2v2h-2zm1-9a2 2 0 00-2 2h2v2h-2v2h4v-4a2 2 0 00-2-2z" />
-                </svg>
-                <span>
-                  Mẫu mã đa dạng, số lượng trung gian, yêu cầu, đẹp nhất thiết kế độc
+            {/* 3. Bổ sung icon trước 4 ưu đãi */}
+            <div className="mt-6 grid grid-cols-2 gap-2">
+              <div className="flex items-start gap-2">
+                <span className="flex-none w-6 h-6 flex items-center justify-center">
+                  <FaPencilRuler className="w-full h-full text-[#105d97]" />
                 </span>
+                <span className="text-base text-gray-600">Miễn phí thiết kế</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15v-2h2v2h-2zm1-9a2 2 0 00-2 2h2v2h-2v2h4v-4a2 2 0 00-2-2z" />
-                </svg>
-                <span>Sản xuất theo yêu cầu giá cạnh tranh</span>
+              <div className="flex items-start gap-2">
+                <span className="flex-none w-6 h-6 flex items-center justify-center">
+                  <FaTshirt className="w-full h-full text-[#105d97]" />
+                </span>
+                <span className="text-base text-gray-600">Chất vải được lựa chọn khắt khe phù hợp với từng bộ môn thể thao</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15v-2h2v2h-2zm1-9a2 2 0 00-2 2h2v2h-2v2h4v-4a2 2 0 00-2-2z" />
-                </svg>
-                <span>Miễn phí vận chuyển từ 3 ngày</span>
+              <div className="flex items-start gap-2">
+                <span className="flex-none w-6 h-6 flex items-center justify-center">
+                  <FaIndustry className="w-full h-full text-[#105d97]" />
+                </span>
+                <span className="text-base text-gray-600">Xưởng sản xuất khép kín, không qua trung gian, giá cạnh tranh</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15v-2h2v2h-2zm1-9a2 2 0 00-2 2h2v2h-2v2h4v-4a2 2 0 00-2-2z" />
-                </svg>
-                <span>Chuyển mỗi đơn hàng</span>
+              <div className="flex items-start gap-2">
+                <span className="flex-none w-6 h-6 flex items-center justify-center">
+                  <FaShippingFast className="w-full h-full text-[#105d97]" />
+                </span>
+                <span className="text-base text-gray-600">Sản xuất theo yêu cầu, trả hàng chỉ từ 3 ngày</span>
               </div>
             </div>
+
+
+
           </div>
         </div>
       </div>

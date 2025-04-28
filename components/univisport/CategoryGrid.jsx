@@ -31,8 +31,8 @@ const categories = [
     colSpan: 1,
   },
   {
-    name: "Golf - Tennis",
-    slug: "/san-pham/dong-phuc-golf-tennis", // Slug tùy chỉnh
+    name: "Đồng phục Lễ Tân",
+    slug: "/san-pham/dong-phuc-le-tan", // Slug tùy chỉnh
     image: "/product/dong-phuc-gym/dong-phuc-tenis-gofl.jpg",
     width: 300,
     height: 300,

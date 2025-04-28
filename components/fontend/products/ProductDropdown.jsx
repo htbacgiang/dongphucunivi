@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import img from "../../../public/images/menu-banner-1.jpg";
+import img2 from "../../../public/images/menu-banner-2.jpg";
+
 
 const ProductDropdown = () => {
   const [isScrolled, setIsScrolled] = useState(false); // State for scroll detection
@@ -28,8 +30,8 @@ const ProductDropdown = () => {
       <Link
         href="/san-pham"
         className={`cursor-pointer uppercase ${
-          isScrolled ? "text-black" : "text-white"
-        } hover:text-blue-300 font-heading font-semibold transition-colors duration-200`}
+          isScrolled ? "text-[#105d97]" : "text-white"
+        } hover:text-blue-300 font-heading font-semibold transition-all duration-500`}
       >
         Sản phẩm
       </Link>
@@ -39,93 +41,76 @@ const ProductDropdown = () => {
         <div className="grid grid-cols-4 gap-6 p-6">
           {/* Column 1 */}
           <div className="">
-            <div className="font-bold mb-4 text-gray-900 bg-gray-100 border-b border-[#105d97] border-dotted  ">
-              <Link href="/">
+            <div className="font-bold mb-4 text-[#105d97] bg-gray-100 border-b border-[#105d97] border-dotted  ">
+              <Link href="/san-pham">
                 <h3 className="p-2">Đồng phục thể thao</h3>
               </Link>
             </div>
             <ul className="space-y-3 pl-2">
               <li>
-                <Link href="/gallery" className="hover:text-[#105d97] py-2">
+                <Link href="/san-pham/dong-phuc-gym" className="hover:text-[#105d97] py-2">
                  Đồng phục Gym
                 </Link>
               </li>
               <li>
-                <Link href="/gallery-2" className="hover:text-[#105d97]  py-2">
+                <Link href="san-pham/dong-phuc-pickleball" className="hover:text-[#105d97]  py-2">
                 Đồng phục Pickleball
                 </Link>
               </li>
               <li>
-                <Link href="/team" className="hover:text-[#105d97] py-2">
+                <Link href="/san-pham/dong-phuc-yoga-pilates" className="hover:text-[#105d97] py-2">
                 Đồng phục Yoga - Pilates
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-[#105d97]  py-2">
+                <Link href="/san-pham/dong-phuc-chay-bo" className="hover:text-[#105d97]  py-2">
                 Đồng phục Chạy bộ
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-[#105d97]  py-2">
-                Đồng phục Golf - Tennis
+                <Link href="/san-pham/dong-phuc-le-tan" className="hover:text-[#105d97]  py-2">
+                Đồng phục Lễ tân
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-[#105d97]  py-2">
+                <Link href="/san-pham/dong-phuc-mma" className="hover:text-[#105d97]  py-2">
                 Đồng phục MMA
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2 */}
+
           <div>
-            <div className="font-bold mb-4 text-gray-900 bg-gray-100 border-b border-[#105d97] border-dotted  ">
-              <Link href="/">
-                <h3 className="p-2">Đồng phục công ty</h3>
+            <div className="font-bold mb-4 text-[#105d97] bg-gray-100 border-b border-[#105d97] border-dotted ">
+              <Link href="/san-pham/dong-phuc-ao-thun">
+                <h3 className="p-2">Đồng phục doanh nghiệp</h3>
               </Link>
             </div>
             <ul className="space-y-3 pl-2">
-              <li>
-                <Link href="/history" className="hover:text-[#105d97] py-2">
-                  Áo thun đồng phục
+            <li>
+                <Link href="/san-pham/dong-phuc-ao-polo" className="hover:text-[#105d97]">
+                Đồng phục áo Polo
                 </Link>
               </li>
               <li>
-                <Link href="/coming-soon" className="hover:text-[#105d97] py-2">
-                  Đồng phục công sở
-                </Link>
-              </li>
-          
-            </ul>
-          </div>
-
-          <div>
-            <div className="font-bold mb-4 text-gray-900 bg-gray-100 border-b border-[#105d97] border-dotted ">
-              <Link href="/">
-                <h3 className="p-2">Đồng phục nghành nghề</h3>
-              </Link>
-            </div>
-
-            <ul className="space-y-3 pl-2">
-              <li>
-                <Link href="/shop" className="hover:text-[#105d97]">
-                  Đồng phục Team Building
+                <Link href="/san-pham/dong-phuc-ao-thun" className="hover:text-[#105d97]">
+                Đồng phục áo thun
                 </Link>
               </li>
               <li>
-                <Link href="/shop-left-sidebar" className="hover:text-[#105d97]">
-                Đồng phục F&B
+                <Link href="/san-pham/dong-phuc-cong-so" className="hover:text-[#105d97]">
+                Đồng phục công sở
                 </Link>
               </li>
               <li>
-                <Link href="/shop-right-sidebar" className="hover:text-[#105d97]">
-                Đồng phục làm đẹp
+                <Link href="/san-pham/dong-phuc-team-building" className="hover:text-[#105d97]">
+                Đồng phục Team building
                 </Link>
               </li>
               <li>
-                <Link href="/cart" className="hover:text-[#105d97]">
-                Đồng phục lao động
+                <Link href="/san-pham/dong-phuc-su-kien" className="hover:text-[#105d97]">
+                Đồng phục Sự kiện
                 </Link>
               </li>
             </ul>
@@ -135,6 +120,16 @@ const ProductDropdown = () => {
           <div className="flex items-center justify-center">
             <Image
               src={img} // Đường dẫn tới hình ảnh của bạn
+              alt="Sản phẩm nổi bật"
+              width={200}
+              height={200}
+              className="rounded-md"
+            />
+          </div>
+             {/* Column 4: Image */}
+             <div className="flex items-center justify-center">
+            <Image
+              src={img2} // Đường dẫn tới hình ảnh của bạn
               alt="Sản phẩm nổi bật"
               width={200}
               height={200}

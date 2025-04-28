@@ -1,12 +1,14 @@
 import React from 'react';
 
 const partners = [
-  { name: 'Hillset', logo: '/khach-hang/1.jpg' },
-  { name: 'Hillset', logo: '/khach-hang/2.jpg' },
-  { name: 'Hillset', logo: '/khach-hang/3.jpg' },
+
   { name: 'Hillset', logo: '/khach-hang/4.jpg' },
   { name: 'Hillset', logo: '/khach-hang/5.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/logoecobacgiang.png' },
+  { name: 'Hillset', logo: '/khach-hang/logotp.png' },
+  { name: 'Hillset', logo: '/khach-hang/logotruongnqvn.png' },
   { name: 'Hillset', logo: '/khach-hang/6.jpg' },
+  
   { name: 'Hillset', logo: '/khach-hang/7.jpg' },
   { name: 'Hillset', logo: '/khach-hang/8.jpg' },
   { name: 'Hillset', logo: '/khach-hang/9.jpg' },
@@ -15,6 +17,14 @@ const partners = [
   { name: 'Hillset', logo: '/khach-hang/12.jpg' },
   { name: 'Hillset', logo: '/khach-hang/13.jpg' },
   { name: 'Hillset', logo: '/khach-hang/15.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/1.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/2.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/3.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/4.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/5.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/6.jpg' },
+  { name: 'Hillset', logo: '/khach-hang/7.jpg' },
+
 ];
 
 const PartnersSection = () => {

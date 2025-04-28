@@ -9,7 +9,6 @@ const ContactSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, 'Email là bắt buộc'],
     trim: true,
     match: [/\S+@\S+\.\S+/, 'Email không hợp lệ'],
   },

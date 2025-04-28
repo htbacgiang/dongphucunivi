@@ -112,7 +112,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/"
-                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-black" : "text-black"
+                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-[#105d97]" : "text-[#105d97]"
                   }`}
               >
                 Trang chủ
@@ -128,7 +128,7 @@ const Navbar = () => {
               aria-expanded={gioiThieuDropdownOpen}
             >
               <p
-                className={`cursor-pointer uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-black" : "text-black"
+                className={`cursor-pointer uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-[#105d97]" : "text-[#105d97]"
                   }`}
               >
                 Về Đồng phục Univi
@@ -155,7 +155,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/bai-viet"
-                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-black" : "text-black"
+                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-[#105d97]" : "text-[#105d97]"
                   }`}
               >
                 Bài viết & Chia sẻ
@@ -164,7 +164,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/lien-he"
-                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-black" : "text-black"
+                className={`uppercase hover:text-blue-300 font-heading font-semibold ${isSticky ? "text-[#105d97]" : "text-[#105d97]"
                   }`}
               >
                 Liên hệ

@@ -225,29 +225,41 @@ export default function Banner() {
         ))}
       </div>
 
-      {/* Modal */}
       {isFormOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={(e) => e.target === e.currentTarget && toggleForm()}
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    onClick={(e) => e.target === e.currentTarget && toggleForm()}
+  >
+    <div
+      ref={modalRef}
+      className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-5xl"
+    >
+      {/* Header: chỉ chứa nút Close */}
+      <div className="bg-white rounded-t-lg px-4 py-3 flex justify-end">
+        <button
+          onClick={toggleForm}
+          aria-label="Close"
+          className="text-gray-600 hover:text-gray-800 focus:outline-none"
         >
-          <div
-            ref={modalRef}
-            className="relative w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-5xl rounded-lg bg-white"
-          >
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-              onClick={toggleForm}
-              aria-label="Close"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <ContactForm />
-          </div>
-        </div>
-      )}
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {/* Body: form */}
+      <div className="bg-white">
+        <ContactForm />
+      </div>
+    </div>
+  </div>
+)}
+
     </section>
   );
 }
