@@ -336,7 +336,7 @@ const DongPhucGym = () => {
             {products.length > 0 ? (
               <section className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`} aria-label="Danh sách sản phẩm đồng phục gym">
                 {products.map((product) => (
-                  <Link key={product.id} href={`/san-pham/${product.slug}`}>
+                  <div key={product.id} >
                     <ProductCard
                       id={product.id}
                       name={product.name}
@@ -350,7 +350,7 @@ const DongPhucGym = () => {
                       slug={product.slug}
                       layout={layout}
                     />
-                  </Link>
+                  </div>
                 ))}
               </section>
             ) : (

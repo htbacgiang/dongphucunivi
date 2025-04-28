@@ -46,31 +46,7 @@ const CountdownTimer = () => {
           <p className="text-base text-gray-500">
             Liên hệ ngay với Đồng phục Univi để nhận ưu đãi hấp dẫn! </p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 bg-[#105d97] text-white text-lg font-bold flex items-center justify-center rounded">
-              {timeLeft.days}
-            </div>
-          </div>
-          <span className="text-lg font-bold text-gray-600">:</span>
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 bg-[#105d97] text-white text-lg font-bold flex items-center justify-center rounded">
-              {timeLeft.hours}
-            </div>
-          </div>
-          <span className="text-lg font-bold text-gray-600">:</span>
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 bg-[#105d97] text-white text-lg font-bold flex items-center justify-center rounded">
-              {timeLeft.minutes}
-            </div>
-          </div>
-          <span className="text-lg font-bold text-gray-600">:</span>
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 bg-[#105d97] text-white text-lg font-bold flex items-center justify-center rounded">
-              {timeLeft.seconds}
-            </div>
-          </div>
-        </div>
+    
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
               {item.dropdown ? (
                 <div
                   onClick={() => toggleDropdown(idx)}
-                  className="flex justify-between items-center cursor-pointer font-semibold text-gray-800 hover:text-[#105d97]"
+                  className="flex justify-between items-center cursor-pointer font-semibold text-[#105d97] hover:text-[#4496d4]"
                 >
                   <span>{item.name}</span>
                   <IconWrapper>
@@ -129,7 +129,7 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
                   </IconWrapper>
                 </div>
               ) : (
-                <Link href={item.link} onClick={toggleMenu} className="block font-semibold  text-gray-800 hover:text-[#105d97]">
+                <Link href={item.link} onClick={toggleMenu} className="block font-semibold  text-[#105d97] hover:text-[#4496d4]">
                   {item.name}
                 </Link>
               )}
@@ -143,7 +143,7 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
                           <Link
                             href={sub.link}
                             onClick={toggleMenu}
-                            className="flex justify-between items-center text-sm font-semibold text-gray-700 hover:text-[#105d97]"
+                            className="flex justify-between items-center text-sm font-semibold text-[#105d97] hover:text-[#4496d4]"
                           >
                             <span>{sub.name}</span>
                             <IconWrapper><ChevronRight  /></IconWrapper>
@@ -154,7 +154,7 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
                         <li key={gIdx}>
                           <div
                             onClick={() => toggleSubDropdown(gIdx)}
-                            className="flex justify-between items-center  text-sm  cursor-pointer font-semibold text-gray-800 hover:text-[#105d97]"
+                            className="flex justify-between items-center  text-sm  cursor-pointer font-semibold text-[#105d97] hover:text-[#4496d4]"
                           >
                             <span>{grp.name}</span>
                             <IconWrapper>
@@ -165,7 +165,7 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
                             <ul className="pl-4 mt-1 space-y-1">
                               {grp.subDropdown.map((n, nIdx) => (
                                 <li key={nIdx}>
-                                  <Link href={n.link} onClick={toggleMenu} className="block text-gray-700  hover:text-[#105d97]">
+                                  <Link href={n.link} onClick={toggleMenu} className="block text-[#105d97] hover:text-[#4496d4]">
                                     {n.name}
                                   </Link>
                                 </li>
@@ -180,43 +180,11 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
           ))}
         </ul>
 
- {/* Social Media Links */}
- <div className="flex space-x-4 justify-center mt-6">
-          <Link
-            href="https://facebook.com/truongnq.vn"
-            className="text-xl text-gray-600 hover:text-blue-600"
-            aria-label="Theo dõi trên Facebook"
-          >
-            <FaFacebook />
-          </Link>
-          <Link
-            href="https://twitter.com/truongnq_vn"
-            className="text-xl text-gray-600 hover:text-blue-400"
-            aria-label="Theo dõi trên Twitter"
-          >
-            <FaTwitter />
-          </Link>
-          <Link
-            href="https://linkedin.com/in/truongnq-vn"
-            className="text-xl text-gray-600 hover:text-blue-700"
-            aria-label="Kết nối trên LinkedIn"
-          >
-            <FaLinkedin />
-          </Link>
-          <Link
-            href="https://instagram.com/truongtl27.ht"
-            className="text-xl text-gray-600 hover:text-pink-600"
-            aria-label="Theo dõi trên Instagram"
-          >
-            <FaInstagram />
-          </Link>
-        </div>
-
         {/* contact button */}
         <div className="px-4 mt-6">
           <button
             onClick={toggleContactPopup}
-            className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+            className="w-full bg-[#105d97] text-white py-2 rounded-md hover:bg-[#2a6a9b]"
           >
             Liên hệ tư vấn
           </button>

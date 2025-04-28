@@ -12,7 +12,7 @@ export default function Banner() {
 
   const slides = [
     {
-      image: "/images/banner-1.webp",
+      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-1_cbnwfk.webp",
       smallHeading: "Đồng Phục Thể Thao",
       heading: "Năng Động & Chuyên Nghiệp",
       description:
@@ -22,7 +22,7 @@ export default function Banner() {
       collectionLink: "/collections/sports-uniforms",
     },
     {
-      image: "/images/banner-2.webp",
+      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-2_hbawtb.webp",
       smallHeading: "Giải pháp Smart Sport Uniform",
       heading: "Cho Chuỗi Các Phòng Tập",
       description:
@@ -32,7 +32,7 @@ export default function Banner() {
       collectionLink: "/collections/gym-uniforms",
     },
     {
-      image: "/images/banner-3.webp",
+      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-3_vvbcmn.webp",
       smallHeading: "Áo Thun Đồng Phục",
       heading: "Phong Cách & Thống Nhất",
       description:
@@ -144,6 +144,7 @@ export default function Banner() {
           alt={`Slide ${currentSlide + 1}: ${slides[currentSlide].smallHeading}`}
           layout="fill"
           objectFit="cover"
+          quality={100}
           className="brightness-90 transition-opacity duration-1000"
           priority={currentSlide === 0}
           onError={(e) => (e.target.src = "/images/fallback.png")}
