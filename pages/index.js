@@ -54,7 +54,7 @@ export default function Home({ posts, meta }) {
       <CategoryGrid />
       <CategoryShop />
       <HeroSection1 />
-    <FabricCardComponent />
+      <FabricCardComponent />
       {/* Sportswear Section */}
       <section className="container mx-auto p-3 pb-10">
         <HeroSection />

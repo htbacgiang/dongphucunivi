@@ -19,7 +19,7 @@ export default function Banner() {
         "Khám phá bộ sưu tập đồng phục thể thao chất lượng cao, thiết kế hiện đại, phù hợp cho mọi hoạt động.",
       align: "left",
       animation: "slideFromLeft",
-      collectionLink: "/collections/sports-uniforms",
+      collectionLink: "/san-pham",
     },
     {
       image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-2_hbawtb.webp",
@@ -29,7 +29,7 @@ export default function Banner() {
         "Giải pháp 2S Uniform mang đến trang phục mềm mại, thoáng khí, nhanh khô, giúp bạn tự tin trong mọi động tác.",
       align: "center",
       animation: "slideFromBottom",
-      collectionLink: "/collections/gym-uniforms",
+      collectionLink: "/san-pham",
     },
     {
       image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-3_vvbcmn.webp",
@@ -39,7 +39,7 @@ export default function Banner() {
         "Tùy chỉnh áo thun đồng phục độc đáo, phù hợp cho đội nhóm, sự kiện và doanh nghiệp.",
       align: "right",
       animation: "slideFromRight",
-      collectionLink: "/collections/custom-tshirts",
+      collectionLink: "/san-pham",
     },
   ];
 
@@ -170,19 +170,19 @@ export default function Banner() {
           <p className="text-blue-300 md:text-3xl text-2xl font-bold uppercase tracking-wider mb-2 small-heading">
             {slides[currentSlide].smallHeading}
           </p>
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
             {slides[currentSlide].heading}
-          </h1>
+          </h2>
           <p className="text-gray-200 text-base md:text-lg mb-6">
             {slides[currentSlide].description}
           </p>
           <div className="flex space-x-4">
             <button
-              className="bg-[#105d97] text-white px-6 py-3 rounded-md hover:[#105d97] focus:outline-none focus:ring-2 focus:ring-[#105d97]"
+              className="bg-[#105d97] text-white px-6 py-3 rounded-md hover:bg-[#173c59] focus:outline-none focus:ring-2 focus:ring-[#105d97]"
               onClick={toggleForm}
               aria-label="Đặt hàng ngay"
             >
-              Đặt Hàng Ngay
+              Liên Hệ Ngay
             </button>
             <Link href={slides[currentSlide].collectionLink}
               className="bg-white text-gray-800 px-6 py-3 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
@@ -219,7 +219,7 @@ export default function Banner() {
         {slides.map((_, idx) => (
           <button
             key={idx}
-            className={`w-3 h-3 rounded-full ${currentSlide === idx ? "bg-pink-500" : "bg-gray-400"}`}
+            className={`w-3 h-3 rounded-full ${currentSlide === idx ? "bg-[#105d97]" : "bg-gray-400"}`}
             onClick={() => goToSlide(idx)}
             aria-label={`Go to slide ${idx + 1}`}
           />

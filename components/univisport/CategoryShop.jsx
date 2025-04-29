@@ -5,7 +5,8 @@ const CategoryShop = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-center mb-4">
-        <h2 className="text-2xl font-bold text-[#105d97]">ĐỒNG PHỤC DOANH NGHIỆP</h2>
+        <h2 className="md:text-2xl text-lg font-bold text-[#105d97] uppercase">
+          ĐỒNG PHỤC DOANH NGHIỆP</h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {/* Đồng phục công ty Card */}
