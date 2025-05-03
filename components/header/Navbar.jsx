@@ -203,18 +203,16 @@ const Navbar = () => {
         >
           <div
             className="bg-white rounded-2xl shadow-lg max-w-5xl w-full mx-4 animate-slide-up"
-            onClick={(e) => e.stopPropagation()} // Ngăn đóng khi click bên trong
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center p-4 border-b">
+            <div className="flex justify-end items-center p-4 border-b">
               <AiOutlineClose
                 className="cursor-pointer"
                 size={25}
                 onClick={toggleContactPopup}
               />
             </div>
-            <div className="p-8">
-              <ContactForm /> {/* Gọi ContactForm */}
-            </div>
+            <ContactForm />
           </div>
         </div>
 

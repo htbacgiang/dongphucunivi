@@ -114,7 +114,7 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
                     e.preventDefault();
                     handleColorChange(color.image);
                   }}
-                  className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-gray-800 scale-110' : 'border-gray-300'}`}
+                  className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-[#105d97] scale-110' : 'border-gray-300'}`}
                   style={{ backgroundColor: color.hex }}
                   title={color.name}
                   aria-label={`Chọn màu ${color.name}`}

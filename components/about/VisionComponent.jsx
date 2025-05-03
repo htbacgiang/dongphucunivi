@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image"; // Import next/image
 
 const VisionComponent = () => {
   return (
@@ -25,24 +26,28 @@ const VisionComponent = () => {
               alignItems: "center",
             }}
           >
-            <img
+            <Image
               src="/images/tam-nhin.jpg"
               alt="Eco Vision"
+              width={600} // Specify width for optimization
+              height={450} // Specify height to maintain 4:3 aspect ratio
               className="object-cover w-full h-full"
+              priority // Optional: prioritize loading for above-the-fold images
             />
           </div>
           {/* Overlay Leaf Image */}
-          <img
+          <Image
             src="/images/trai-dat.png"
-            alt="Leaf Overlay"
+            alt="" // Empty alt for decorative image
+            width={144} // Approximate width (w-36 in Tailwind ~ 144px)
+            height={80} // Approximate height (h-20 in Tailwind ~ 80px)
             className="absolute bottom-0 right-[-20px] w-36 h-20 md:w-36 md:h-20 transform"
           />
         </div>
 
         {/* Content Section */}
         <div className="w-full md:w-1/2 md:text-left relative">
-        <h2 className="text-2xl font-semibold text-green-500 mb-4">Tầm nhìn</h2>
-         
+          <h2 className="text-2xl font-semibold text-green-500 mb-4">Tầm nhìn</h2>
           <p className="text-base mb-6">
             Eco Bắc Giang hướng tới trở thành thương hiệu dẫn đầu trong lĩnh vực{" "}
             <strong className="text-orange-600">nông nghiệp thông minh</strong> và{" "}
@@ -59,14 +64,18 @@ const VisionComponent = () => {
           </p>
           {/* Small illustrative icons */}
           <div className="flex justify-center gap-4 mt-4">
-            <img
+            <Image
               src="/images/icon-la.png"
-              alt="Icon 1"
+              alt="Leaf Icon"
+              width={80} // Approximate width (w-20 in Tailwind ~ 80px)
+              height={80} // Approximate height (h-20 in Tailwind ~ 80px)
               className="w-20 h-20 object-contain"
             />
-            <img
+            <Image
               src="/images/icon-la-2.png"
-              alt="Icon 2"
+              alt="Leaf Icon"
+              width={80} // Approximate width (w-20 in Tailwind ~ 80px)
+              height={80} // Approximate height (h-20 in Tailwind ~ 80px)
               className="w-20 h-20 object-contain"
             />
           </div>

@@ -74,7 +74,6 @@ const getMaxId = async (req, res) => {
   try {
     const maxIdProduct = await Products.findOne().sort({ id: -1 }).select('id');
     const maxId = maxIdProduct ? maxIdProduct.id : 0;
-    console.log('Fetched max ID:', maxId);
     res.json({
       status: "success",
       maxId,
@@ -107,12 +106,10 @@ const createProduct = async (req, res) => {
   const session = await Products.startSession();
   try {
     session.startTransaction();
-    console.log('Creating product with data:', req.body);
     
     // Generate a new unique id
     const maxIdProduct = await Products.findOne().sort({ id: -1 }).select('id').session(session);
     const newId = (maxIdProduct ? maxIdProduct.id : 0) + 1;
-    console.log('Generated new ID:', newId);
     
     // Check if the id already exists (extra safety)
     const existingProductById = await Products.findOne({ id: newId }).session(session);
@@ -134,7 +131,6 @@ const createProduct = async (req, res) => {
     await product.save({ session });
     
     await session.commitTransaction();
-    console.log('Product created with ID:', newId, 'and maSanPham:', maSanPham);
     res.json({
       status: "success",
       product,
@@ -161,7 +157,6 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    console.log('Updating product with data:', req.body);
     const { id, maSanPham } = req.body;
     
     // Check if the id is being changed to an existing one
@@ -186,7 +181,6 @@ const updateProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ err: "Product not found" });
     }
-    console.log('Product updated with ID:', product.id, 'and maSanPham:', product.maSanPham);
     res.json({
       status: "success",
       product,
@@ -214,7 +208,6 @@ const deleteProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ err: "Product not found" });
     }
-    console.log('Product deleted with ID:', product.id, 'and maSanPham:', product.maSanPham);
     res.json({
       status: "success",
       message: "Product deleted",

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image'; // Import Image from next/image
 
 export default function VideoHero({ videoSrc = '/video-univi.mp4', fallbackImage = '/fallback-image.jpg' }) {
   const sectionRef = useRef(null);
@@ -15,7 +16,7 @@ export default function VideoHero({ videoSrc = '/video-univi.mp4', fallbackImage
           video.pause();
         }
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is visible
+      { threshold: 0.5 }
     );
 
     if (video) observer.observe(sectionRef.current);
@@ -57,10 +58,13 @@ export default function VideoHero({ videoSrc = '/video-univi.mp4', fallbackImage
           <div className="relative">
             <div className="relative w-full aspect-video rounded-lg overflow-hidden">
               {videoError ? (
-                <img
+                <Image
                   src={fallbackImage}
                   alt="Fallback image for UNIVI Sport video"
-                  className="w-full h-full object-cover"
+                  fill // Use fill for responsive sizing within the container
+                  style={{ objectFit: 'cover' }} // Match the original object-cover behavior
+                  quality={75} // Optional: Adjust quality for optimization
+                  priority={false} // Set to true if this is above-the-fold content
                 />
               ) : (
                 <video
