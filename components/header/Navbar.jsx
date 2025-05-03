@@ -6,7 +6,7 @@ import axios from "axios";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import ProductDropdown2 from "../fontend/products/ProductDropdown2";
 import ResponsiveNavbar from "./ResponsiveNavbar";
-import ContactForm from "../profiles/ContactForm";
+import ContactForm from "../header/ContactForm";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { setCart } from "../../store/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -206,7 +206,6 @@ const Navbar = () => {
             onClick={(e) => e.stopPropagation()} // Ngăn đóng khi click bên trong
           >
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-xl font-semibold text-pink-500 uppercase text-center w-full">Đăng ký nhận tư vấn website miễn phí</h2>
               <AiOutlineClose
                 className="cursor-pointer"
                 size={25}

@@ -1,32 +1,39 @@
-// pages/du-an/index.js
 import ProjectCard from "../../components/tantruonggiang/ProjectCard";
 import { projects } from "../../components/tantruonggiang/data/projects";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout2 from "../../components/layout/DefaultLayout2";
-import ContactForm from "../../components/header/ContactForm"; // Import ContactForm
+import ContactForm from "../../components/header/ContactForm";
 
 export default function DuAn({ meta = {} }) {
   const [filter, setFilter] = useState("all");
-  const [isFormOpen, setIsFormOpen] = useState(false); // State for modal
-  const modalRef = useRef(null); // Ref for focus trapping
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const modalRef = useRef(null);
 
-  const filteredProjects = projects.filter((project) => {
-    if (filter === "all") return true;
-    if (filter === "biet-thu") return project.location === "Biệt thự";
-    if (filter === "chung-cu") return project.location === "Chung cư";
-    if (filter === "nha-pho") return project.location === "Nhà phố";
-    return true;
-  });
+  const FILTERS = [
+    { id: "all", label: "Xem tất cả" },
+    { id: "cong-so", label: "Đồng phục công sở" },
+    { id: "bao-ho", label: "Đồng phục bảo hộ" },
+    { id: "khach-san", label: "Đồng phục khách sạn" },
+  ];
 
-  // Toggle form visibility
+  const filterMap = {
+    all: () => true,
+    "cong-so": (project) => project.category === "Công sở",
+    "bao-ho": (project) => project.category === "Bảo hộ",
+    "khach-san": (project) => project.category === "Khách sạn",
+  };
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter(filterMap[filter] || filterMap.all);
+  }, [filter]);
+
   const toggleForm = () => {
     setIsFormOpen((prev) => !prev);
   };
 
-  // Focus trapping and escape key handling
   useEffect(() => {
     if (!isFormOpen) return;
 
@@ -53,7 +60,7 @@ export default function DuAn({ meta = {} }) {
       }
     };
 
-    firstElement?.focus();
+    if (firstElement) firstElement.focus();
     modal.addEventListener("keydown", handleTab);
     window.addEventListener("keydown", handleKeyDown);
 
@@ -63,42 +70,44 @@ export default function DuAn({ meta = {} }) {
     };
   }, [isFormOpen]);
 
-  // Meta mặc định nếu không có meta từ props
   const defaultMeta = {
-    title: "Danh Sách Dự Án – GreenLa Home",
+    title: "Danh Sách Dự Án Đồng Phục – Đồng Phục Univi",
     description:
-      "Khám phá danh sách dự án thi công nội thất cao cấp của GreenLa Home, từ biệt thự, nhà phố đến chung cư. Tất cả đều mang phong cách thiết kế hiện đại, sang trọng, tối ưu không gian và chi phí, đáp ứng mọi nhu cầu của gia đình Việt.",
+      "Khám phá các dự án may đồng phục chuyên nghiệp của Đồng Phục Univi: đồng phục công sở, bảo hộ, khách sạn. Dịch vụ thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.",
     keywords:
-      "dự án nội thất, thi công nội thất, GreenLa Home, biệt thự, nhà phố, chung cư, thiết kế nội thất",
-    author: "GreenLa Home",
+      "đồng phục Univi, may đồng phục, đồng phục công ty, đồng phục công sở, đồng phục bảo hộ, đồng phục khách sạn, thiết kế đồng phục",
+    author: "Đồng Phục Univi",
     robots: "index, follow",
-    canonical: "https://greenlahome.vn/du-an",
+    canonical: "https://dongphucunivi.com/du-an",
     og: {
-      title: "Danh Sách Dự Án Nội Thất – GreenLa Home",
+      title: "Danh Sách Dự Án Đồng Phục – Đồng Phục Univi",
       description:
-        "Khám phá danh sách dự án thi công nội thất cao cấp của GreenLa Home, từ biệt thự, nhà phố đến chung cư. Tất cả đều mang phong cách thiết kế hiện đại, sang trọng, tối ưu không gian và chi phí, đáp ứng mọi nhu cầu của gia đình Việt.",
+        "Xem các dự án đồng phục cao cấp từ Đồng Phục Univi: công sở, bảo hộ, khách sạn. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.",
       type: "website",
-      image: "/images/noi-that-1.jpg",
+      image: "/images/dong-phuc-Univi.jpg",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://greenlahome.vn/du-an",
-      siteName: "GreenLa Home",
+      url: "https://dongphucunivi.com/du-an",
+      siteName: "Đồng Phục Univi",
       locale: "vi_VN",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Danh Sách Dự Án – GreenLa Home",
+      title: "Danh Sách Dự Án – Đồng Phục Univi",
       description:
-        "Khám phá danh sách dự án thi công nội thất cao cấp của GreenLa Home, từ biệt thự, nhà phố đến chung cư. Tất cả đều mang phong cách thiết kế hiện đại, sang trọng, tối ưu không gian và chi phí, đáp ứng mọi nhu cầu của gia đình Việt.",
-      image: "/images/noi-that-1.jpg",
-      site: "@GreenLaHome",
+        "Danh sách dự án đồng phục chuyên nghiệp từ Đồng Phục Univi: công sở, bảo hộ, khách sạn. Thiết kế miễn phí, giao hàng toàn quốc.",
+      image: "/images/dong-phuc-Univi.jpg",
+      site: "@DongPhucUnivi",
     },
   };
 
-  // Gộp meta từ props với defaultMeta
-  const safeMeta = { ...defaultMeta, ...meta };
+  const safeMeta = {
+    ...defaultMeta,
+    ...meta,
+    og: { ...defaultMeta.og, ...meta.og },
+    twitter: { ...defaultMeta.twitter, ...meta.twitter },
+  };
 
-  // JSON-LD Structured Data với Breadcrumbs
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -113,7 +122,7 @@ export default function DuAn({ meta = {} }) {
           "@type": "ListItem",
           position: 1,
           name: "Trang chủ",
-          item: "https://greenlahome.vn",
+          item: "https://dongphucunivi.com",
         },
         {
           "@type": "ListItem",
@@ -128,10 +137,18 @@ export default function DuAn({ meta = {} }) {
       itemListElement: (projects || []).map((project, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://greenlahome.vn/du-an/${project.slug}`,
+        url: `https://dongphucunivi.com/du-an/${project.slug}`,
         name: project.title,
         image: project.image,
       })),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Đồng Phục Univi",
+      logo: {
+        "@type": "ImageObject",
+        url: "/images/Univi-logo.png",
+      },
     },
   };
 
@@ -164,14 +181,14 @@ export default function DuAn({ meta = {} }) {
         />
       </Head>
       <div className="bg-black text-white min-h-screen">
-        {/* Hero Section */}
-        <div className="relative h-[50vh] w-full">
+        <div className="relative min-h-[400px] w-full">
           <Image
             src={safeMeta.og.image}
-            alt="Dự Án Nội Thất - GreenLa Home"
-            layout="fill"
-            objectFit="cover"
+            alt="Dự Án Đồng Phục - Đồng Phục Univi"
+            fill={true}
+            style={{ objectFit: "cover" }}
             className="opacity-70 brightness-75"
+            priority={true}
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end">
             <div className="p-6 md:p-10">
@@ -186,63 +203,34 @@ export default function DuAn({ meta = {} }) {
                 </p>
               </nav>
               <h1 className="text-3xl md:text-4xl font-bold text-white mt-2">
-                Các dự án thi công nội thất GreenLa Home
+                Các dự án may đồng phục chuyên nghiệp Univi
               </h1>
               <p className="text-lg md:text-xl text-white mt-2">
-                Khám phá các dự án thiết kế và thi công nội thất cao cấp, mang
-                phong cách hiện đại và sang trọng.
+                Khám phá các dự án đồng phục công sở, bảo hộ, khách sạn từ Đồng
+                Phục Univi. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="container mx-auto p-6">
-          {/* Filter Buttons */}
           <div className="flex space-x-4 mb-6">
-            <button
-              onClick={() => setFilter("all")}
-              className={`pb-1 ${
-                filter === "all"
-                  ? "text-yellow-500 border-b-2 border-yellow-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Xem tất cả
-            </button>
-            <button
-              onClick={() => setFilter("biet-thu")}
-              className={`pb-1 ${
-                filter === "biet-thu"
-                  ? "text-yellow-500 border-b-2 border-yellow-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Biệt thự
-            </button>
-            <button
-              onClick={() => setFilter("chung-cu")}
-              className={`pb-1 ${
-                filter === "chung-cu"
-                  ? "text-yellow-500 border-b-2 border-yellow-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Chung cư
-            </button>
-            <button
-              onClick={() => setFilter("nha-pho")}
-              className={`pb-1 ${
-                filter === "nha-pho"
-                  ? "text-yellow-500 border-b-2 border-yellow-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Nhà phố
-            </button>
+            {FILTERS.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => setFilter(id)}
+                className={`pb-1 transition-colors duration-300 ${
+                  filter === id
+                    ? "text-yellow-500 border-b-2 border-yellow-500"
+                    : "text-gray-400"
+                }`}
+                aria-pressed={filter === id}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
-          {/* Project Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
@@ -253,12 +241,13 @@ export default function DuAn({ meta = {} }) {
                 />
               ))
             ) : (
-              <p className="text-gray-400">Không có dự án nào phù hợp.</p>
+              <p role="alert" className="text-gray-400">
+                Không có dự án nào phù hợp.
+              </p>
             )}
           </div>
         </div>
 
-        {/* Registration Form Modal */}
         {isFormOpen && (
           <div
             role="dialog"
@@ -270,9 +259,8 @@ export default function DuAn({ meta = {} }) {
           >
             <div
               ref={modalRef}
-              className="rounded-lg w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-5xl relative bg-white"
+              className="rounded-lg w-full max-w-md sm:max-w-lg md:max-w-2xl relative bg-white"
             >
-              {/* Close Button */}
               <button
                 className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
                 onClick={toggleForm}
@@ -283,7 +271,8 @@ export default function DuAn({ meta = {} }) {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                  focusable="false"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -293,7 +282,6 @@ export default function DuAn({ meta = {} }) {
                   />
                 </svg>
               </button>
-              {/* Registration Form */}
               <ContactForm />
             </div>
           </div>
@@ -305,36 +293,36 @@ export default function DuAn({ meta = {} }) {
 
 export async function getServerSideProps() {
   try {
-    const projectImage = projects?.[0]?.image || "/images/noi-that-1.jpg";
+    const projectImage = projects?.[0]?.image || "/images/dong-phuc-Univi.jpg";
 
     const meta = {
-      title: "Danh Sách Dự Án – GreenLa Home",
+      title: "Danh Sách Dự Án – Đồng Phục Univi",
       description:
-        "Khám phá danh sách dự án thi công nội thất cao cấp của GreenLa Home, từ biệt thự, nhà phố đến chung cư. Tất cả đều mang phong cách thiết kế hiện đại, sang trọng, tối ưu không gian và chi phí, đáp ứng mọi nhu cầu của gia đình Việt.",
+        "Xem các dự án may đồng phục chuyên nghiệp từ Đồng Phục Univi: đồng phục công sở, bảo hộ, khách sạn. Dịch vụ thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.",
       keywords:
-        "dự án nội thất, thi công nội thất, GreenLa Home, biệt thự, nhà phố, chung cư, thiết kế nội thất",
-      author: "GreenLa Home",
+        "đồng phục Univi, may đồng phục, đồng phục công ty, đồng phục công sở, đồng phục bảo hộ, đồng phục khách sạn, thiết kế đồng phục",
+      author: "Đồng Phục Univi",
       robots: "index, follow",
-      canonical: "https://greenlahome.vn/du-an",
+      canonical: "https://dongphucunivi.com/du-an",
       og: {
-        title: "Danh Sách Dự Án Nội Thất – GreenLa Home",
+        title: "Danh Sách Dự Án Đồng Phục – Đồng Phục Univi",
         description:
-          "Xem các dự án thi công nội thất cao cấp từ GreenLa Home: biệt thự, nhà phố, chung cư với thiết kế hiện đại, sang trọng, tối ưu không gian sống.",
+          "Khám phá các dự án đồng phục cao cấp từ Đồng Phục Univi: công sở, bảo hộ, khách sạn. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.",
         type: "website",
         image: projectImage,
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://greenlahome.vn/du-an",
-        siteName: "GreenLa Home",
+        url: "https://dongphucunivi.com/du-an",
+        siteName: "Đồng Phục Univi",
         locale: "vi_VN",
       },
       twitter: {
         card: "summary_large_image",
-        title: "Danh Sách Dự Án – GreenLa Home",
+        title: "Danh Sách Dự Án – Đồng Phục Univi",
         description:
-          "Danh sách dự án nội thất cao cấp của GreenLa Home: biệt thự, nhà phố, chung cư, thiết kế hiện đại.",
+          "Danh sách dự án đồng phục chuyên nghiệp từ Đồng Phục Univi: công sở, bảo hộ, khách sạn. Thiết kế miễn phí, giao hàng toàn quốc.",
         image: projectImage,
-        site: "@GreenLaHome",
+        site: "@DongPhucUnivi",
       },
     };
 
@@ -348,10 +336,10 @@ export async function getServerSideProps() {
     return {
       props: {
         meta: {
-          title: "Danh Sách Dự Án – GreenLa Home",
+          title: "Danh Sách Dự Án – Đồng Phục Univi",
           description:
-            "Xem các dự án thi công nội thất cao cấp từ GreenLa Home: biệt thự, nhà phố, chung cư với thiết kế hiện đại, sang trọng, tối ưu không gian sống.",
-          canonical: "https://greenlahome.vn/du-an",
+            "Xem các dự án may đồng phục chuyên nghiệp từ Đồng Phục Univi: công sở, bảo hộ, khách sạn. Thiết kế miễn phí, giao hàng toàn quốc.",
+          canonical: "https://dongphucunivi.com/du-an",
         },
       },
     };
