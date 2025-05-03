@@ -3,14 +3,14 @@ import Image from 'next/image';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 export default function FeaturedCustomers() {
-  // Testimonial data for UNIVI Sport
+  // Testimonial data for Đồng phục Univi
   const testimonials = [
     {
       image: '/images/chi-thu.jpg',
       text: 'Sản phẩm chất lượng vượt trội',
       rating: 5,
       description:
-        'Đồng phục từ UNIVI Sport rất thoải mái và bền, đặc biệt là công nghệ vải UNI DRY giúp tôi tự tin tập luyện hàng giờ mà không lo ẩm ướt.',
+        'Đồng phục từ UNIVI rất thoải mái và bền, đặc biệt là công nghệ vải UNI DRY giúp tôi tự tin tập luyện hàng giờ mà không lo ẩm ướt.',
       name: 'Nguyễn Minh Anh',
       role: 'Khách hàng cá nhân',
     },
@@ -19,7 +19,7 @@ export default function FeaturedCustomers() {
       text: 'Dịch vụ chuyên nghiệp, đáng tin cậy',
       rating: 4,
       description:
-        'Giải pháp 2S Uniform của UNIVI Sport đã giúp chuỗi phòng gym của chúng tôi xây dựng hình ảnh chuyên nghiệp và tiết kiệm chi phí quản lý.',
+        'Giải pháp 2S Uniform của UNIVI đã giúp chuỗi phòng gym của chúng tôi xây dựng hình ảnh chuyên nghiệp và tiết kiệm chi phí quản lý.',
       name: 'Trần Quốc Hùng',
       role: 'Chủ chuỗi phòng Gym',
     },
@@ -28,7 +28,7 @@ export default function FeaturedCustomers() {
       text: 'Đồng phục đẹp, chất lượng cao',
       rating: 5,
       description:
-        'Chúng tôi rất hài lòng với quy trình sản xuất khép kín và sự tỉ mỉ trong từng đường may. UNIVI Sport thực sự là đối tác đáng tin cậy.',
+        'Chúng tôi rất hài lòng với quy trình sản xuất khép kín và sự tỉ mỉ trong từng đường may. UNIVI  thực sự là đối tác đáng tin cậy.',
       name: 'Phạm Thị Lan',
       role: 'Quản lý Yoga Studio',
     },
@@ -68,7 +68,7 @@ export default function FeaturedCustomers() {
           id="testimonials-heading"
           className="text-3xl font-bold text-gray-900"
         >
-          Lời Khách Hàng, Niềm Tự Hào Của UNIVI Sport
+          Lời Khách Hàng, Niềm Tự Hào Của UNIVI 
         </h2>
         <p className="text-gray-500 mt-2">
           Những lời chia sẻ từ khách hàng hài lòng của chúng tôi
@@ -89,7 +89,7 @@ export default function FeaturedCustomers() {
           <div className="w-full md:w-1/3 p-6">
             <Image
               src={testimonials[currentTestimonial].image}
-              alt={`Ảnh của ${testimonials[currentTestimonial].name}, khách hàng của UNIVI Sport`}
+              alt={`Ảnh của ${testimonials[currentTestimonial].name}, khách hàng của Đồng phục Univi`}
               width={300}
               height={300}
               className="rounded"

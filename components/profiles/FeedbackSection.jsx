@@ -8,13 +8,13 @@ const FeedbackSection = () => {
   const [itemsPerSlide, setItemsPerSlide] = useState(5);
 
   const feedbacks = [
-    { title: "Anh Nguyễn Văn A", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
-    { title: "Chị Trần Thị B", image: "/product/dong-phuc-gym/2.webp", link: "/feedback" },
-    { title: "Phòng Gym EcoFit", image: "/product/dong-phuc-gym/3.webp", link: "/feedback" },
-    { title: "Cô Lê Minh C", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
-    { title: "Anh Phạm Văn D", image: "/product/dong-phuc-gym/3.webp", link: "/feedback" },
-    { title: "Chị Hoàng Thị E", image: "/product/dong-phuc-gym/2.webp", link: "/feedback" },
-    { title: "Đội Bóng F", image: "/product/dong-phuc-gym/1.webp", link: "/feedback" },
+    { title: "Anh Nguyễn Văn A", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
+    { title: "Chị Trần Thị B", image: "/product/dong-phuc-gym/2.webp", link: "/du-an" },
+    { title: "Phòng Gym EcoFit", image: "/product/dong-phuc-gym/3.webp", link: "/du-an" },
+    { title: "Cô Lê Minh C", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
+    { title: "Anh Phạm Văn D", image: "/product/dong-phuc-gym/3.webp", link: "/du-an" },
+    { title: "Chị Hoàng Thị E", image: "/product/dong-phuc-gym/2.webp", link: "/du-an" },
+    { title: "Đội Bóng F", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
   ];
 
   useEffect(() => {

@@ -9,17 +9,36 @@ import PostCard from "../components/common/PostCard";
 import { readPostsFromDb, formatPosts } from "../lib/utils";
 import ProductCard from "../components/univisport/ProductCard";
 import CategoryGrid from "../components/univisport/CategoryGrid";
-import productsData from "../components/univisport/data/products"; // Import product data
 import StrengthsSection from "../components/tantruonggiang/StrengthsSection";
 import VideoHero from "../components/univisport/VideoHero";
-import BannerSportswear from "../components/univisport/BannerSportswear"
+import BannerSportswear from "../components/univisport/BannerSportswear";
 import HeroSection from "../components/univisport/HeroSectionProduct";
 import HeroSection1 from "../components/univisport/HeroSection1";
 import CountdownTimer from "../components/univisport/CountdownTimer";
 import PartnersSection from "../components/univisport/PartnersSection";
 import CategoryShop from "../components/univisport/CategoryShop";
 import FabricCardComponent from "../components/univisport/FabricCardComponent";
-export default function Home({ posts, meta }) {
+
+// Hàm chuyển đổi đường dẫn tương đối thành URL Cloudinary
+const toCloudinaryUrl = (relativePath) => {
+  if (!relativePath || typeof relativePath !== 'string') {
+    return '/images/placeholder.jpg';
+  }
+  // Xử lý đường dẫn Cloudinary (ví dụ: /image/upload/v1746204957/tantruonggiang/a9nus6xwpziywqcta1qu.webp)
+  if (relativePath.includes('/image/upload/')) {
+    const parts = relativePath.split('/');
+    const versionIndex = parts.findIndex((part) => part.startsWith('v') && !isNaN(part.slice(1)));
+    if (versionIndex !== -1) {
+      const cleanPath = parts.slice(versionIndex + 1).join('/');
+      return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
+    }
+  }
+  // Xử lý đường dẫn tương đối (ví dụ: /tantruonggiang/a9nus6xwpziywqcta1qu.webp)
+  const cleanPath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+  return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
+};
+
+export default function Home({ posts, sportswearProducts, meta }) {
   // JSON-LD Structured Data cho Đồng Phục Univi
   const jsonLdData = {
     "@context": "https://schema.org",
@@ -32,16 +51,9 @@ export default function Home({ posts, meta }) {
       "Đồng Phục Univi chuyên may đồng phục thể thao, đồng phục huấn luyện viên cá nhân (PT), đồng phục phòng tập Gym chất lượng cao, thiết kế năng động, tối ưu hiệu suất và thẩm mỹ.",
   };
 
-  // Select 8 featured products
-  const featuredProducts = productsData
-    .filter(product => product.isFeatured)
-    .slice(0, 8);
-  // Select 6 products for "dong-phuc-the-thao" catalogue
-  const sportswearProducts = productsData
-    .filter(product => product.category === "dong-phuc-gym")
-    .slice(0, 6);
   return (
     <DefaultLayout2>
+     
       <h1 className="hidden">
         Đồng Phục Univi - May Đồng Phục Thể Thao, Đồng Phục PT, Gym Chuyên Nghiệp
       </h1>
@@ -56,7 +68,8 @@ export default function Home({ posts, meta }) {
       <HeroSection1 />
       <FabricCardComponent />
       {/* Sportswear Section */}
-      <section className="container mx-auto p-3 pb-10">
+      <section className="container mx-auto p-3 pb-10" aria-labelledby="sportswear-heading">
+        <h2 id="sportswear-heading" className="sr-only">Đồng Phục Thể Thao</h2>
         <HeroSection />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Banner on the left */}
@@ -75,7 +88,7 @@ export default function Home({ posts, meta }) {
                       id={product.id}
                       name={product.name}
                       price={product.price}
-                      discountPrice={product.discountPrice}
+                      maxPrice={product.maxPrice}
                       discount={product.discount}
                       isNew={product.isNew}
                       colors={product.colors}
@@ -89,6 +102,7 @@ export default function Home({ posts, meta }) {
                   <Link
                     href="/san-pham/dong-phuc-gym"
                     className="inline-block px-6 py-2 text-base text-[#105d97] hover:text-[#4db7fdb7]"
+                    aria-label="Xem tất cả sản phẩm đồng phục thể thao"
                   >
                     Xem tất cả sản phẩm
                   </Link>
@@ -121,25 +135,58 @@ export default function Home({ posts, meta }) {
 
 export async function getServerSideProps() {
   try {
+    // Lấy danh sách bài viết
     const posts = await readPostsFromDb(8, 0);
     const formattedPosts = formatPosts(posts);
 
-    // Meta data tối ưu cho Đồng Phục Univi
+    // Gọi API để lấy sản phẩm thuộc danh mục "dong-phuc-gym"
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?category=dong-phuc-gym`);
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    const data = await response.json();
+
+    // Kiểm tra dữ liệu API
+    if (data.status !== 'success' || !Array.isArray(data.products)) {
+      throw new Error('Invalid API response format');
+    }
+
+    // Ánh xạ dữ liệu sản phẩm
+    const sportswearProducts = data.products.slice(0, 6).map(product => {
+      const mappedProduct = {
+        id: product._id || product.id,
+        name: product.name || 'Untitled Product',
+        price: product.price || 0,
+        maxPrice: product.maxPrice || product.price || 0,
+        discount: product.discount || 0,
+        isNew: product.isNew || false,
+        colors: Array.isArray(product.colors)
+          ? product.colors.map(color => ({
+              hex: color.hex || '#000000',
+              image: toCloudinaryUrl(color.image || product.image),
+            }))
+          : [],
+        image: toCloudinaryUrl(product.image),
+        slug: product.slug || '',
+      };
+      console.log('Mapped product:', {
+        image: mappedProduct.image,
+        colors: mappedProduct.colors,
+      });
+      return mappedProduct;
+    });
+
+    // Meta data tối ưu cho SEO
     const meta = {
-      title:
-        "Đồng Phục Univi - May Đồng Phục Thể Thao, Đồng Phục PT, Gym Chuyên Nghiệp",
-      description:
-        "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục huấn luyện viên cá nhân (PT), đồng phục phòng tập Gym. Thiết kế năng động, chất liệu cao cấp, giá hợp lý. Liên hệ ngay: 0962922332.",
-      keywords:
-        "đồng phục thể thao, đồng phục PT, đồng phục Gym, may đồng phục thể thao, đồng phục phòng tập Gym, đồng phục huấn luyện viên cá nhân, Đồng Phục Univi",
+      title: "Đồng Phục Univi - May Đồng Phục Thể Thao, Đồng Phục PT, Gym Chuyên Nghiệp",
+      description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục huấn luyện viên cá nhân (PT), đồng phục phòng tập Gym. Thiết kế năng động, chất liệu cao cấp, giá hợp lý. Liên hệ ngay: 0962922332.",
+      keywords: "đồng phục thể thao, đồng phục PT, đồng phục Gym, may đồng phục thể thao, đồng phục phòng tập Gym, đồng phục huấn luyện viên cá nhân, Đồng Phục Univi",
       robots: "index, follow",
       author: "Đồng Phục Univi",
       canonical: "https://dongphucunivi.vn",
       og: {
-        title:
-          "Đồng Phục Univi - Giải Pháp Đồng Phục Thể Thao, PT & Gym Chuyên Nghiệp",
-        description:
-          "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu thoáng mát, giá hợp lý. Liên hệ ngay để sở hữu bộ đồng phục hoàn hảo! Hotline: 0962922332.",
+        title: "Đồng Phục Univi - Giải Pháp Đồng Phục Thể Thao, PT & Gym Chuyên Nghiệp",
+        description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu thoáng mát, giá hợp lý. Liên hệ ngay để sở hữu bộ đồng phục hoàn hảo! Hotline: 0962922332.",
         type: "website",
         image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
         imageWidth: "1200",
@@ -149,8 +196,7 @@ export async function getServerSideProps() {
       twitter: {
         card: "summary_large_image",
         title: "Đồng Phục Univi - Đồng Phục Thể Thao, PT, Gym Chuyên Nghiệp",
-        description:
-          "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu cao cấp. Liên hệ ngay: 0962922332.",
+        description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu cao cấp. Liên hệ ngay: 0962922332.",
         image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
       },
     };
@@ -158,18 +204,19 @@ export async function getServerSideProps() {
     return {
       props: {
         posts: formattedPosts,
+        sportswearProducts,
         meta,
       },
     };
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching data:', error);
     return {
       props: {
         posts: [],
+        sportswearProducts: [],
         meta: {
           title: "Đồng Phục Univi - Đồng Phục Thể Thao, PT, Gym Chuyên Nghiệp",
-          description:
-            "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục huấn luyện viên cá nhân, đồng phục phòng tập Gym chất lượng cao, giá hợp lý.",
+          description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục huấn luyện viên cá nhân, đồng phục phòng tập Gym chất lượng cao, giá hợp lý.",
           canonical: "https://dongphucunivi.vn",
         },
       },

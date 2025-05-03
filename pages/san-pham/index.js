@@ -50,9 +50,9 @@ const ProductsPage = ({ relatedPosts }) => {
     setSortOption(option);
     let sortedProducts = [...productsData];
     if (option === 'price-asc') {
-      sortedProducts.sort((a, b) => a.discountPrice - b.discountPrice);
+      sortedProducts.sort((a, b) => a.maxPrice - b.maxPrice);
     } else if (option === 'price-desc') {
-      sortedProducts.sort((a, b) => b.discountPrice - a.discountPrice);
+      sortedProducts.sort((a, b) => b.maxPrice - a.maxPrice);
     } else if (option === 'newest') {
       sortedProducts.sort((a, b) => b.isNew - a.isNew);
     }
@@ -140,7 +140,7 @@ const ProductsPage = ({ relatedPosts }) => {
       <div className="relative w-full h-[30vh] md:h-[40vh]">
         <Image
           src="/images/banner-univi.png"
-          alt="Univi Sport - Đồ Phục Thể Thao"
+          alt="Đồng phục Univi - Đồ Phục Thể Thao"
           fill
           className="brightness-50 object-cover"
         />
@@ -159,7 +159,7 @@ const ProductsPage = ({ relatedPosts }) => {
             Đồng phục Univi
           </p>
           <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
-            Khám phá bộ sưu tập đồ phục thể thao mới nhất từ Univi Sport
+            Khám phá bộ sưu tập đồ phục thể thao mới nhất từ Đồng phục Univi
           </p>
         </div>
       </div>

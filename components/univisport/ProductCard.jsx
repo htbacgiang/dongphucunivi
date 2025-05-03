@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const ProductCard = ({ id, name, description, price, discountPrice, discount, isNew, isFeatured, colors, image, slug, layout }) => {
+const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, isFeatured, colors = [], image, slug, layout }) => {
   const [selectedColorImage, setSelectedColorImage] = useState(image);
 
   const handleColorChange = (img) => {
@@ -28,47 +28,46 @@ const ProductCard = ({ id, name, description, price, discountPrice, discount, is
             <Link href={`/san-pham/${slug}`} legacyBehavior>
               <a>
                 <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">{name}</h3>
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2 min-h-[2.5rem]">
+                <p className="text-gray-600 text-sm mt-2 line-clamp-2 ">
                   {description || 'Không có mô tả sản phẩm.'}
                 </p>
               </a>
             </Link>
 
-            {/* Price */}
-            <div className="mt-3 font-semibold flex items-center">
-              {discount > 0 ? (
-                price ? (
+            {(price > 0 || maxPrice > 0) && (
+              <div className="mt-1 font-semibold flex items-center">
+                {price > 0 && maxPrice > 0 ? (
                   <span className="text-lg text-[#105d97]">
-                    Chỉ từ {discountPrice.toLocaleString('vi-VN')}đ đến {price.toLocaleString('vi-VN')}đ
+                    Giá từ {price.toLocaleString('vi-VN')}đ đến {maxPrice.toLocaleString('vi-VN')}đ
                   </span>
                 ) : (
                   <span className="text-lg text-[#105d97]">
-                    Chỉ từ {discountPrice.toLocaleString('vi-VN')}đ
+                    Giá từ {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
+                    
                   </span>
-                )
-              ) : (
-                <span className="text-lg text-gray-800">
-                  {price.toLocaleString('vi-VN')}đ
-                </span>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {/* Colors */}
             <div className="flex justify-start space-x-2 py-2">
-              {colors.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleColorChange(color.image);
-                  }}
-                  className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-gray-800 scale-110' : 'border-gray-300'
-                    }`}
-                  style={{ backgroundColor: color.hex }}
-                  title={color.name}
-                  aria-label={`Chọn màu ${color.name}`}
-                />
-              ))}
+              {Array.isArray(colors) && colors.length > 0 ? (
+                colors.map((color) => (
+                  <button
+                    key={color.name}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleColorChange(color.image);
+                    }}
+                    className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-gray-800 scale-110' : 'border-gray-300'}`}
+                    style={{ backgroundColor: color.hex }}
+                    title={color.name}
+                    aria-label={`Chọn màu ${color.name}`}
+                  />
+                ))
+              ) : (
+                <p className="text-gray-500 text-sm">Không có màu sắc</p>
+              )}
             </div>
           </div>
         </>
@@ -90,42 +89,40 @@ const ProductCard = ({ id, name, description, price, discountPrice, discount, is
             </a>
           </Link>
 
-          {/* Price */}
-          <div className=" px-4 font-semibold flex items-center">
-            {discount > 0 ? (
-              price ? (
-                <span className="text-lg  text-[#105d97]">
-                  Chỉ từ {discountPrice.toLocaleString('vi-VN')}đ đến {price.toLocaleString('vi-VN')}đ
+          {(price > 0 || maxPrice > 0) && (
+            <div className="mt-1 font-semibold flex items-center px-4">
+              {price > 0 && maxPrice > 0 ? (
+                <span className="text-lg text-[#105d97]">
+                  Giá từ {price.toLocaleString('vi-VN')}đ đến {maxPrice.toLocaleString('vi-VN')}đ
                 </span>
               ) : (
-                <span className="text-lg  text-[#105d97]">
-                  Chỉ từ {discountPrice.toLocaleString('vi-VN')}đ
+                <span className="text-lg text-[#105d97]">
+                  Giá từ {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
                 </span>
-              )
-            ) : (
-              <span className="text-lg  text-gray-800">
-                {price.toLocaleString('vi-VN')}đ
-              </span>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
 
           {/* Colors */}
-          <div className="flex justify-center space-x-2 py-2 px-4">
-            {colors.map((color) => (
-              <button
-                key={color.name}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleColorChange(color.image);
-                }}
-                className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-gray-800 scale-110' : 'border-gray-300'
-                  }`}
-                style={{ backgroundColor: color.hex }}
-                title={color.name}
-                aria-label={`Chọn màu ${color.name}`}
-              />
-            ))}
+          <div className="flex justify-center space-x-2 py-2 px-4 mb-2">
+            {Array.isArray(colors) && colors.length > 0 ? (
+              colors.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleColorChange(color.image);
+                  }}
+                  className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${selectedColorImage === color.image ? 'border-gray-800 scale-110' : 'border-gray-300'}`}
+                  style={{ backgroundColor: color.hex }}
+                  title={color.name}
+                  aria-label={`Chọn màu ${color.name}`}
+                />
+              ))
+            ) : (
+              <p className="text-gray-500 text-sm">Không có màu sắc</p>
+            )}
           </div>
         </>
       )}

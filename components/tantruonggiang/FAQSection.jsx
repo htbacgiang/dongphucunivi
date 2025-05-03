@@ -8,27 +8,27 @@ export default function FAQSection() {
 
   const faqs = [
     {
-      question: 'UNIVI Sport có hỗ trợ đặt may đồng phục theo thiết kế riêng không?',
+      question: 'Đồng phục Univi có hỗ trợ đặt may đồng phục theo thiết kế riêng không?',
       answer:
         'Có, chúng tôi hỗ trợ đặt may đồng phục thể thao theo thiết kế riêng, đặc biệt với giải pháp 2S Uniform cho các chuỗi phòng tập. Bạn có thể liên hệ đội ngũ của chúng tôi để thảo luận về ý tưởng, chất liệu, và yêu cầu cụ thể.',
     },
     {
-      question: 'Chất liệu vải của UNIVI Sport có an toàn và thân thiện không?',
+      question: 'Chất liệu vải của Đồng phục Univi có an toàn và thân thiện không?',
       answer:
         'Chúng tôi sử dụng các dòng vải chuyên dụng (Quick Dry, Super Cool, Blended) đạt chứng nhận an toàn từ Trung tâm giám định Bộ Công Thương, không chứa Formaldehyde và Amin thơm Azo, đảm bảo an toàn cho da nhạy cảm và thân thiện với môi trường.',
     },
     {
-      question: 'Thời gian giao hàng của UNIVI Sport là bao lâu?',
+      question: 'Thời gian giao hàng của Đồng phục Univi là bao lâu?',
       answer:
         'Thời gian giao hàng phụ thuộc vào sản phẩm và yêu cầu. Sản phẩm có sẵn giao trong 3-7 ngày làm việc. Đối với đồng phục thiết kế riêng, thời gian giao hàng từ 2-4 tuần, đảm bảo chất lượng và đúng tiến độ.',
     },
     {
-      question: 'UNIVI Sport có cung cấp dịch vụ tư vấn thiết kế đồng phục không?',
+      question: 'Đồng phục Univi có cung cấp dịch vụ tư vấn thiết kế đồng phục không?',
       answer:
         'Có, chúng tôi cung cấp dịch vụ tư vấn thiết kế đồng phục miễn phí. Đội ngũ chuyên gia sẽ hỗ trợ bạn từ khâu chọn chất liệu, lên ý tưởng, đến tối ưu thiết kế để phù hợp với nhu cầu và phong cách của bạn.',
     },
     {
-      question: 'Chính sách bảo hành của UNIVI Sport như thế nào?',
+      question: 'Chính sách bảo hành của Đồng phục Univi như thế nào?',
       answer:
         'Chúng tôi cung cấp chính sách bảo hành từ 6 tháng đến 2 năm tùy sản phẩm, bao gồm lỗi sản xuất như đường may hoặc chất liệu. Vui lòng liên hệ hotline hoặc email để được hỗ trợ chi tiết.',
     },
@@ -109,7 +109,7 @@ export default function FAQSection() {
             <Link href="https://www.facebook.com/Dongphucunivi">
             <Image
                 src="/baner-univi.jpg"
-                alt="Showroom UNIVI Sport"
+                alt="Showroom Đồng phục Univi"
                 layout="fill"
                 objectFit="cover"
                 className="brightness-75 transition-transform duration-300 hover:scale-105"
@@ -118,14 +118,14 @@ export default function FAQSection() {
             </Link>
             </div>
             <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-              UNIVI Sport cam kết mang đến trang phục thể thao chất lượng cao với công nghệ UNI DRY, giúp bạn tự tin và thoải mái trong mọi hoạt động. Hãy theo dõi chúng tôi để cập nhật xu hướng mới nhất.
+              Đồng phục Univi cam kết mang đến trang phục thể thao chất lượng cao với công nghệ UNI DRY, giúp bạn tự tin và thoải mái trong mọi hoạt động. Hãy theo dõi chúng tôi để cập nhật xu hướng mới nhất.
             </p>
             <div className="flex space-x-4">
               <a
                 href="https://facebook.com/Dongphucunivi"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Theo dõi UNIVI Sport trên Facebook"
+                aria-label="Theo dõi Đồng phục Univi trên Facebook"
               >
                 <FaFacebook className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
               </a>
@@ -133,7 +133,7 @@ export default function FAQSection() {
                 href="https://instagram.com/Dongphucunivi"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Theo dõi UNIVI Sport trên Instagram"
+                aria-label="Theo dõi Đồng phục Univi trên Instagram"
               >
                 <FaInstagram className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
               </a>
@@ -141,7 +141,7 @@ export default function FAQSection() {
                 href="https://youtube.com/Dongphucunivi"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Theo dõi UNIVI Sport trên YouTube"
+                aria-label="Theo dõi Đồng phục Univi trên YouTube"
               >
                 <FaYoutube className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
               </a>
@@ -149,7 +149,7 @@ export default function FAQSection() {
                 href="https://tiktok.com/@Dongphucunivi"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Theo dõi UNIVI Sport trên TikTok"
+                aria-label="Theo dõi Đồng phục Univi trên TikTok"
               >
                 <FaTiktok className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
               </a>

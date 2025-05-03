@@ -67,23 +67,7 @@ const SEOForm: FC<Props> = ({
       <h3 className="text-dark dark:text-white text-xl font-semibold">
         Tối ưu SEO
       </h3>
-      <label className="block relative">
-        <span className="text-sm font-semibold text-primary-dark dark:text-white">
-          Danh mục:
-        </span>
-        <select
-          name="category"
-          value={category}
-          onChange={handleChange}
-          className={classnames(commonInput, "mt-2")}
-        >
-          <option value="" disabled>
-            Chọn một danh mục
-          </option>
-          <option value="Góc Chuyên Gia">Góc Chuyên Gia</option>
-          <option value="Góc Phong Thủy">Góc Phong Thủy</option>
-        </select>
-      </label>
+  
       <Input
         value={slug}
         onChange={handleChange}

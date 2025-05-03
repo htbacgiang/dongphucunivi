@@ -1,6 +1,5 @@
 import {
   GetServerSideProps,
-  InferGetServerSidePropsType,
   NextPage,
 } from "next";
 import parse from "html-react-parser";
@@ -22,7 +21,7 @@ type PostData = {
   thumbnail: string;
   createdAt: string;
   category: string;
-  relatedPosts: {
+  recentPosts: {
     id: string;
     title: string;
     slug: string;
@@ -63,11 +62,11 @@ const host = "https://greenlahome.vn/goc-chuyen-gia";
 
 export const APP_NAME = "Nội thất Greenla Home";
 const SinglePost: NextPage<Props> = ({ post }) => {
-  const { title, content, meta, slug, thumbnail, category, createdAt, relatedPosts } = post;
+  const { title, content, meta, slug, thumbnail, category, createdAt, recentPosts } = post;
 
   return (
     <DefaultLayout>
-      <div className="container mx-auto px-4 py-8 md:flex md:space-x-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:flex md:space-x-8">
         <div className="col-12 col-md-10 mb-4 mb-md-0">
           <div className="md:pb-20 pb-6 container mx-auto mt-[60px] sm:mt-[91px]">
             {/* Breadcrumb */}
@@ -97,37 +96,34 @@ const SinglePost: NextPage<Props> = ({ post }) => {
           </div>
         </div>
 
-        {/* Related Posts Section */}
-        <div className="col-12 col-md-2 px-2 md:mt-[91px] mt-10">
+        {/* Recent Posts Section */}
+        <div className="col-12 col-md-2 px-0.5 md:mt-[91px] mt-10">
           <div className="pt-5">
             <p className="text-3xl font-semibold text-primary-dark dark:text-primary p-2 mb-4">
-              Bài viết cùng chủ đề
+              Bài viết gần đây
             </p>
             <div className="flex items-center flex-col space-y-4">
-              {relatedPosts
-                .filter((p) => p.category === category)
-                .slice(0, 5)
-                .map((p) => (
-                  <Link key={p.slug} href={`/bai-viet/${p.slug}`} legacyBehavior>
-                    <a className="flex space-x-4 font-semibold text-primary-dark dark:text-primary hover:underline w-full">
-                      {p.thumbnail && (
-                        <Image
-                          src={p.thumbnail}
-                          alt={p.title}
-                          width={192}
-                          height={128}
-                          className="w-48 h-32 object-cover rounded hover:scale-102 transition-all ease duration-300 md:block hidden"
-                        />
-                      )}
-                      <span className="flex flex-col">
-                        <span className="hidden md:block text-green-800 uppercase text-sm mb-1 underline">
-                          {p.category}
-                        </span>
-                        <span>{p.title}</span>
+              {recentPosts.slice(0, 5).map((p) => (
+                <Link key={p.slug} href={`/bai-viet/${p.slug}`} legacyBehavior>
+                  <a className="flex space-x-4 font-semibold text-primary-dark dark:text-primary hover:underline w-full">
+                    {p.thumbnail && (
+                      <Image
+                        src={p.thumbnail}
+                        alt={`Thumbnail for ${p.title}`}
+                        width={192}
+                        height={128}
+                        className="w-32 h-32 object-cover rounded hover:scale-102 transition-all ease duration-300 md:block hidden"
+                      />
+                    )}
+                    <span className="flex flex-col">
+                      <span className="hidden md:block text-green-800 uppercase text-sm mb-1 underline">
+                        {p.category}
                       </span>
-                    </a>
-                  </Link>
-                ))}
+                      <span>{p.title}</span>
+                    </span>
+                  </a>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -153,13 +149,12 @@ export const getServerSideProps: GetServerSideProps<
 
     const posts = await Post.find({
       _id: { $ne: post._id },
-      category: post.category,
     })
-      .sort({ createdAt: "desc" })
+      .sort({ createdAt: -1 })
       .limit(5)
       .select("slug title thumbnail category");
 
-    const relatedPosts = posts.map((p) => ({
+    const recentPosts = posts.map((p) => ({
       id: p._id.toString(),
       title: p.title,
       slug: p.slug,
@@ -202,7 +197,7 @@ export const getServerSideProps: GetServerSideProps<
       category,
       thumbnail: thumbnail?.url || "",
       createdAt: createdAt.toString(),
-      relatedPosts,
+      recentPosts,
     };
 
     return {

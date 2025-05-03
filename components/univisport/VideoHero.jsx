@@ -32,7 +32,7 @@ export default function VideoHero({ videoSrc = '/video-univi.mp4', fallbackImage
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div className="space-y-4">
             <p lang="vi" className="text-base font-bold uppercase tracking-widest text-blue-300">
-              ĐỒNG PHỤC UNIVI SPORT
+              ĐỒNG PHỤC UNIVI 
             </p>
             <h2
               id="video-hero-heading"
@@ -70,7 +70,7 @@ export default function VideoHero({ videoSrc = '/video-univi.mp4', fallbackImage
                   loop
                   playsInline
                   tabIndex={0}
-                  title="Video giới thiệu đồng phục UNIVI Sport"
+                  title="Video giới thiệu đồng phục UNIVI "
                   onError={() => setVideoError(true)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {

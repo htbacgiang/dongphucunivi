@@ -1,57 +1,129 @@
 import mongoose from "mongoose";
 
+const colorSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  hex: {
+    type: String,
+    required: true,
+    trim: true,
+    match: [/^#([0-9A-F]{6}|[0-9A-F]{3})$/i, "Invalid hex color code"],
+  },
+  image: {
+    type: String,
+    required: true,
+    trim: true,
+    validate: {
+      validator: (url) => /^\/[^\s$.?#].[^\s]*$/.test(url),
+      message: "Invalid image path",
+    },
+  },
+});
+
 const productSchema = new mongoose.Schema(
   {
-    title: {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    maSanPham: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      match: [/^[A-Za-z0-9_-]+$/, "Mã sản phẩm chỉ được chứa chữ cái, số, dấu gạch dưới hoặc gạch ngang"],
+    },
+    name: {
       type: String,
       required: true,
       trim: true,
     },
-    images: {
-      type: [String], // Chỉ chấp nhận mảng các URL hình ảnh
-      required: true,
+    price: {
+      type: Number,
+      min: 0,
     },
-    slug: {
-      type: String,
-      required: true, // Đảm bảo slug luôn có giá trị
-      trim: true,
-      unique: true, // Không cho phép trùng slug
+    maxPrice: {
+      type: Number,
+      min: 0,
+      validate: {
+        validator: function (value) {
+          return value <= this.price;
+        },
+        message: "Discount price cannot exceed regular price",
+      },
     },
     content: {
       type: String,
-      default: "", // Tránh lỗi nếu không nhập content
+      default: "",
       trim: true,
     },
-    meta: {
+    isNew: {
+      type: Boolean,
+      default: false,
+    },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    category: {
       type: String,
-      default: "", // Tránh lỗi nếu không nhập meta
+      required: true,
+      trim: true,
+    },
+    categoryNameVN: {
+      type: String,
+      required: true,
       trim: true,
     },
     description: {
       type: String,
       required: true,
+      trim: true,
     },
-    category: {
+    colors: [colorSchema],
+    image: {
       type: String,
       required: true,
+      trim: true,
+      validate: {
+        validator: (url) => /^\/[^\s$.?#].[^\s]*$/.test(url),
+        message: "Invalid image path",
+      },
     },
-    price: {
-      type: Number,
+    slug: {
+      type: String,
       required: true,
-      min: 0, // Đảm bảo giá sản phẩm không âm
+      trim: true,
+      unique: true,
     },
-    salePrice: {
+    rating: {
       type: Number,
-      default: 0,
-      min: 0, // Giá khuyến mãi không thể âm
+      min: 0,
+      max: 5,
+    },
+    reviewCount: {
+      type: Number,
+      min: 0,
+    },
+    material: {
+      type: String,
+      trim: true,
+      default: '',
     },
   },
   {
-    timestamps: true, // Tự động thêm createdAt và updatedAt
+    timestamps: true,
   }
 );
 
-// Kiểm tra nếu model chưa được tạo thì tạo mới
-let Dataset =
-  mongoose.models.Product || mongoose.model("Product", productSchema);
-export default Dataset;
+productSchema.index({ id: 1 }, { unique: true });
+productSchema.index({ maSanPham: 1 }, { unique: true });
+productSchema.index({ slug: 1 }, { unique: true });
+productSchema.index({ category: 1 });
+
+let Product = mongoose.models.Product || mongoose.model("Product", productSchema);
+export default Product;

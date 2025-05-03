@@ -14,7 +14,7 @@ export default function ServicesSection() {
       alt: "Quy Trình Sản Xuất Khép Kín",
       title: "Quy Trình Sản Xuất Khép Kín",
       description:
-        "Sở hữu xưởng sản xuất lớn (trên 2000m²) với đội ngũ lành nghề, UNIVI Sport kiểm soát chất lượng từ A-Z. Đường may tinh tế, kiểm tra chất lượng độc lập và sự tỉ mỉ đảm bảo sản phẩm bền, đẹp và thoải mái.",
+        "Sở hữu xưởng sản xuất lớn (trên 2000m²) với đội ngũ lành nghề, Đồng phục Univi kiểm soát chất lượng từ A-Z. Đường may tinh tế, kiểm tra chất lượng độc lập và sự tỉ mỉ đảm bảo sản phẩm bền, đẹp và thoải mái.",
     },
     {
       imageSrc: "/images/banner-1.webp",

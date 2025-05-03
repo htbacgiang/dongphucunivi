@@ -24,8 +24,8 @@ const categories = [
   'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
 
-const DongPhucGym = ({ initialProducts }) => {
-  const categorySlug = 'dong-phuc-gym';
+const DongPhucYoga = ({ initialProducts }) => {
+  const categorySlug = 'dong-phuc-yoga-pilates';
   const displayCategory = categories.find(category =>
     removeDiacritics(category).toLowerCase().replace(/\s+/g, '-') === categorySlug
   ) || categorySlug.replace(/-/g, ' ').toUpperCase();
@@ -89,13 +89,13 @@ const DongPhucGym = ({ initialProducts }) => {
     "@type": "CollectionPage",
     "name": `Đồng phục Gym - Đồng phục Univi`,
     "description": `Khám phá bộ sưu tập đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại, thoải mái và phù hợp cho mọi hoạt động thể thao.`,
-    "url": "https://univisport.vn/san-pham/dong-phuc-gym",
+    "url": "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://univisport.vn/" },
         { "@type": "ListItem", "position": 2, "name": "Sản phẩm", "item": "https://univisport.vn/san-pham" },
-        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://univisport.vn/san-pham/dong-phuc-gym" }
+        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://univisport.vn/san-pham/dong-phuc-yoga-pilates" }
       ]
     },
     "mainEntity": {
@@ -332,7 +332,7 @@ const toCloudinaryUrl = (relativePath) => {
 
 export async function getServerSideProps() {
   try {
-    const response = await fetch(`${process.env.BASE_URL}/api/products?category=dong-phuc-gym`);
+    const response = await fetch(`${process.env.BASE_URL}/api/products?category=dong-phuc-yoga-pilates`);
     if (!response.ok) {
       throw new Error(`Failed to fetch: ${response.statusText}`);
     }
@@ -368,7 +368,7 @@ export async function getServerSideProps() {
       keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
       author: "Đồng phục Univi",
       robots: "index, follow",
-      canonical: "https://univisport.vn/san-pham/dong-phuc-gym",
+      canonical: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
       og: {
         title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
         description: "Khám phá đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại và thoải mái cho mọi hoạt động thể thao.",
@@ -376,7 +376,7 @@ export async function getServerSideProps() {
         image: "https://univisport.vn/images/banner-univi.png",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://univisport.vn/san-pham/dong-phuc-gym",
+        url: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
         siteName: "Đồng phục Univi",
         locale: "vi_VN"
       },
@@ -406,7 +406,7 @@ export async function getServerSideProps() {
           keywords: "đồng phục gym, Đồng phục Univi",
           author: "Đồng phục Univi",
           robots: "noindex, nofollow",
-          canonical: "https://univisport.vn/san-pham/dong-phuc-gym",
+          canonical: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
           og: {
             title: "Đồng phục Gym - Đồng phục Univi",
             description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
@@ -414,7 +414,7 @@ export async function getServerSideProps() {
             image: "https://univisport.vn/images/banner-univi.png",
             imageWidth: "1200",
             imageHeight: "630",
-            url: "https://univisport.vn/san-pham/dong-phuc-gym",
+            url: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
             siteName: "Đồng phục Univi",
             locale: "vi_VN"
           },
@@ -431,4 +431,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default DongPhucGym;
+export default DongPhucYoga;

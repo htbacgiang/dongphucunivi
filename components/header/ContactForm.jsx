@@ -104,7 +104,7 @@ export default function ContactForm() {
                 Nâng tầm phong cách với Đồng phục Univi
               </h3>
               <p className="text-lg text-gray-600">
-                Univi Sport mang đến trang phục thể thao chất lượng cao cho gym, yoga, chạy bộ và golf. Với công nghệ UNI DRY thoáng khí và chất liệu an toàn, không chứa formaldehyde hay Azo, chúng tôi đảm bảo sự thoải mái và hiệu suất tối ưu.
+                Đồng phục Univi mang đến trang phục thể thao chất lượng cao cho gym, yoga, chạy bộ và golf. Với công nghệ UNI DRY thoáng khí và chất liệu an toàn, không chứa formaldehyde hay Azo, chúng tôi đảm bảo sự thoải mái và hiệu suất tối ưu.
               </p>
               <p>
                 Liên hệ ngay để nhận tư vấn về đồng phục thể thao phù hợp với bạn!
@@ -170,7 +170,7 @@ export default function ContactForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Email của bạn"
+                    placeholder="Email của bạn (tùy chọn)"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
                     className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${

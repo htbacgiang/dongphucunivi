@@ -55,11 +55,11 @@ export default function Navbar({ setShowSidebar, showSidebar }) {
     <div
       className="flex items-center justify-between bg-white dark:bg-slate-800 
       text-slate-50 h-16 px-8 py-4 z-50 pr-[20rem]
-      fixed top-0 w-full sm:left-52 left-0 right-0"
+      fixed top-0 w-full sm:left-60 left-0 right-0"
     >
       <button
         onClick={() => setShowSidebar(!showSidebar)}
-        className="text-lime-700 dark:text-lime-500"
+        className="text-[#105d97] dark:text-white"
       >
         <AlignJustify />
       </button>
@@ -67,7 +67,7 @@ export default function Navbar({ setShowSidebar, showSidebar }) {
         <button
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
           className={cx(
-            "w-16 ease flex items-center justify-center rounded-full dark:text-lime-500 text-lime-700 ",
+            "w-16 ease flex items-center justify-center rounded-full dark:text-white text-[#105d97]",
             mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
           )}
           aria-label="theme-switcher"
@@ -85,7 +85,7 @@ export default function Navbar({ setShowSidebar, showSidebar }) {
               type="button"
               className="relative inline-flex items-center p-3 text-sm font-medium text-center bg-transparent rounded-lg"
             >
-              <Bell className="dark:text-lime-500 text-lime-700" />
+              <Bell className="dark:text-white text-[#105d97]" />
               {notificationCount > 0 && (
                 <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-normal text-white bg-orange-500 rounded-full top-0 end-1 dark:border-gray-900">
                   {notificationCount}

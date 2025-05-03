@@ -29,7 +29,7 @@ const AdminLayout: FC<Props> = ({ title, children }): JSX.Element => {
       <AppHead title={title} />
       <div className="flex">
         <Slidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <div className={`lg:ml-52 ml-0 flex-grow bg-slate-100 min-h-screen`}>
+        <div className={`lg:ml-60 ml-0 flex-grow bg-slate-100 min-h-screen`}>
         {/* Correctly pass setShowSidebar to Navbar */}
         <Navbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <main className="p-2 bg-white dark:bg-slate-900 min-h-screen mt-16">

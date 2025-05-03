@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import DefaultLayout from "../../components/layout/DefaultLayout";
+import DefaultLayout2 from "../../components/layout/DefaultLayout2";
 import ContactForm from "../../components/header/ContactForm"; // Import ContactForm
 
 export default function DuAn({ meta = {} }) {
@@ -136,7 +136,7 @@ export default function DuAn({ meta = {} }) {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout2>
       <Head>
         <title>{safeMeta.title}</title>
         <meta name="description" content={safeMeta.description} />
@@ -299,7 +299,7 @@ export default function DuAn({ meta = {} }) {
           </div>
         )}
       </div>
-    </DefaultLayout>
+    </DefaultLayout2>
   );
 }
 

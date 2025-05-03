@@ -62,7 +62,7 @@ export default function Profile({ meta }) {
               src="/ho-so-nang-luc.pdf#toolbar=0&view=FitH"
               width="100%"
               height="100%"
-              title="Hồ sơ năng lực Univi Sport"
+              title="Hồ sơ năng lực Đồng phục Univi"
               className={styles.pdfIframe}
               style={{ border: 'none' }} /* Remove iframe border */
             />
@@ -82,18 +82,18 @@ export default function Profile({ meta }) {
 
 export async function getServerSideProps() {
   const meta = {
-    title: "Hồ sơ năng lực Univi Sport - Quần áo thể thao chất lượng cao",
+    title: "Hồ sơ năng lực Đồng phục Univi - Quần áo thể thao chất lượng cao",
     content:
-      "Univi Sport – Thương hiệu quần áo thể thao với công nghệ Uni Dry, chất liệu vải chuyên dụng cho gym, yoga, chạy bộ và golf. An toàn cho da, thoải mái khi vận động.",
+      "Đồng phục Univi – Thương hiệu quần áo thể thao với công nghệ Uni Dry, chất liệu vải chuyên dụng cho gym, yoga, chạy bộ và golf. An toàn cho da, thoải mái khi vận động.",
     keywords:
-      "hồ sơ năng lực Univi Sport, quần áo thể thao, công nghệ Uni Dry, vải thể thao, trang phục gym, quần áo yoga, chạy bộ, vải an toàn cho da",
+      "hồ sơ năng lực Đồng phục Univi, quần áo thể thao, công nghệ Uni Dry, vải thể thao, trang phục gym, quần áo yoga, chạy bộ, vải an toàn cho da",
     robots: "index, follow",
-    author: "Univi Sport",
+    author: "Đồng phục Univi",
     canonical: "https://univisport.vn/profile",
     og: {
-      title: "Univi Sport – Quần áo thể thao chuyên dụng",
+      title: "Đồng phục Univi – Quần áo thể thao chuyên dụng",
       description:
-        "Khám phá hồ sơ năng lực Univi Sport: quần áo thể thao với công nghệ Uni Dry, chất liệu cao cấp, an toàn cho da, phù hợp cho gym, yoga, chạy bộ.",
+        "Khám phá hồ sơ năng lực Đồng phục Univi: quần áo thể thao với công nghệ Uni Dry, chất liệu cao cấp, an toàn cho da, phù hợp cho gym, yoga, chạy bộ.",
       type: "website",
       image: "https://univisport.vn/images/univi-sport-profile.jpg",
       imageWidth: "1200",
@@ -102,9 +102,9 @@ export async function getServerSideProps() {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Hồ sơ năng lực Univi Sport - Quần áo thể thao chất lượng cao",
+      title: "Hồ sơ năng lực Đồng phục Univi - Quần áo thể thao chất lượng cao",
       description:
-        "Univi Sport – Thương hiệu quần áo thể thao với công nghệ Uni Dry, chất liệu vải chuyên dụng cho gym, yoga, chạy bộ và golf.",
+        "Đồng phục Univi – Thương hiệu quần áo thể thao với công nghệ Uni Dry, chất liệu vải chuyên dụng cho gym, yoga, chạy bộ và golf.",
       image: "https://univisport.vn/images/univi-sport-profile.jpg",
     },
   };
