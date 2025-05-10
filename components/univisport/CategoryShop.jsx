@@ -13,7 +13,7 @@ const CategoryShop = () => {
         <Link href="/san-pham/dong-phuc-ao-polo">
           <div className="relative rounded-lg overflow-hidden shadow-sm aspect-square transition-transform duration-300 hover:scale-105 cursor-pointer">
             <Image
-              src="/product/dong-phuc-gym/1.webp"
+              src="/product/ao-polo.webp"
               alt="Đồng phục công ty"
               width={300}
               height={300}
@@ -29,7 +29,7 @@ const CategoryShop = () => {
         <Link href="/san-pham/dong-phuc-ao-thun">
           <div className="relative rounded-lg overflow-hidden shadow-sm aspect-square transition-transform duration-300 hover:scale-105 cursor-pointer">
             <Image
-              src="/product/dong-phuc-gym/2.webp"
+              src="/product/ao-thun.webp"
               alt="Đồng phục theo ngành"
               width={300}
               height={300}
@@ -45,7 +45,7 @@ const CategoryShop = () => {
         <Link href="/san-pham/dong-phuc-cong-so">
           <div className="relative rounded-lg overflow-hidden shadow-sm aspect-square transition-transform duration-300 hover:scale-105 cursor-pointer">
             <Image
-              src="/product/dong-phuc-gym/3.webp"
+              src="/product/cong-so.webp"
               alt="Đồng phục lớp"
               width={300}
               height={300}
@@ -60,7 +60,7 @@ const CategoryShop = () => {
         <Link href="/san-pham/dong-phuc-team-building">
           <div className="relative rounded-lg overflow-hidden shadow-sm aspect-square transition-transform duration-300 hover:scale-105 cursor-pointer">
             <Image
-              src="/product/dong-phuc-gym/3.webp"
+              src="/product/team-building.webp"
               alt="Đồng phục lớp"
               width={300}
               height={300}
@@ -74,7 +74,7 @@ const CategoryShop = () => {
         <Link href="/san-pham/dong-phuc-su-kien">
           <div className="relative rounded-lg overflow-hidden shadow-sm aspect-square transition-transform duration-300 hover:scale-105 cursor-pointer">
             <Image
-              src="/product/dong-phuc-gym/3.webp"
+              src="/product/su-kien.webp"
               alt="Đồng phục lớp"
               width={300}
               height={300}

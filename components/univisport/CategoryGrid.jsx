@@ -6,7 +6,7 @@ const categories = [
   {
     name: "Đồng phục Gym",
     slug: "/san-pham/dong-phuc-gym", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/banner-1.jpg",
+    image: "/product/dong-phuc-gym.webp",
     width: 300,
     height: 300,
     rowSpan: 1,
@@ -15,16 +15,16 @@ const categories = [
   {
     name: "Yoga - Pilates",
     slug: "/san-pham/dong-phuc-yoga-pilates", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/univi-1.webp",
+    image: "/product/dong-phuc-yoga.webp",
     width: 300,
-    height: 620,
+    height: 600,
     rowSpan: 2,
     colSpan: 1,
   },
   {
     name: "Chạy bộ",
     slug: "/san-pham/chay-bo", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/dong-phuc-chay-bo.jpg",
+    image: "/product/dong-phuc-chay-bo.webp",
     width: 300,
     height: 300,
     rowSpan: 1,
@@ -33,7 +33,8 @@ const categories = [
   {
     name: "Đồng phục Lễ Tân",
     slug: "/san-pham/dong-phuc-le-tan", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/dong-phuc-tenis-gofl.jpg",
+    image: "/product/dong-phuc-le-tan.webp",
+
     width: 300,
     height: 300,
     rowSpan: 1,
@@ -42,7 +43,7 @@ const categories = [
   {
     name: "Pickleball",
     slug: "/san-pham/pickleball", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/dong-phuc-pickleball.webp",
+    image: "/product/dong-phuc-pickaball.webp",
     width: 300,
     height: 300,
     rowSpan: 1,
@@ -51,7 +52,7 @@ const categories = [
   {
     name: "MMA Đồng phục",
     slug: "/san-pham/dong-phuc-mma", // Slug tùy chỉnh
-    image: "/product/dong-phuc-gym/mma-dong-phuc.jpg",
+    image: "/product/mma-dong-phuc.webp",
     width: 600,
     height: 300,
     rowSpan: 1,
@@ -69,7 +70,7 @@ const getAspectRatio = (category) => {
 export default function CategoryGrid() {
   return (
     <section className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 ">
         {categories.map((c, i) => (
           <Link
             key={i}
@@ -87,6 +88,7 @@ export default function CategoryGrid() {
                 src={c.image}
                 alt={c.name}
                 fill
+                quality={100}
                 style={{ objectFit: "cover" }}
                 className="rounded-lg"
                 sizes="(max-width: 768px) 50vw, 25vw"

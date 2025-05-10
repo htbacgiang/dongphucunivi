@@ -12,33 +12,33 @@ export default function Banner() {
 
   const slides = [
     {
-      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-1_cbnwfk.webp",
-      smallHeading: "Đồng Phục Thể Thao",
-      heading: "Năng Động & Chuyên Nghiệp",
+      image: "/images/dong-phuc-huan-luyen-vien.webp",
+      smallHeading: "ĐỒNG PHỤC HUẤN LUYỆN VIÊN",
+      heading: "Chuyên nghiệp & Phong cách",
       description:
-        "Khám phá bộ sưu tập đồng phục thể thao chất lượng cao, thiết kế hiện đại, phù hợp cho mọi hoạt động.",
+        "Không chỉ tối đa hiệu suất tập luyện mà còn là biểu tượng của một hệ thống chuyên nghiệp",
       align: "left",
       animation: "slideFromLeft",
       collectionLink: "/san-pham",
     },
     {
-      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-2_hbawtb.webp",
-      smallHeading: "Giải pháp Smart Sport Uniform",
-      heading: "Cho Chuỗi Các Phòng Tập",
+      image: "/images/dong-phuc-the-taho.webp",
+      smallHeading: "ĐỒNG PHỤC THỂ THAO",
+      heading: "Năng Động & Sáng Tạo",
       description:
-        "Giải pháp 2S Uniform mang đến trang phục mềm mại, thoáng khí, nhanh khô, giúp bạn tự tin trong mọi động tác.",
-      align: "center",
-      animation: "slideFromBottom",
+      "Bộ sưu tập đồng phục thể thao Univi đa dạng bộ môn, thiết kế theo ý tưởng riêng của các đội nhóm",
+      align: "right",
+      animation: "slideFromRight",
       collectionLink: "/san-pham",
     },
     {
-      image: "https://res.cloudinary.com/dcgtt1jza/image/upload/v1745824410/banner-3_vvbcmn.webp",
-      smallHeading: "Áo Thun Đồng Phục",
-      heading: "Phong Cách & Thống Nhất",
+      image: "/images/giai-phap-2s.webp",
+      smallHeading: "GIẢI PHÁP SMART SPORT UNIFORM",
+      heading: "Cho Các Phòng Tập",
       description:
-        "Tùy chỉnh áo thun đồng phục độc đáo, phù hợp cho đội nhóm, sự kiện và doanh nghiệp.",
-      align: "right",
-      animation: "slideFromRight",
+      "Được đánh giá cao nhờ tính ứng dụng vượt trội, tối ưu hiệu suất tập luyện. BST 2S Uniform không chỉ tạo sự đồng bộ thương hiệu mà còn mang đến diện mạo trẻ trung, khoắn cho đội ngũ nhân sự.",
+      align: "center",
+      animation: "slideFromBottom",
       collectionLink: "/san-pham",
     },
   ];

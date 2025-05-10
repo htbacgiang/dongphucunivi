@@ -3,25 +3,25 @@ import Image from "next/image";
 export default function ServicesSection() {
   const services = [
     {
-      imageSrc: "/images/banner-3.webp",
-      alt: "Chất Liệu & Công Nghệ Vải",
-      title: "Chất Liệu & Công Nghệ Vải",
+      imageSrc: "/images/chat-lieu-vai.webp",
+      alt: "CHẤT LIỆU & CÔNG NGHỆ VẢI",
+      title: "CCHẤT LIỆU & CÔNG NGHỆ VẢI",
       description:
-        "Đồng phục UNIVI tập trung phát triển các dòng vải đặc thù (Quick Dry, Super Cool, Blended) với công nghệ UNI DRY độc quyền, đảm bảo thoáng khí, thoát ẩm, mềm mại, bền màu và an toàn (không chứa Formaldehyde, Amin thơm Azo), tạo sự khác biệt vượt trội.",
+      "Đồng phục UNIVI tập trung phát triển các dòng vải thể thao chuyên dụng (Quick Dry, Super Cool, Blended) đáp ứng được nhiều bộ môn thể thao. Với công nghệ UNI DRY độc quyền, đảm bảo thoáng khí, thoát ẩm tốt, mềm mại, bền màu tạo sự khác biệt vượt trội.Đặc biệt tất cả dòng vải của Univi đều có kiểm định an toàn với da (không chứa Formaldehyde, Amin thơm Azo)"
     },
     {
-      imageSrc: "/images/banner-2.webp",
+      imageSrc: "/images/quy-trinh-kep-kin.webp",
       alt: "Quy Trình Sản Xuất Khép Kín",
-      title: "Quy Trình Sản Xuất Khép Kín",
+      title: "SẢN XUẤT KHÉP KÍN - TỐI ƯU CHI PHÍ",
       description:
-        "Sở hữu xưởng sản xuất lớn (trên 2000m²) với đội ngũ lành nghề, Đồng phục Univi kiểm soát chất lượng từ A-Z. Đường may tinh tế, kiểm tra chất lượng độc lập và sự tỉ mỉ đảm bảo sản phẩm bền, đẹp và thoải mái.",
+      "Sở hữu xưởng sản xuất lớn với đội ngũ lành nghề, Đồng phục Univi kiểm soát chất lượng tất cả các quy trình. Không qua trung gian, tối ưu hóa giá thành giúp đối tác tiết kiệm 30- 40% chi phí."
     },
     {
-      imageSrc: "/images/banner-1.webp",
-      alt: "Giải Pháp 2S Uniform",
-      title: "Giải Pháp 2S Uniform",
+      imageSrc: "/images/san-xuat-nhanh.webp",
+      alt: "SẢN XUẤT NHANH",
+      title: "SẢN XUẤT NHANH",
       description:
-        "Giải pháp 2S Uniform được thiết kế riêng cho chuỗi phòng tập (Gym, Yoga), giúp xây dựng hình ảnh chuyên nghiệp, tiết kiệm chi phí và tạo cơ hội kinh doanh, thể hiện sự am hiểu sâu sắc về nhu cầu B2B.",
+      "Univi sử hữu kho vải với trữ lượng vải lớn. Đồng thời luôn sẵn hàng trong trong kho 200+ mẫu thiết của nhiều bộ môn thể thao. Đáp ứng được nhu cầu của các đối tác cần gấp, đồng phục có thể giao ngay sau 3 ngày đặt hàng."
     },
   ];
 

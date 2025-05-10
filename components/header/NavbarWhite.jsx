@@ -128,6 +128,11 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li className="hover:bg-gray-100 px-4 py-2">
+                    <Link href="/cau-chuyen-thuong-hieu" className="text-black">
+                      Câu chuyện thương hiệu
+                    </Link>
+                  </li>
+                  <li className="hover:bg-gray-100 px-4 py-2">
                     <Link href="/ho-so-nang-luc" className="text-black">
                       Hồ sơ năng lực
                     </Link>

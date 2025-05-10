@@ -134,8 +134,8 @@ const Blogs: NextPage<Props> = ({ posts, meta }) => {
         </div>
       </div>
       <div className="pb-12">
-        <div className="flex flex-col lg:flex-row gap-6 w-full max-w-8xl mx-auto px-4 lg:px-12">
-          <div className="w-full lg:w-9/12">
+        <div className="flex flex-col lg:flex-row gap-6 w-full max-w-8xl mx-auto px-4 lg:px-12 max-w-7xl">
+          <div className="w-full">
             {posts.length > 0 ? (
               <div className="flex flex-col gap-6">
                 {/* Thay đổi từ đây */}
@@ -254,44 +254,7 @@ const Blogs: NextPage<Props> = ({ posts, meta }) => {
               </div>
             )}
           </div>
-          <div className="w-full lg:w-3/12 flex flex-col gap-6 text-[#105d97] py-8">
-            <div className="flex flex-col gap-4">
-              <h3 className="text-lg font-semibold uppercase">
-                Bài viết gần đây
-              </h3>
-              {posts.slice(0, 3).map((post) => (
-                <div key={post.slug} className="flex flex-row gap-4">
-                  {post.thumbnail && (
-                    <div
-                      className="w-3/6 relative cursor-pointer rounded-lg overflow-hidden"
-                      style={{ aspectRatio: "1/1", maxHeight: "100px" }}
-                    >
-                      <Link href={`/bai-viet/${post.slug}`}>
-                        <Image
-                          src={post.thumbnail}
-                          fill={true}
-                          className="object-cover hover:scale-105 transition-all ease duration-300"
-                          alt={post.title}
-                        />
-                      </Link>
-                    </div>
-                  )}
-                  <div className="w-3/4 flex flex-col gap-1">
-                    <p className="text-base text-black uppercase">
-                      {formatDate(post.createdAt)}
-                    </p>
-                    <Link
-                      href={`/bai-viet/${post.slug}`}
-                      className="text-base font-medium hover:text-[#2a5c82] text-[#105d97] line-clamp-2"
-                      aria-label={post.title}
-                    >
-                      {post.title}
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      
         </div>
       </div>
     </DefaultLayout2>
@@ -313,16 +276,16 @@ export const getServerSideProps: GetServerSideProps<{
         "đồng phục, thiết kế đồng phục, đồng phục công ty, đồng phục học sinh, Univi",
       author: "Đồng phục Univi",
       robots: "index, follow",
-      canonical: "https://univi.com/tin-tuc",
+      canonical: "https://dongphucunivi.com/tin-tuc",
       og: {
         title: "Bài viết - Đồng phục Univi",
         description:
           "Khám phá các bài viết về đồng phục và mẹo chọn đồng phục từ Đồng phục Univi để nâng tầm phong cách.",
         type: "website",
-        image: "https://univi.com/images/dong-phuc-1.jpg",
+        image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://univi.com/tin-tuc",
+        url: "https://dongphucunivi.com/tin-tuc",
         siteName: "Đồng phục Univi",
       },
       twitter: {
@@ -330,7 +293,7 @@ export const getServerSideProps: GetServerSideProps<{
         title: "Bài viết - Đồng phục Univi",
         description:
           "Tìm hiểu về đồng phục và các xu hướng thiết kế mới nhất từ Đồng phục Univi.",
-        image: "https://univi.com/images/dong-phuc-1.jpg",
+        image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
       },
     };
 
@@ -351,22 +314,22 @@ export const getServerSideProps: GetServerSideProps<{
           keywords: "đồng phục, Univi",
           author: "Đồng phục Univi",
           robots: "noindex",
-          canonical: "https://univi.com/tin-tuc",
+          canonical: "https://dongphucunivi.com/tin-tuc",
           og: {
             title: "Bài viết - Đồng phục Univi",
             description: "Đã xảy ra lỗi khi tải bài viết.",
             type: "website",
-            image: "https://univi.com/images/dong-phuc-1.jpg",
+            image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
             imageWidth: "1200",
             imageHeight: "630",
-            url: "https://univi.com/tin-tuc",
+            url: "https://dongphucunivi.com/tin-tuc",
             siteName: "Đồng phục Univi",
           },
           twitter: {
             card: "summary_large_image",
             title: "Bài viết - Đồng phục Univi",
             description: "Đã xảy ra lỗi khi tải bài viết.",
-            image: "https://univi.com/images/dong-phuc-1.jpg",
+            image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
           },
         },
       },

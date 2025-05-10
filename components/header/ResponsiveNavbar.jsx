@@ -18,6 +18,7 @@ const menuItems = [
     name: "Về Đồng phục Univi",
     dropdown: [
       { name: "Giới thiệu", link: "/gioi-thieu" },
+      { name: "Câu chuyện thương hiệu", link: "/cau-chuyen-thuong-hieu" },
       { name: "Hồ sơ năng lực", link: "/ho-so-nang-luc" },
     ],
   },

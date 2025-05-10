@@ -3,19 +3,19 @@ import React from 'react';
 // URL mẫu cho hình ảnh (thay bằng tệp cục bộ hoặc URL của bạn)
 const fabrics = [
   {
-    bgImage: '../images/1.jpg', // Vải thể thao
+    bgImage: '../images/uni-quickdry.webp', // Vải thể thao
     title: 'UNIVI QUICK DRY',
-    description: 'Vải polyester (82-100%), căng, nhẹ, nhanh khô, thích hợp cho Running, Cycling, Gym.',
+    description: 'Thành phần chính là sợi Polyester cao cấp PET (82-100%), co giãn đa chiều, nhẹ, nhanh khô, chống tia UV,... Thích hợp cho các bộ môn Gym, Fitnnes, MMA, Running, Pickleball, Tennis,...',
   },
   {
-    bgImage: '../images/2.jpg', // Vải thể thao
+    bgImage: '../images/uni-supper-cool.webp', // Vải thể thao
     title: 'UNIVI SUPER COOL',
-    description: 'Vải polyamide (76-90%), mềm, mát, mịn, dùng cho Yoga, Dance, Golf.',
+    description: 'hành phần chính là sợi Polyamide (76-90%), dòng vải thể thao cao cấp nhất trên thị trường. Với đặc tính mềm, mát, mịn, co giãn tốt, chống nhăn, bền form,... Thích hợp cho các bộ môn  Yoga, Pilates, Dance, Aerobic,....',
   },
   {
-    bgImage: '../images/3.jpg', // Vải thể thao
+    bgImage: '../images/uni-blended.webp', // Vải thể thao
     title: 'UNIVI BLENDED',
-    description: 'Kết hợp polyester và cotton, bền, nhẹ, chống tia UV, dùng cho Running, thể thao thêu.',
+    description: 'Là sự kết hợp của Polyester và Cotton. Nhanh khô, mềm mịn, mát, nhẹ, chống tia UV cao hơn, chống nhăn nhàu và rất bền màu. Ứng dụng cho các bộ môn Pickleball, Running, Cycling,....',
   },
 ];
 
@@ -68,7 +68,7 @@ const FabricCardComponent = () => {
                 {fabric.title}
               </h2>
               <div className="w-12 h-1 bg-white mx-auto mb-4"></div>
-              <p className="text-sm text-center">{fabric.description}</p>
+              <p className="text-base text-center">{fabric.description}</p>
             </div>
           </div>
         ))}
