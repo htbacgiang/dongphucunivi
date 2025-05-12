@@ -108,7 +108,7 @@ export default function FAQSection() {
             <div className="relative h-48 rounded-lg overflow-hidden mb-4">
             <Link href="https://www.facebook.com/Dongphucunivi">
             <Image
-                src="/baner-univi.jpg"
+                src="/baner-univi.webp"
                 alt="Showroom Đồng phục Univi"
                 layout="fill"
                 objectFit="cover"

@@ -150,7 +150,6 @@ export async function getServerSideProps() {
     if (data.status !== 'success' || !Array.isArray(data.products)) {
       throw new Error('Invalid API response format');
     }
-
     // Ánh xạ dữ liệu sản phẩm
     const sportswearProducts = data.products.slice(0, 6).map(product => {
       const mappedProduct = {
@@ -180,21 +179,21 @@ export async function getServerSideProps() {
       keywords: "đồng phục thể thao, đồng phục PT, đồng phục Gym, may đồng phục thể thao, đồng phục phòng tập Gym, đồng phục huấn luyện viên cá nhân, Đồng Phục Univi",
       robots: "index, follow",
       author: "Đồng Phục Univi",
-      canonical: "https://dongphucunivi.vn",
+      canonical: "https://dongphucunivi.com",
       og: {
         title: "Đồng Phục Univi - Giải Pháp Đồng Phục Thể Thao, PT & Gym Chuyên Nghiệp",
         description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu thoáng mát, giá hợp lý. Liên hệ ngay để sở hữu bộ đồng phục hoàn hảo! Hotline: 0962922332.",
         type: "website",
-        image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
+        image: "https://dongphucunivi.com/images/dong-phuc-the-thao.jpg",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://dongphucunivi.vn",
+        url: "https://dongphucunivi.com",
       },
       twitter: {
         card: "summary_large_image",
         title: "Đồng Phục Univi - Đồng Phục Thể Thao, PT, Gym Chuyên Nghiệp",
         description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu cao cấp. Liên hệ ngay: 0962922332.",
-        image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
+        image: "https://dongphucunivi.com/images/dong-phuc-the-thao.jpg",
       },
     };
 
@@ -216,7 +215,7 @@ export async function getServerSideProps() {
         keywords: "đồng phục thể thao, đồng phục PT, đồng phục Gym, may đồng phục thể thao, đồng phục phòng tập Gym, đồng phục huấn luyện viên cá nhân, Đồng Phục Univi",
         robots: "index, follow",
         author: "Đồng Phục Univi",
-        canonical: "https://dongphucunivi.vn",
+        canonical: "https://dongphucunivi.com",
         og: {
           title: "Đồng Phục Univi - Giải Pháp Đồng Phục Thể Thao, PT & Gym Chuyên Nghiệp",
           description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu thoáng mát, giá hợp lý. Liên hệ ngay để sở hữu bộ đồng phục hoàn hảo! Hotline: 0962922332.",
@@ -224,13 +223,13 @@ export async function getServerSideProps() {
           image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
           imageWidth: "1200",
           imageHeight: "630",
-          url: "https://dongphucunivi.vn",
+          url: "https://dongphucunivi.com",
         },
         twitter: {
           card: "summary_large_image",
           title: "Đồng Phục Univi - Đồng Phục Thể Thao, PT, Gym Chuyên Nghiệp",
           description: "Đồng Phục Univi – chuyên may đồng phục thể thao, đồng phục PT, đồng phục Gym với thiết kế năng động, chất liệu cao cấp. Liên hệ ngay: 0962922332.",
-          image: "https://dongphucunivi.vn/images/dong-phuc-the-thao.jpg",
+          image: "https://dongphucunivi.com/images/dong-phuc-the-thao.jpg",
         },
       },
     };
