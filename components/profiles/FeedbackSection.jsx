@@ -8,13 +8,13 @@ const FeedbackSection = () => {
   const [itemsPerSlide, setItemsPerSlide] = useState(5);
 
   const feedbacks = [
-    { title: "Anh Nguyễn Văn A", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
-    { title: "Chị Trần Thị B", image: "/product/dong-phuc-gym/2.webp", link: "/du-an" },
-    { title: "Phòng Gym EcoFit", image: "/product/dong-phuc-gym/3.webp", link: "/du-an" },
-    { title: "Cô Lê Minh C", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
-    { title: "Anh Phạm Văn D", image: "/product/dong-phuc-gym/3.webp", link: "/du-an" },
-    { title: "Chị Hoàng Thị E", image: "/product/dong-phuc-gym/2.webp", link: "/du-an" },
-    { title: "Đội Bóng F", image: "/product/dong-phuc-gym/1.webp", link: "/du-an" },
+    { title: "Chuỗi phòng tập FITCAREE", image: "/khach-hang/chuoi-phong-tap-fitcaree.webp", link: "/du-an" },
+    { title: "Chuỗi phòng tập GOFIT", image: "/khach-hang/chuoi-phong-tap-gofit.webp", link: "/du-an" },
+    { title: "Chuỗi phòng tập THE ONE KickFit", image: "/khach-hang/chuoi-phong-tap-the-one-kickfit.webp", link: "/du-an" },
+    { title: "Chuỗi phòng tập ZENFIT", image: "/khach-hang/chuoi-phong-tap-zenfit.webp", link: "/du-an" },
+    { title: "Hệ thống phòng tập INSTRUCTOR JUMPING FITNESS", image: "/khach-hang/he-thong-phong-tap-instructor-jumping-fitness.webp", link: "/du-an" },
+    { title: "LIFE UP ACADEMY", image: "/khach-hang/life-up-academy.webp", link: "/du-an" },
+    { title: "SUNWORD HẠ LONG", image: "/khach-hang/sunword-ha-long.webp", link: "/du-an" },
   ];
 
   useEffect(() => {
@@ -63,7 +63,8 @@ const FeedbackSection = () => {
                     tabIndex={0}
                     aria-label={`Xem feedback từ ${feedback.title}`}
                   >
-                    <div className="relative aspect-square">
+                                        <div className="relative aspect-[3/2] rounded-lg overflow-hidden">
+
                       <Image
                         src={feedback.image}
                         width={400}
@@ -94,7 +95,7 @@ const FeedbackSection = () => {
           <button
             onClick={prevSlide}
             disabled={isPrevDisabled}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#105d97] p-0 text-white transition-opacity hover:bg-[#084a7a] focus:outline-none focus:ring-2 ${
+            className={`absolute left-0 top-1/3 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-[#105d97] p-0 text-white transition-opacity hover:bg-[#084a7a] focus:outline-none focus:ring-2 ${
               isPrevDisabled ? "cursor-not-allowed opacity-50" : ""
             }`}
             aria-label="Feedback trước"
@@ -106,7 +107,7 @@ const FeedbackSection = () => {
           <button
             onClick={nextSlide}
             disabled={isNextDisabled}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#105d97] p-0 text-white transition-opacity hover:bg-[#084a7a] focus:outline-none focus:ring-2 ${
+            className={`absolute right-0 top-1/3 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-[#105d97] p-0 text-white transition-opacity hover:bg-[#084a7a] focus:outline-none focus:ring-2 ${
               isNextDisabled ? "cursor-not-allowed opacity-50" : ""
             }`}
             aria-label="Feedback tiếp theo"
@@ -115,6 +116,7 @@ const FeedbackSection = () => {
           >
             ❯
           </button>
+          
         </div>
       </div>
     </div>

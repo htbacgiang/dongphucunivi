@@ -3,10 +3,11 @@ import Image from 'next/image';
 
 // Deduplicated and descriptive partner data
 const partners = [
-  { id: 1, name: 'Eco Bac Giang', logo: '/khach-hang/logoecobacgiang.png' },
-  { id: 2, name: 'TP Corporation', logo: '/khach-hang/logotp.png' },
-  { id: 3, name: 'Truong NQ VN', logo: '/khach-hang/logotruongnqvn.png' },
-  { id: 4, name: 'Partner 1', logo: '/khach-hang/1.jpg' },
+  { id: 3, name: 'Partner 18', logo: '/khach-hang/18.png' },
+  { id: 1, name: 'Partner 16', logo: '/khach-hang/16.jpg' },
+  { id: 2, name: 'Partner 17', logo: '/khach-hang/17.png' },
+  { id: 4, name: 'Partner 19', logo: '/khach-hang/19.png' },
+  { id: 5, name: 'Partner 1', logo: '/khach-hang/1.jpg' },
   { id: 5, name: 'Partner 2', logo: '/khach-hang/2.jpg' },
   { id: 6, name: 'Partner 3', logo: '/khach-hang/3.jpg' },
   { id: 7, name: 'Partner 4', logo: '/khach-hang/4.jpg' },
@@ -28,7 +29,7 @@ const PartnersSection = () => {
       <h2 className="text-center text-base sm:text-lg md:text-2xl font-bold text-[#105d97] mb-4 md:mb-10">
         ĐỐI TÁC & KHÁCH HÀNG
       </h2>
-      <div className="max-w-7xl mx-auto grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-6  md:grid-cols-6 gap-4 px-4">
         {partners.map((partner) => (
           <div key={partner.id} className="flex justify-center items-center">
             <Image
