@@ -136,7 +136,7 @@ export default function Home({ posts, sportswearProducts, meta }) {
 export async function getServerSideProps() {
   try {
     // Lấy danh sách bài viết
-    const posts = await readPostsFromDb(8, 0);
+    const posts = await readPostsFromDb(6, 0);
     const formattedPosts = formatPosts(posts);
 
     // Gọi API để lấy sản phẩm thuộc danh mục "dong-phuc-gym"

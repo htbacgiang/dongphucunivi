@@ -131,9 +131,7 @@ const useCheckoutSubmit = () => {
       notifyError("Please Input a Coupon Code!");
       return;
     }
-    if (isLoading) {
-      return <h3>Loading...</h3>;
-    }
+   
     if (isError) {
       return notifyError("Something went wrong");
     }

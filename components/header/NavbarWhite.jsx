@@ -61,10 +61,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
+  
   return (
     <nav
       className={`fixed w-full p-5 md:px-20 h-20 z-50 transition-all duration-500 ${

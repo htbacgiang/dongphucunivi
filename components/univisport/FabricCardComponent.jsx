@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
+import ContactForm from '../header/ContactForm'; // Adjust path as needed
 
 // URL mẫu cho hình ảnh (thay bằng tệp cục bộ hoặc URL của bạn)
 const fabrics = [
@@ -23,16 +25,32 @@ const fabrics = [
 ];
 
 // URL mẫu cho nền section
-const sectionBg = '../images/banner-1.webp';
+const sectionBg = '../images/banner-4.webp';
 
 const FabricCardComponent = () => {
+  const [contactPopupOpen, setContactPopupOpen] = useState(false);
+  const popupRef = useRef(null);
+
   const handleFreeDesign = () => {
     console.log('Free design clicked');
   };
 
   const handleGetQuote = () => {
-    console.log('Get quote clicked');
+    setContactPopupOpen(!contactPopupOpen);
   };
+
+  // Handle click outside to close popup
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setContactPopupOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
@@ -60,7 +78,7 @@ const FabricCardComponent = () => {
         }}
       />
 
-      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl">
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl opacity-90">
         {fabrics.map((fabric, index) => (
           <div
             key={index}
@@ -113,6 +131,29 @@ const FabricCardComponent = () => {
           Nhận báo giá
         </button>
       </div>
+
+      {/* Contact Form Popup */}
+      {contactPopupOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center"
+          onClick={handleGetQuote} // Close when clicking outside
+        >
+          <div
+            ref={popupRef}
+            className="bg-white rounded-2xl shadow-lg max-w-5xl w-full mx-4 animate-slide-up"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            <div className="flex justify-end items-center p-4 border-b">
+              <AiOutlineClose
+                className="cursor-pointer"
+                size={25}
+                onClick={handleGetQuote}
+              />
+            </div>
+            <ContactForm />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

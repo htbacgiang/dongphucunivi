@@ -1,87 +1,248 @@
+import ProjectCard from "../../components/tantruonggiang/ProjectCard";
+import { projects } from "../../components/tantruonggiang/data/projects";
+import Link from "next/link";
+import { useState, useMemo } from "react";
+import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
-import AlbumVN from "../../components/album/listAlbum/Vietnam";
-import DefaultLayout from "../../components/layout/DefaultLayout";
+import DefaultLayout2 from "../../components/layout/DefaultLayout2";
 
-const AlbumList = () => {
-  const [selectedAlbum, setSelectedAlbum] = useState("Việt Nam quê hương tôi");
+export default function DuAn({ meta = {} }) {
+  const [filter, setFilter] = useState("all");
 
-  const handleAlbumClick = (albumName) => {
-    setSelectedAlbum(albumName);
-  };
-
-  const renderAlbumComponent = () => {
-    switch (selectedAlbum) {
-      case "Việt Nam quê hương tôi":
-        return <AlbumVN />;
-
-      default:
-        return null;
-    }
-  };
-
-  const albums = [
-    { title: "Việt Nam quê hương tôi", image: "/blog/blogpost1.jpg" },
-
+  const FILTERS = [
+    { id: "all", label: "Xem tất cả" },
+    { id: "dong-phuc-the-thao", label: "Đồng phục thể thao" },
+    { id: "dong-phuc-doanh-nghiep", label: "Đồng phục doanh nghiệp" },
   ];
 
-  return (
-    <DefaultLayout>
-      <div className="pt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Phần danh mục album */}
-          <div className="pt-12">
-            <div className="text-center ">
-              <h3 className="text-2xl font-semibold text-[#105d97] uppercase mb-2">
-                ALBUM ẢNH
-              </h3>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">
-                Feedback của khách hàng cho{" "}
-                <span className="text-[#105d97]">Đồng Phục Univi</span>
-              </h2>
-            </div>
-          </div>
-          {/* Hiển thị component album được chọn */}
-          <div className="">{renderAlbumComponent()}</div>
-        </div>
-      </div>
-    </DefaultLayout>
-  );
-};
+  const filterMap = {
+    all: () => true,
+    "dong-phuc-the-thao": (project) => project.category === "Đồng phục thể thao",
+    "dong-phuc-doanh-nghiep": (project) => project.category === "Đồng phục doanh nghiệp",
+  };
 
-export async function getServerSideProps() {
-  const meta = {
-    title: "Feedback Đồng Phục Univi",
+  const filteredProjects = useMemo(() => {
+    return projects.filter(filterMap[filter] || filterMap.all);
+  }, [filter]);
+
+  const defaultMeta = {
+    title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
     description:
-      "Khám phá bộ sưu tập ảnh feedback từ khách hàng của Đồng Phục Univi, thể hiện chất lượng và sự hài lòng với các sản phẩm đồng phục chuyên nghiệp.",
+      "Xem đánh giá từ khách hàng về đồng phục Univi: chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc. Gửi phản hồi của bạn ngay!",
     keywords:
-      "feedback đồng phục univi, đồng phục univi, hình ảnh khách hàng, đồng phục chất lượng",
+      "phản hồi đồng phục Univi, đánh giá khách hàng, đồng phục chất lượng, đồng phục công ty, thiết kế đồng phục",
+    author: "Đồng Phục Univi",
     robots: "index, follow",
-    canonical: "https://truongnq.vn/feedback-univi",
+    canonical: "https://dongphucunivi.com/feedback",
     og: {
-      title: "Feedback Đồng Phục Univi",
+      title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
       description:
-        "Khám phá bộ sưu tập ảnh feedback từ khách hàng của Đồng Phục Univi, thể hiện chất lượng và sự hài lòng.",
+        "Đọc đánh giá từ khách hàng về đồng phục Univi. Chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc.",
       type: "website",
-      url: "https://truongnq.vn/feedback-univi",
-      image: "https://truongnq.vn/images/customer1.webp",
+        image: "/baner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      siteName: "Trường NQ Web",
+      url: "https://dongphucunivi.com/feedback",
+      siteName: "Đồng Phục Univi",
+      locale: "vi_VN",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Feedback Đồng Phục Univi ",
+      title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
       description:
-        "Khám phá bộ sưu tập ảnh feedback từ khách hàng của Đồng Phục Univi.",
-      image: "https://truongnq.vn/images/customer1.webp",
+        "Khám phá phản hồi từ khách hàng về đồng phục Univi. Thiết kế miễn phí, giao hàng toàn quốc.",
+      image: "",
+      site: "@DongPhucUnivi",
     },
   };
 
-  return {
-    props: {
-      meta,
+  const safeMeta = {
+    ...defaultMeta,
+    ...meta,
+    og: { ...defaultMeta.og, ...meta.og },
+    twitter: { ...defaultMeta.twitter, ...meta.twitter },
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: safeMeta.title,
+    description: safeMeta.description,
+    url: safeMeta.canonical,
+    image: safeMeta.og.image,
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Trang chủ",
+          item: "https://dongphucunivi.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Phản hồi",
+          item: safeMeta.canonical,
+        },
+      ],
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: (projects || []).map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: project.title,
+        description: project.content,
+        image: project.image,
+      })),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Đồng Phục Univi",
+      logo: {
+        "@type": "ImageObject",
+        url: "/baner-univi.webp",
+      },
     },
   };
+
+  return (
+    <DefaultLayout2>
+      <div className=" min-h-screen">
+        <div className="relative min-h-[300px] w-full">
+          <Image
+            src={safeMeta.og.image}
+            alt="Dự Án Đồng Phục - Đồng Phục Univi"
+            fill={true}
+            style={{ objectFit: "cover" }}
+            className="opacity-70 brightness-75"
+            priority={true}
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end">
+            <div className="p-6 md:p-10">
+              <nav aria-label="Breadcrumb">
+                <p className="text-sm uppercase text-white">
+                  <Link href="/">
+                    <span className="hover:text-[#105d97] cursor-pointer">
+                      Trang chủ
+                    </span>
+                  </Link>{" "}
+                  / Feedback
+                </p>
+              </nav>
+              <h1 className="text-3xl md:text-4xl font-bold text-white mt-2">
+                Các dự án may đồng phục chuyên nghiệp Univi
+              </h1>
+              <p className="text-lg md:text-xl text-white mt-2">
+                Khám phá các dự án đồng phục thể thao, đồng phục doanh nghiệp từ
+               Univi. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="container mx-auto p-6">
+          <div className="flex space-x-4 mb-6">
+            {FILTERS.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => setFilter(id)}
+                className={`pb-1 transition-colors duration-300 ${
+                  filter === id
+                    ? "text-[#105d97] border-b-2 border-[#105d97]"
+                    : "text-gray-400"
+                }`}
+                aria-pressed={filter === id}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                />
+              ))
+            ) : (
+              <p role="alert" className="text-gray-400">
+                Không có dự án nào phù hợp.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </DefaultLayout2>
+  );
 }
-export default AlbumList;
+
+export async function getServerSideProps() {
+  try {
+    const meta = {
+      title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+      description:
+        "Xem đánh giá từ khách hàng về đồng phục Univi: chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc. Gửi phản hồi của bạn ngay!",
+      keywords:
+        "phản hồi đồng phục Univi, đánh giá khách hàng, đồng phục chất lượng, đồng phục công ty, thiết kế đồng phục",
+      author: "Đồng Phục Univi",
+      robots: "index, follow",
+      canonical: "https://dongphucunivi.com/feedback",
+      og: {
+        title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+        description:
+          "Đọc đánh giá từ khách hàng về đồng phục Univi. Chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc.",
+        type: "website",
+        image: "/baner-univi.webp",
+        imageWidth: "1200",
+        imageHeight: "630",
+        url: "https://dongphucunivi.com/feedback",
+        siteName: "Đồng Phục Univi",
+        locale: "vi_VN",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+        description:
+          "Khám phá phản hồi từ khách hàng về đồng phục Univi. Thiết kế miễn phí, giao hàng toàn quốc.",
+        image: "/baner-univi.webp",
+        site: "@DongPhucUnivi",
+      },
+    };
+
+    return {
+      props: {
+        meta,
+        structuredData: JSON.stringify(structuredData),
+      },
+    };
+  } catch (error) {
+    console.error("Error in getServerSideProps:", error);
+    return {
+      props: {
+        meta: {
+          title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+          description:
+            "Xem đánh giá từ khách hàng về đồng phục Univi. Chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc.",
+          keywords:
+            "phản hồi đồng phục Univi, đánh giá khách hàng, đồng phục chất lượng",
+          canonical: "https://dongphucunivi.com/feedback",
+          og: {
+            title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+            description:
+              "Đọc đánh giá từ khách hàng về đồng phục Univi.",
+            image: "/images/feedback-univi.jpg",
+          },
+          twitter: {
+            card: "summary_large_image",
+            title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
+            image: "/images/feedback-univi.jpg",
+          },
+        },
+      },
+    };
+  }
+}

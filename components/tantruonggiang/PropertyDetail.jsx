@@ -2,11 +2,45 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import { projects } from "../../components/tantruonggiang/data/projects";
-import ServiceSection from "../../components/tantruonggiang/ServiceSection";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+
+const SEO = ({ project }) => {
+  const title = `${project.title} | Phản hồi khách hàng - Đồng phục Univi`;
+  const description = `Xem chi tiết dự án ${project.title} cho ${project.customer} – ${project.description}`;
+  const image = project.image ?? "/images/dong-phuc-1.jpg";
+  const url = `https://dongphucunivi.com/feedback/${project.slug}`;
+
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta
+        name="keywords"
+        content={`đồng phục, ${project.category.toLowerCase()}, phản hồi khách hàng, Đồng phục Univi, ${project.title}, ${project.customer}`}
+      />
+      <meta name="author" content="Đồng phục Univi" />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href={url} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:url" content={url} />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="Đồng phục Univi" />
+      <meta property="og:locale" content="vi_VN" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+      <meta name="twitter:site" content="@DongPhucUnivi" />
+    </Head>
+  );
+};
 
 const PropertyDetail = ({ project }) => {
-  // Declare all hooks at the top, unconditionally
   const [currentImage, setCurrentImage] = useState(0);
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [formData, setFormData] = useState({
@@ -17,39 +51,56 @@ const PropertyDetail = ({ project }) => {
   });
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState({});
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
 
-  // Move useEffect above guard clause
   useEffect(() => {
     if (!project?.id) {
-      setFeaturedProjects([]); // Set empty array if no project
+      setFeaturedProjects([]);
       return;
     }
     const otherProjects = projects.filter((proj) => proj.id !== project.id);
-    const randomProjects = getRandomProjects(otherProjects,3);
+    const randomProjects = getRandomProjects(otherProjects, 3);
     setFeaturedProjects(randomProjects);
   }, [project?.id]);
 
-  // Guard clause after all hooks
   if (!project) {
     return <div className="text-center text-white py-10">Dự án không tồn tại</div>;
   }
 
-  // Handle images with fallback
-  const images = project.images?.length > 0 ? project.images : [project.image || "/fallback-image.jpg"];
+  const images = project.images?.length > 0 ? project.images : [project.image ?? "/fallback-image.jpg"];
+  const swipeThreshold = 50;
 
-  // Form validation
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const deltaX = touchEndX.current - touchStartX.current;
+    if (deltaX > swipeThreshold) {
+      handlePrevImage();
+    } else if (deltaX < -swipeThreshold) {
+      handleNextImage();
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Vui lòng nhập họ và tên";
     if (!formData.phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại";
-    if (!formData.email.trim()) newErrors.email = "Vui lòng nhập email";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email không hợp lệ";
-    if (!formData.message.trim()) newErrors.message = "Vui lòng nhập yêu cầu của bạn";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -58,7 +109,6 @@ const PropertyDetail = ({ project }) => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -71,11 +121,11 @@ const PropertyDetail = ({ project }) => {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error("Không thể kết nối với máy chủ");
+        throw new Error(data.message || "Không thể kết nối với máy chủ");
       }
 
-      const result = await response.json();
       setStatus("Gửi thông tin thành công!");
       setFormData({ name: "", email: "", phone: "", message: "" });
       setTimeout(() => setStatus(""), 3000);
@@ -84,13 +134,16 @@ const PropertyDetail = ({ project }) => {
     }
   };
 
-  // Get random projects for featured section
   const getRandomProjects = (projectsArray, count) => {
-    const shuffled = [...projectsArray].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
+    const result = [];
+    const available = [...projectsArray];
+    for (let i = 0; i < count && available.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * available.length);
+      result.push(available.splice(randomIndex, 1)[0]);
+    }
+    return result;
   };
 
-  // Image navigation
   const handlePrevImage = () => {
     setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
@@ -101,21 +154,16 @@ const PropertyDetail = ({ project }) => {
 
   return (
     <>
-      <Head>
-        <title>{project.title} | Nội thất GreenLa Home</title>
-        <meta
-          name="description"
-          content={`Khám phá dự án ${project.title} tại ${project.location} – thi công nội thất cao cấp cho ${project.customer}.`}
-        />
-      </Head>
-      <div className="bg-black text-white min-h-screen">
-        {/* Hero Section with Taller Image */}
-        <div className="relative md:h-[60vh] h-[40vh] w-full">
+      <SEO project={project} />
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <div className="relative md:h-[40vh] h-[30vh] w-full">
           <Image
-            src={project.image || "/fallback-image.jpg"}
+            src={project.image ?? "/images/dong-phuc-1.jpg"}
             alt={`Hình ảnh chính của ${project.title}`}
             layout="fill"
             objectFit="cover"
+            quality={100}
             className="opacity-70 brightness-75"
             priority
           />
@@ -123,19 +171,15 @@ const PropertyDetail = ({ project }) => {
             <div className="p-6 md:p-10">
               <p className="text-sm uppercase text-gray-400">
                 <Link href="/">
-                  <span className="hover:text-yellow-500 cursor-pointer">Trang chủ</span>
+                  <span className="hover:text-blue-400 cursor-pointer">Trang chủ</span>
                 </Link>{" "}
                 /{" "}
-                <Link href="/du-an">
-                  <span className="hover:text-yellow-500 cursor-pointer">Dự án</span>
+                <Link href="/feedback">
+                  <span className="hover:text-blue-400 cursor-pointer">Feedback</span>
                 </Link>{" "}
                 / {project.title}
               </p>
               <h1 className="text-3xl md:text-4xl font-bold text-white mt-2">{project.title}</h1>
-              <p className="text-lg md:text-xl text-white mt-2">
-                Thi công nội thất cao cấp tại {project.location} – {project.customer}
-              </p>
-              <p className="text-yellow-500 text-lg md:text-xl mt-1">– {project.customer}</p>
             </div>
           </div>
         </div>
@@ -144,88 +188,96 @@ const PropertyDetail = ({ project }) => {
         <div className="container mx-auto p-6">
           <div className="flex flex-col md:flex-row mt-4">
             <div className="md:w-3/4">
-              <div className="flex items-center justify-between">
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-500">★</span>
-                    <p>Khách hàng: {project.customer}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-500">🏠</span>
-                    <p>Phong cách: {project.style}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-500">📍</span>
-                    <p>Địa điểm: {project.location}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-500">📏</span>
-                    <p>Diện tích: {project.area}</p>
-                  </div>
-                </div>
-              </div>
-
               {/* Image Gallery */}
-              <div className="relative mt-4">
+              <div
+                className="relative mt-4"
+                style={{ aspectRatio: "3 / 2" }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
                 <Image
                   src={images[currentImage]}
                   alt={`Hình ảnh ${currentImage + 1} của ${project.title}`}
-                  width={800}
-                  height={400}
-                  className="w-full md:h-[70vh] h-80 object-fit rounded-lg"
-                  loading="lazy"
+                  layout="fill"
+                  objectFit="cover"
+                  quality={100}
+                  fetchpriority="high"
+                  className="rounded-lg"
                 />
                 <button
                   onClick={handlePrevImage}
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-yellow-500 text-black p-2 rounded-full"
-                  aria-label="Ảnh trước"
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white p-3 rounded-full hover:bg-blue-400"
+                  aria-label="Xem hình ảnh trước"
                 >
-                  ←
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
                 </button>
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-yellow-500 text-black p-2 rounded-full"
-                  aria-label="Ảnh tiếp theo"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white p-3 rounded-full hover:bg-blue-400"
+                  aria-label="Xem hình ảnh tiếp theo"
                 >
-                  →
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                   {images.map((_, index) => (
-                    <div
+                    <button
                       key={index}
-                      className={`w-3 h-3 rounded-full ${currentImage === index ? "bg-yellow-500" : "bg-gray-400"}`}
+                      className={`w-3 h-3 rounded-full ${currentImage === index ? "bg-[#105d97]" : "bg-gray-400"}`}
+                      onClick={() => setCurrentImage(index)}
+                      aria-label={`Xem hình ảnh ${index + 1}`}
                     />
                   ))}
                 </div>
               </div>
 
               {/* Thumbnails */}
-              <div className="grid grid-cols-4 md:grid-cols-4 md:gap-4 gap-2 mt-4">
+              <div className="grid grid-cols-4 md:grid-cols-5 md:gap-3 gap-2 mt-4">
                 {images.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image}
-                    alt={`Hình ảnh phụ ${index + 1} của ${project.title}`}
-                    width={200}
-                    height={100}
-                    className="w-full md:h-24 h-16 object-cover rounded-lg cursor-pointer"
-                    onClick={() => setCurrentImage(index)}
-                    loading="lazy"
-                  />
+                  <div key={index} className="relative w-full" style={{ aspectRatio: "3 / 2" }}>
+                    <Image
+                      src={image}
+                      alt={`Hình ảnh phụ ${index + 1} của ${project.title}`}
+                      layout="fill"
+                      objectFit="cover"
+                      quality={75}
+                      loading="lazy"
+                      className="rounded-lg cursor-pointer"
+                      onClick={() => setCurrentImage(index)}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="md:w-1/4 md:ml-6 mt-6 md:mt-0">
-                {/* Featured Projects */}
-                <div className="mt-6">
-                <h2 className="text-xl font-bold text-green-500 uppercase">Dự án tiêu biểu</h2>
+              {/* Featured Projects */}
+              <div className="mt-6">
+                <h2 className="text-base font-bold text-[#105d97] uppercase">Dự án đồng phục tiêu biểu</h2>
                 <div className="mt-4 space-y-4">
                   {featuredProjects.map((featuredProject) => (
                     <Link
                       key={featuredProject.id}
-                      href={`/du-an/${featuredProject.slug}`}
+                      href={`/feedback/${featuredProject.slug}`}
                       className="flex flex-col items-center hover:opacity-80 transition-opacity"
                     >
                       <Image
@@ -241,9 +293,10 @@ const PropertyDetail = ({ project }) => {
                   ))}
                 </div>
               </div>
+
               {/* Contact Form */}
-              <div className="bg-gray-800 p-6 rounded-lg">
-                <h2 className="text-xl font-bold text-yellow-500 mb-2">ĐẶT LỊCH TƯ VẤN</h2>
+              <div className="bg-gray-800 p-6 mt-4 rounded-lg">
+                <h2 className="text-base font-bold text-white mb-2">ĐẶT LỊCH TƯ VẤN</h2>
                 <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                   <div>
                     <input
@@ -253,25 +306,11 @@ const PropertyDetail = ({ project }) => {
                       onChange={handleChange}
                       placeholder="Họ và tên *"
                       aria-label="Họ và tên"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.name ? "border-red-500" : "border-none"}`}
+                      aria-required="true"
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? "border-red-500" : "border-none"
+                        }`}
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                    )}
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email *"
-                      aria-label="Email"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.email ? "border-red-500" : "border-none"}`}
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                    )}
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
                   <div>
                     <input
@@ -281,29 +320,42 @@ const PropertyDetail = ({ project }) => {
                       onChange={handleChange}
                       placeholder="Số điện thoại *"
                       aria-label="Số điện thoại"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.phone ? "border-red-500" : "border-none"}`}
+                      aria-required="true"
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.phone ? "border-red-500" : "border-none"
+                        }`}
                     />
-                    {errors.phone && (
-                      <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                    )}
+                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      aria-label="Email"
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-none"
+                        }`}
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  </div>
+
                   <div>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Yêu cầu của bạn"
-                      aria-label="Yêu cầu của bạn"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.message ? "border-red-500" : "border-none"}`}
+                      placeholder="Yêu cầu thiết kế đồng phục của bạn"
+                      aria-label="Yêu cầu thiết kế đồng phục"
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.message ? "border-red-500" : "border-none"
+                        }`}
                     />
-                    {errors.message && (
-                      <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-                    )}
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                   </div>
                   <button
                     type="submit"
                     disabled={status === "Đang gửi..."}
-                    className="w-full bg-yellow-500 text-black p-3 rounded-lg font-bold disabled:opacity-50"
+                    className="w-full bg-[#105d97] text-white p-3 rounded-lg font-bold disabled:opacity-50"
                   >
                     GỬI THÔNG TIN <span>→</span>
                   </button>
@@ -316,15 +368,25 @@ const PropertyDetail = ({ project }) => {
                   </p>
                 )}
               </div>
-
-          
             </div>
           </div>
         </div>
-        <ServiceSection />
       </div>
     </>
   );
+};
+
+PropertyDetail.propTypes = {
+  project: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    customer: PropTypes.string,
+    category: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default PropertyDetail;

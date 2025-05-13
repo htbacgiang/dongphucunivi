@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { FiSearch, FiGrid, FiList } from 'react-icons/fi';
+import BannerCarousel from '../../../components/univisport/BannerCarousel';
 
 // Hàm bỏ dấu tiếng Việt và chuẩn hóa slug
 const removeDiacritics = (str) => {
@@ -185,17 +186,7 @@ const DongPhucGym = ({ initialProducts }) => {
                 })}
               </ul>
             </div>
-            <div className="mt-4 hidden md:block">
-              <Link href="/khuyen-mai" className="block">
-                <Image
-                  src="/banner- ???.jpg"
-                  alt="Khuyến mãi Đồng phục Univi - Ưu đãi đặc biệt cho đồng phục thể thao"
-                  width={200}
-                  height={400}
-                  className="w-full h-auto object-cover rounded-lg"
-                />
-              </Link>
-            </div>
+          <BannerCarousel />
           </aside>
 
           <main className="w-full lg:w-4/5">

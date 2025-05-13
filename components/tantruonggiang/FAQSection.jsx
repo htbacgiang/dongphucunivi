@@ -62,13 +62,13 @@ export default function FAQSection() {
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
-                    <span className="text-lg font-semibold text-white hover:text-orange-500 transition-colors duration-200">
+                    <span className="text-lg font-semibold text-white hover:text-[#105d97] transition-colors duration-200">
                       {faq.question}
                     </span>
                     {openIndex === index ? (
-                      <FaChevronUp className="text-orange-500" />
+                      <FaChevronUp className="text-[#105d97]" />
                     ) : (
-                      <FaChevronDown className="text-orange-500" />
+                      <FaChevronDown className="text-[#105d97]" />
                     )}
                   </button>
                   {openIndex === index && (
@@ -93,14 +93,14 @@ export default function FAQSection() {
             <p className="text-gray-300 mb-4">
               <a
                 href="tel:+84975973397"
-                className="hover:text-orange-500 transition-colors duration-200"
+                className="hover:text-[#105d97] transition-colors duration-200"
               >
                 Hotline/Zalo: 0975.973.397
               </a>
               <br />
               <a
                 href="mailto:univisport@gmail.com"
-                className="hover:text-orange-500 transition-colors duration-200"
+                className="hover:text-[#105d97] transition-colors duration-200"
               >
                 Email: univisport@gmail.com
               </a>
@@ -127,7 +127,7 @@ export default function FAQSection() {
                 rel="noopener noreferrer"
                 aria-label="Theo dõi Đồng phục Univi trên Facebook"
               >
-                <FaFacebook className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
+                <FaFacebook className="text-white hover:text-[#105d97] text-xl transition-colors duration-200" />
               </a>
               <a
                 href="https://instagram.com/Dongphucunivi"
@@ -135,7 +135,7 @@ export default function FAQSection() {
                 rel="noopener noreferrer"
                 aria-label="Theo dõi Đồng phục Univi trên Instagram"
               >
-                <FaInstagram className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
+                <FaInstagram className="text-white hover:text-[#105d97] text-xl transition-colors duration-200" />
               </a>
               <a
                 href="https://youtube.com/Dongphucunivi"
@@ -143,7 +143,7 @@ export default function FAQSection() {
                 rel="noopener noreferrer"
                 aria-label="Theo dõi Đồng phục Univi trên YouTube"
               >
-                <FaYoutube className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
+                <FaYoutube className="text-white hover:text-[#105d97] text-xl transition-colors duration-200" />
               </a>
               <a
                 href="https://tiktok.com/@Dongphucunivi"
@@ -151,7 +151,7 @@ export default function FAQSection() {
                 rel="noopener noreferrer"
                 aria-label="Theo dõi Đồng phục Univi trên TikTok"
               >
-                <FaTiktok className="text-white hover:text-orange-500 text-xl transition-colors duration-200" />
+                <FaTiktok className="text-white hover:text-[#105d97] text-xl transition-colors duration-200" />
               </a>
             </div>
           </div>
