@@ -43,8 +43,7 @@ const CountdownTimer = () => {
           <h2 className="md:text-2xl text-lg font-bold text-[#105d97] uppercase">
             ĐỒNG PHỤC THỂ THAO          
             </h2>
-          <p className="text-base text-gray-500">
-            Liên hệ ngay với Đồng phục Univi để nhận ưu đãi hấp dẫn! </p>
+      
         </div>
     
       </div>

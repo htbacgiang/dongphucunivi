@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import Image from 'next/image';
 import { FaChevronDown, FaChevronUp, FaFacebook, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa';
 import Link from "next/link";
@@ -37,7 +38,21 @@ export default function FAQSection() {
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  useEffect(() => {
+    // Load the Facebook SDK dynamically
+    if (typeof window !== "undefined" && !window.FB) {
+      const script = document.createElement('script');
+      script.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
 
+      script.onload = () => {
+        // Initialize FB SDK after script is loaded
+        window.FB.XFBML.parse();
+      };
+    }
+  }, []);
   return (
     <section className="bg-gray-900 text-white py-12" aria-labelledby="faq-heading">
       <div className="container mx-auto px-6">
@@ -89,7 +104,7 @@ export default function FAQSection() {
             <p className="text-gray-300 mb-2">
               180 Thanh Bình, Mộ Lao, Hà Đông, Hà Nội
             </p>
-          
+
             <p className="text-gray-300 mb-4">
               <a
                 href="tel:+84975973397"
@@ -105,21 +120,11 @@ export default function FAQSection() {
                 Email: univisport@gmail.com
               </a>
             </p>
-            <div className="relative h-48 rounded-lg overflow-hidden mb-4">
-            <Link href="https://www.facebook.com/Dongphucunivi">
-            <Image
-                src="/baner-univi.webp"
-                alt="Showroom Đồng phục Univi"
-                layout="fill"
-                objectFit="cover"
-                className="brightness-75 transition-transform duration-300 hover:scale-105"
-                onError={() => console.error('Không tải được hình ảnh: /baner-univi.jpg')}
-              />
-            </Link>
+            <div className="mb-4">
+              <div class="fb-page" data-href="https://www.facebook.com/Dongphucunivi" data-tabs="" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Dongphucunivi" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Dongphucunivi">Đồng Phục Univi - Đồng Phục Thể Thao</a></blockquote></div>
             </div>
             <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-              Đồng phục Univi cam kết mang đến trang phục thể thao chất lượng cao với công nghệ UNI DRY, giúp bạn tự tin và thoải mái trong mọi hoạt động. Hãy theo dõi chúng tôi để cập nhật xu hướng mới nhất.
-            </p>
+              Theo dõi fanpage Facebook của Univi để cập nhật những thiết kế mới nhất            </p>
             <div className="flex space-x-4">
               <a
                 href="https://facebook.com/Dongphucunivi"

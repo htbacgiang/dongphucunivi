@@ -6,6 +6,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import { Plus_Jakarta_Sans } from 'next/font/google';
+
+const jakarta = Plus_Jakarta_Sans({
+  weight: ['400', '500', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 let persistor = persistStore(store);
 
@@ -36,7 +44,7 @@ function MyApp({ Component, pageProps: { session, meta, ...pageProps } }) {
       <SessionProvider session={session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <div className="font-arial">
+            <div className={jakarta.className}>
               <Toaster />
               <Component {...pageProps} />
             </div>

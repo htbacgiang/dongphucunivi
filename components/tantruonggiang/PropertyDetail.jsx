@@ -200,9 +200,10 @@ const PropertyDetail = ({ project }) => {
                   src={images[currentImage]}
                   alt={`Hình ảnh ${currentImage + 1} của ${project.title}`}
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain" // Giữ tỷ lệ gốc, không cắt ảnh
+                  objectPosition="center" // Căn giữa ảnh
                   quality={100}
-                  fetchpriority="high"
+                  fetchPriority="high" // Sửa lỗi chính tả từ fetchpriority
                   className="rounded-lg"
                 />
                 <button

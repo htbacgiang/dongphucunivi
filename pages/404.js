@@ -9,7 +9,7 @@ export default function Custom404() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/univi-background.png" // Đổi tên hình nền nếu cần
+          src="/images/banner-1.webp" // Đổi tên hình nền nếu cần
           alt="404 Background"
           layout="fill"
           objectFit="cover"
