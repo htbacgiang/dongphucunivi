@@ -8,11 +8,11 @@ const FeedbackSection = () => {
   const [itemsPerSlide, setItemsPerSlide] = useState(5);
 
   const feedbacks = [
-    { title: "Chuỗi phòng tập FITCAREE", image: "/khach-hang/chuoi-phong-tap-fitcaree.webp", link: "/feedback/chuoi-phong-tap-fitcaree" },
-    { title: "Chuỗi phòng tập GOFIT", image: "/khach-hang/chuoi-phong-tap-gofit.webp", link: "/feedback/chuoi-phong-tap-gofit" },
-    { title: "Chuỗi phòng tập THE ONE KickFit", image: "/khach-hang/chuoi-phong-tap-the-one-kickfit.webp", link: "/feedback/chuoi-phong-tap-the-one-kickfit" },
-    { title: "Chuỗi phòng tập ZENFIT", image: "/khach-hang/chuoi-phong-tap-zenfit.webp", link: "/feedback/chuoi-phong-tap-zenfit" },
-    { title: "Hệ thống phòng tập INSTRUCTOR JUMPING FITNESS", image: "/khach-hang/he-thong-phong-tap-instructor-jumping-fitness.webp", link: "/feedback/he-thong-phong-tap-instructor-jumping-fitness" },
+    { title: "Chuỗi phòng tập FITCAREE", image: "/khach-hang/fitcare/chuoi-phong-tap-fitcaree.webp", link: "/feedback/chuoi-phong-tap-fitcaree" },
+    { title: "Chuỗi phòng tập GOFIT", image: "/khach-hang/gofit/chuoi-phong-tap-gofit.webp", link: "/feedback/chuoi-phong-tap-gofit" },
+    { title: "Chuỗi phòng tập THE ONE KickFit", image: "/khach-hang/kickfit/chuoi-phong-tap-the-one-kickfit.webp", link: "/feedback/chuoi-phong-tap-the-one-kickfit" },
+    { title: "Chuỗi phòng tập ZENFIT", image: "/khach-hang/zenfit/chuoi-phong-tap-zenfit.webp", link: "/feedback/chuoi-phong-tap-zenfit" },
+    { title: "Hệ thống phòng tập INSTRUCTOR JUMPING FITNESS", image: "/khach-hang/jumpfestiva/he-thong-phong-tap-instructor-jumping-fitness.webp", link: "/feedback/he-thong-phong-tap-instructor-jumping-fitness" },
     { title: "LIFE UP ACADEMY", image: "/khach-hang/life-up-academy.webp", link: "/feedback/life-up-academy" },
     { title: "SUNWORD HẠ LONG", image: "/khach-hang/sunword-ha-long.webp", link: "/feedback/sunword-ha-long" },
   ];
