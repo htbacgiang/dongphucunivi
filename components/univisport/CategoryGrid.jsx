@@ -42,7 +42,7 @@ const categories = [
   },
   {
     name: "Pickleball",
-    slug: "/san-pham/pickleball", // Slug tùy chỉnh
+    slug: "/san-pham/dong-phuc-pickleball", // Slug tùy chỉnh
     image: "/product/dong-phuc-pickaball.webp",
     width: 300,
     height: 300,

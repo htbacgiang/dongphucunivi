@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Formik, Form } from "formik";
+import Head from "next/head"; // Thêm Head
 import * as Yup from "yup";
 import { useState } from "react";
 import { getCsrfToken, getSession } from "next-auth/react";
@@ -38,7 +39,7 @@ export default function Signup({ csrfToken, meta }) {
   const [status, setStatus] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://greenlahome.vn";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://dongphucunivi.com";
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -88,7 +89,7 @@ export default function Signup({ csrfToken, meta }) {
     "@type": "WebPage",
     "name": "Đăng ký tài khoản - GreenLa Home",
     "description": "Đăng ký tài khoản tại GreenLa Home để trải nghiệm dịch vụ nội thất cao cấp và nhận ưu đãi độc quyền.",
-    "url": "https://greenlahome.vn/dang-ky",
+    "url": "https://dongphucunivi.com/dang-ky",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -96,13 +97,13 @@ export default function Signup({ csrfToken, meta }) {
           "@type": "ListItem",
           "position": 1,
           "name": "Trang chủ",
-          "item": "https://greenlahome.vn/"
+          "item": "https://dongphucunivi.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Đăng ký",
-          "item": "https://greenlahome.vn/dang-ky"
+          "item": "https://dongphucunivi.com/dang-ky"
         }
       ]
     }
@@ -110,6 +111,28 @@ export default function Signup({ csrfToken, meta }) {
 
   return (
     <>
+      <Head>
+        <title>Đăng Ký Tài Khoản- Đồng Phục Univi</title>
+        <meta name="description" content="Đăng ký vào tài khoản Đồng Phục Univi để quản lý đơn hàng, xem lịch sử mua sắm và nhận ưu đãi độc quyền. Chất lượng cao, thiết kế chuyên nghiệp." />
+        <meta name="keywords" content="Đăng ký, Đồng Phục Univi, đồng phục thể thao, đồng phục gym, tài khoản khách hàng" />
+        <meta name="robots" content="noindex, nofollow" /> {/* Login page không cần SEO */}
+        <meta name="author" content="Đồng Phục Univi" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://dongphucunivi.com/auth/dang-ky" />
+        {/* Open Graph */}
+        <meta property="og:title" content="Đăng ký - Đồng Phục Univi" />
+        <meta property="og:description" content="Đăng ký để trải nghiệm dịch vụ của Đồng Phục Univi. Quản lý đơn hàng và nhận ưu đãi độc quyền." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://dongphucunivi.com/dang-ky" />
+        <meta property="og:image" content="https://dongphucunivi.com/images/banner-univi.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Đăng ký - Đồng Phục Univi" />
+        <meta name="twitter:description" content="Đăng ký để trải nghiệm dịch vụ của Đồng Phục Univi. Quản lý đơn hàng và nhận ưu đãi độc quyền." />
+        <meta name="twitter:image" content="https://dongphucunivi.com/images/banner-univi.webp" />
+      </Head>
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
@@ -124,8 +147,8 @@ export default function Signup({ csrfToken, meta }) {
       <section className="min-h-screen flex items-center justify-center relative">
         {/* Background Image with Next.js Image */}
         <Image
-          src="/banner3.jpg"
-          alt="Nội thất GreenLa Home - Đăng ký tài khoản"
+          src={"https://res.cloudinary.com/djbmybqt2/image/upload/v1747563139/banner-1_sf65rf.webp"}
+          alt="Đồng phục Univi - Đăng ký tài khoản"
           fill
           className="object-cover"
           priority
@@ -164,10 +187,10 @@ export default function Signup({ csrfToken, meta }) {
                 {/* Username */}
                 <div className="relative">
                   <label htmlFor="username" className="block text-white text-sm mb-2">
-                    Họ và tên <span className="text-orange-500">*</span>
+                    Họ và tên <span className="text-[#105d97]">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-[#105d97]">
                       <FaUser aria-hidden="true" />
                     </span>
                     <input
@@ -176,7 +199,7 @@ export default function Signup({ csrfToken, meta }) {
                       name="username"
                       value={values.username}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Tên người dùng"
                       required
                       aria-describedby={errors.username && touched.username ? "username-error" : null}
@@ -192,10 +215,10 @@ export default function Signup({ csrfToken, meta }) {
                 {/* Email */}
                 <div className="relative">
                   <label htmlFor="email" className="block text-white text-sm mb-2">
-                    Địa chỉ Email <span className="text-orange-500">*</span>
+                    Địa chỉ Email <span className="text-[#105d97]">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-[#105d97]">
                       <FaEnvelope aria-hidden="true" />
                     </span>
                     <input
@@ -204,7 +227,7 @@ export default function Signup({ csrfToken, meta }) {
                       name="email"
                       value={values.email}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Địa chỉ email"
                       required
                       aria-describedby={errors.email && touched.email ? "email-error" : null}
@@ -220,10 +243,10 @@ export default function Signup({ csrfToken, meta }) {
                 {/* Phone */}
                 <div className="relative">
                   <label htmlFor="phone" className="block text-white text-sm mb-2">
-                    Số điện thoại <span className="text-orange-500">*</span>
+                    Số điện thoại <span className="text-[#105d97]">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-[#105d97]">
                       <FaPhoneAlt aria-hidden="true" />
                     </span>
                     <input
@@ -232,7 +255,7 @@ export default function Signup({ csrfToken, meta }) {
                       name="phone"
                       value={values.phone}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Số điện thoại"
                       required
                       aria-describedby={errors.phone && touched.phone ? "phone-error" : null}
@@ -248,10 +271,10 @@ export default function Signup({ csrfToken, meta }) {
                 {/* Password */}
                 <div className="relative">
                   <label htmlFor="password" className="block text-white text-sm mb-2">
-                    Mật khẩu <span className="text-orange-500">*</span>
+                    Mật khẩu <span className="text-[#105d97]">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-[#105d97]">
                       <FaLock aria-hidden="true" />
                     </span>
                     <input
@@ -260,7 +283,7 @@ export default function Signup({ csrfToken, meta }) {
                       name="password"
                       value={values.password}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Mật khẩu"
                       required
                       aria-describedby={errors.password && touched.password ? "password-error" : null}
@@ -284,10 +307,10 @@ export default function Signup({ csrfToken, meta }) {
                 {/* Confirm Password */}
                 <div className="relative">
                   <label htmlFor="confirm_password" className="block text-white text-sm mb-2">
-                    Xác nhận mật khẩu <span className="text-orange-500">*</span>
+                    Xác nhận mật khẩu <span className="text-[#105d97]">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-[#105d97]">
                       <FaLock aria-hidden="true" />
                     </span>
                     <input
@@ -296,7 +319,7 @@ export default function Signup({ csrfToken, meta }) {
                       name="confirm_password"
                       value={values.confirm_password}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Xác nhận mật khẩu"
                       required
                       aria-describedby={errors.confirm_password && touched.confirm_password ? "confirm-password-error" : null}
@@ -326,16 +349,16 @@ export default function Signup({ csrfToken, meta }) {
                       name="agree"
                       checked={values.agree}
                       onChange={(e) => setFieldValue("agree", e.target.checked)}
-                      className="h-4 w-4 text-orange-500 bg-gray-800 border-gray-600 rounded focus:ring-orange-500"
+                      className="h-4 w-4 text-[#105d97] bg-gray-800 border-gray-600 rounded focus:ring-[#105d97]"
                       aria-describedby={errors.agree && touched.agree ? "agree-error" : null}
                     />
                     <label htmlFor="agree" className="ml-2 text-white text-sm">
                       Tôi đồng ý với{" "}
-                      <Link href="/terms" className="text-orange-500 hover:underline">
+                      <Link href="/terms" className="text-[#105d97] hover:underline">
                         Điều khoản
                       </Link>{" "}
                       &{" "}
-                      <Link href="/privacy" className="text-orange-500 hover:underline">
+                      <Link href="/privacy" className="text-[#105d97] hover:underline">
                         Chính sách bảo mật
                       </Link>
                       .
@@ -353,9 +376,8 @@ export default function Signup({ csrfToken, meta }) {
                   <div aria-live="polite" className="text-center">
                     {status && (
                       <p
-                        className={`${
-                          status.includes("thành công") ? "text-green-500" : "text-red-500"
-                        }`}
+                        className={`${status.includes("thành công") ? "text-green-500" : "text-red-500"
+                          }`}
                       >
                         {status}
                       </p>
@@ -369,7 +391,7 @@ export default function Signup({ csrfToken, meta }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-3 bg-[#105d97] text-white font-semibold rounded-lg hover:bg-[#105d97] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Đăng ký tài khoản"
                 >
                   Đăng ký
@@ -380,9 +402,9 @@ export default function Signup({ csrfToken, meta }) {
                   <span className="pr-2 text-white">Đã có tài khoản?</span>
                   <Link
                     href="/dang-nhap"
-                    className="text-blue-600 text-base hover:text-orange-500 transition-colors"
+                    className="text-blue-600 text-base hover:text-[#105d97] transition-colors"
                   >
-                    Đăng nhập
+                    Đăng ký
                   </Link>
                 </div>
               </Form>
@@ -411,30 +433,29 @@ export async function getServerSideProps(context) {
 
   const csrfToken = await getCsrfToken(context);
 
-  const meta = {
-    title: "Đăng ký tài khoản - GreenLa Home | Nội thất cao cấp",
-    description: "Đăng ký tài khoản tại GreenLa Home để trải nghiệm dịch vụ nội thất cao cấp và nhận ưu đãi độc quyền.",
-    keywords: "đăng ký, GreenLa Home, nội thất, tạo tài khoản, ưu đãi nội thất, thiết kế nội thất",
-    author: "GreenLa Home",
-    robots: "noindex, follow", // Signup page should not be indexed
-    canonical: "https://greenlahome.vn/dang-ky",
+ const meta = {
+    title: "Đăng ký tài khoản - Đồng Phục Univi",
+    description: "Đăng ký tài khoản tại Đồng Phục Univi để quản lý đơn hàng, xem lịch sử mua sắm và nhận ưu đãi độc quyền.",
+    keywords: "đăng ký, Đồng Phục Univi, đồng phục thể thao, đồng phục gym, tài khoản khách hàng",
+    author: "Đồng Phục Univi",
+    robots: "noindex, follow",
+    canonical: "https://dongphucunivi.com/dang-ky",
     og: {
-      title: "Đăng ký tài khoản - GreenLa Home | Nội thất cao cấp",
-      description: "Đăng ký tài khoản tại GreenLa Home để trải nghiệm dịch vụ nội thất cao cấp và nhận ưu đãi độc quyền.",
+      title: "Đăng ký tài khoản - Đồng Phục Univi",
+      description: "Đăng ký tài khoản tại Đồng Phục Univi để quản lý đơn hàng và nhận ưu đãi độc quyền.",
       type: "website",
-      image: "https://greenlahome.vn/images/banner3.jpg",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://greenlahome.vn/dang-ky",
-      siteName: "GreenLa Home",
+      url: "https://dongphucunivi.com/dang-ky",
+      siteName: "Đồng Phục Univi",
       locale: "vi_VN",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Đăng ký tài khoản - GreenLa Home | Nội thất cao cấp",
-      description: "Đăng ký tài khoản tại GreenLa Home để nhận ưu đãi độc quyền và dịch vụ nội thất cao cấp.",
-      image: "https://greenlahome.vn/images/banner3.jpg",
-      site: "@GreenLaHome", // Replace with actual Twitter handle if available
+      title: "Đăng ký tài khoản - Đồng Phục Univi",
+      description: "Đăng ký tài khoản tại Đồng Phục Univi để nhận ưu đãi độc quyền và dịch vụ cao cấp.",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
     },
   };
 

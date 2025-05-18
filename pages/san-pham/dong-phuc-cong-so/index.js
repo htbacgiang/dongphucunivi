@@ -6,6 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import productsData from '../../../components/univisport/data/products';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { FiSearch, FiGrid, FiList } from 'react-icons/fi';
+import BannerCarousel from '../../../components/univisport/BannerCarousel';
 
 // Hàm bỏ dấu tiếng Việt để tạo slug không dấu
 // Hàm bỏ dấu tiếng Việt và chuẩn hóa slug
@@ -21,11 +22,10 @@ const removeDiacritics = (str) => {
 };
 
 const categories = [
-  'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball', 
+  'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball',
   'Đồng phục Chạy bộ', 'Đồng phục Golf - Tennis', 'Đồng phục MMA',
-  'Đồng phục áo Polo','Đồng phục áo thun','Đồng phục công sở','Đồng phục Team building', 'Đồng phục Sự kiện'
+  'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
-
 const DongPhucGym = () => {
   const categorySlug = 'dong-phuc-cong-so';
   const displayCategory = categories.find(category =>
@@ -100,7 +100,7 @@ const DongPhucGym = () => {
     "@type": "CollectionPage",
     "name": `Đồng phục Gym - Đồng phục Univi`,
     "description": `Khám phá bộ sưu tập đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại, thoải mái và phù hợp cho mọi hoạt động thể thao.`,
-    "url": "https://univisport.vn/san-pham/dong-phuc-cong-so",
+    "url": "https://dongphucunivi.com/san-pham/dong-phuc-cong-so",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -108,19 +108,19 @@ const DongPhucGym = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Trang chủ",
-          "item": "https://univisport.vn/"
+          "item": "https://dongphucunivi.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Sản phẩm",
-          "item": "https://univisport.vn/san-pham"
+          "item": "https://dongphucunivi.com/san-pham"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Đồng phục Gym",
-          "item": "https://univisport.vn/san-pham/dong-phuc-cong-so"
+          "item": "https://dongphucunivi.com/san-pham/dong-phuc-cong-so"
         }
       ]
     },
@@ -130,7 +130,7 @@ const DongPhucGym = () => {
         "@type": "Product",
         "position": index + 1,
         "name": product.name,
-        "url": `https://univisport.vn/san-pham/${product.slug}`,
+        "url": `https://dongphucunivi.com/san-pham/${product.slug}`,
         "image": product.image,
         "description": product.description,
         "offers": {
@@ -151,7 +151,7 @@ const DongPhucGym = () => {
       <div className="relative w-full h-[30vh] md:h-[40vh]">
         <Image
           src="/images/banner-univi.png"
-          alt={`Đồng phục Gym Đồng phục Univi - Bộ sưu tập thể thao chất lượng cao`}
+          alt={"Đồng phục Pickleball"}
           fill
           className="brightness-50 object-cover"
           priority
@@ -170,7 +170,7 @@ const DongPhucGym = () => {
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             {displayCategory} - Đồng phục Univi
           </h1>
-          <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
+          <p className="text-sm md:text-lg mt-2 max-w-4xl text-gray-200">
             Khám phá bộ sưu tập {displayCategory.toLowerCase()} mới nhất từ Đồng phục Univi, thiết kế hiện đại và thoải mái.
           </p>
         </div>
@@ -196,9 +196,8 @@ const DongPhucGym = () => {
               </h2>
             </div>
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isCategoryOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-              } lg:max-h-full lg:opacity-100`}
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                } lg:max-h-full lg:opacity-100`}
             >
               <ul className="uppercase cursor-pointer font-semibold">
                 {categories.map((category, index) => {
@@ -206,14 +205,13 @@ const DongPhucGym = () => {
                     .toLowerCase()
                     .replace(/\s+/g, '-');
                   const isActive = categorySlugFromCategory === categorySlug;
-                  const isGymCategory = category === 'Đồng phục công sở';
+                  const isGymCategory = category === 'Đồng phục Pickleball';
 
                   return (
                     <li
                       key={index}
-                      className={`py-2 cursor-pointer flex justify-between items-center hover:translate-x-2 transition-all duration-300 ${
-                        isActive ? 'text-[#105d97] font-bold' : isGymCategory ? 'text-gray-700 hover:text-black' : 'text-gray-700 hover:text-black'
-                      }`}
+                      className={`py-2 cursor-pointer flex justify-between items-center hover:translate-x-2 transition-all duration-300 ${isActive ? 'text-[#105d97] font-bold' : isGymCategory ? 'text-gray-700 hover:text-black' : 'text-gray-700 hover:text-black'
+                        }`}
                     >
                       <Link
                         href={`/san-pham/${categorySlugFromCategory}`}
@@ -226,17 +224,8 @@ const DongPhucGym = () => {
                 })}
               </ul>
             </div>
-            <div className="mt-4 hidden md:block">
-              <Link href="/khuyen-mai" className="block">
-                <Image
-                  src="/banner-4.jpg"
-                  alt="Khuyến mãi Đồng phục Univi - Ưu đãi đặc biệt cho đồng phục thể thao"
-                  width={200}
-                  height={400}
-                  className="w-full h-auto object-cover rounded-lg"
-                />
-              </Link>
-            </div>
+            <BannerCarousel />
+
           </aside>
 
           <main className="w-full lg:w-4/5">
@@ -307,9 +296,8 @@ const DongPhucGym = () => {
                   </button>
                   <div
                     ref={searchRef}
-                    className={`absolute right-0 overflow-hidden transition-all duration-300 ease-in-out z-10 will-change-[width,opacity] ${
-                      isSearchOpen ? 'w-48 opacity-100' : 'w-0 opacity-0'
-                    }`}
+                    className={`absolute right-0 overflow-hidden transition-all duration-300 ease-in-out z-10 will-change-[width,opacity] ${isSearchOpen ? 'w-48 opacity-100' : 'w-0 opacity-0'
+                      }`}
                     style={{ transitionProperty: 'width, opacity' }}
                   >
                     <div className="relative">
@@ -380,28 +368,27 @@ export default DongPhucGym;
 
 export async function getServerSideProps() {
   const meta = {
-    title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-    description: "Khám phá bộ sưu tập đồng phục gym từ Đồng phục Univi với thiết kế hiện đại, chất liệu thoải mái, phù hợp cho mọi hoạt động thể thao.",
-    keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
+    title: "Đồng phục Công sở - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục công sở mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
     author: "Đồng phục Univi",
     robots: "index, follow",
-    canonical: "https://univisport.vn/san-pham/dong-phuc-cong-so",
+    canonical: "https://dongphucunivi.com/san-pham/dong-phuc-cong-so",
     og: {
-      title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-      description: "Khám phá đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại và thoải mái cho mọi hoạt động thể thao.",
+      title: "Đồng phục Công sở - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục công sở mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
       type: "website",
-      image: "https://univisport.vn/images/banner-univi.png",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://univisport.vn/san-pham/dong-phuc-cong-so",
+      url: "https://dongphucunivi.com/san-pham/dong-phuc-cong-so",
       siteName: "Đồng phục Univi",
       locale: "vi_VN",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-      description: "Khám phá đồng phục gym từ Đồng phục Univi với thiết kế hiện đại và chất liệu thoải mái.",
-      image: "https://univisport.vn/images/banner-univi.png",
+      title: "Đồng phục Công sở - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục công sở mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
       site: "@UniviSport",
     },
   };

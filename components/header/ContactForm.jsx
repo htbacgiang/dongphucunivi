@@ -5,7 +5,6 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
     message: "",
   });
   const [status, setStatus] = useState("");
@@ -19,12 +18,6 @@ export default function ContactForm() {
     if (!formData.phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại";
     else if (!/^\d{10,11}$/.test(formData.phone))
       newErrors.phone = "Số điện thoại phải có 10-11 chữ số";
-    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Email không hợp lệ";
-    if (!formData.message.trim()) newErrors.message = "Vui lòng nhập yêu cầu tư vấn";
-    else if (formData.message.length > 500)
-      newErrors.message = "Tin nhắn không được vượt quá 500 ký tự";
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -106,9 +99,6 @@ export default function ContactForm() {
               <p className="text-lg text-gray-600">
                 Đồng phục Univi mang đến trang phục thể thao chất lượng cao cho gym, yoga, chạy bộ và golf. Với công nghệ UNI DRY thoáng khí và chất liệu an toàn, không chứa formaldehyde hay Azo, chúng tôi đảm bảo sự thoải mái và hiệu suất tối ưu.
               </p>
-              <p>
-                Liên hệ ngay để nhận tư vấn về đồng phục thể thao phù hợp với bạn!
-              </p>
             </div>
 
             <div ref={rightSectionRef} className="opacity-0">
@@ -163,25 +153,6 @@ export default function ContactForm() {
                   </div>
                 </div>
                 <div>
-                
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email của bạn (tùy chọn)"
-                    aria-invalid={!!errors.email}
-                    aria-describedby={errors.email ? "email-error" : undefined}
-                    className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    }`}
-                  />
-                  {errors.email && (
-                    <p id="email-error" className="text-red-500 text-sm mt-1">
-                      {errors.email}
-                    </p>
-                  )}
                 </div>
                 <div>
                   <textarea

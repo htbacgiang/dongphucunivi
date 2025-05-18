@@ -157,7 +157,7 @@ export default function ThiCongNoiThatPage() {
           <li><strong>Thi công trọn gói:</strong> Để có được bảng chi phí không phát sinh, chúng tôi cần có bản thiết kế cụ thể, từ đó mới đưa ra dự toán cụ thể gửi quý khách hàng. GreenLa Home cam kết chi phí phát sinh dưới 10% nếu GreenLa Home thi công.</li>
         </ul>
         <p>
-          Khách hàng cần báo giá mẫu có thể liên hệ trực tiếp để chúng tôi gửi quý khách hàng báo giá những công trình chúng tôi đã triển khai. <strong>Hotline: 0962922332</strong>.
+          Khách hàng cần báo giá mẫu có thể liên hệ trực tiếp để chúng tôi gửi quý khách hàng báo giá những công trình chúng tôi đã triển khai. <strong>Hotline: 0834204999</strong>.
         </p>
         <p>
           Chi phí có thể thay đổi dựa trên diện tích, phong cách, và yêu cầu cá nhân hóa (tủ âm tường, đảo bếp…). GreenLa Home cam kết báo giá rõ ràng, không phát sinh ẩn. Liên hệ ngay để được khảo sát miễn phí và nhận báo giá chính xác cho ngôi nhà của bạn!
@@ -233,7 +233,7 @@ export default function ThiCongNoiThatPage() {
           Không, GreenLa Home cung cấp báo giá minh bạch ngay từ đầu, không phí ẩn. Cam kết chi phí phát sinh dưới 10%.
         </p>
         <p>
-          Liên hệ ngay <strong>0962922332</strong> để được tư vấn miễn phí và giải đáp chi tiết cho ngôi nhà của bạn!
+          Liên hệ ngay <strong>0834204999</strong> để được tư vấn miễn phí và giải đáp chi tiết cho ngôi nhà của bạn!
         </p>
 
         {/* Phần 10: Liên hệ */}
@@ -243,7 +243,7 @@ export default function ThiCongNoiThatPage() {
         </p>
         <ul>
           <li><strong>Website:</strong> <a href="http://www.greenlahome.vn">www.greenlahome.vn</a></li>
-          <li><strong>Hotline:</strong> 0962922332</li>
+          <li><strong>Hotline:</strong> 0834204999</li>
           <li><strong>Email:</strong> <a href="mailto:greenlahome@gmail.com">greenlahome@gmail.com</a></li>
           <li><strong>Showroom:</strong> Biệt thự số 10, khu C, KĐT Geleximco, Lê Trọng Tấn.</li>
         </ul>

@@ -87,7 +87,6 @@ export default async function handler(req, res) {
       try {
         const newContact = new Contact({
           name,
-          email,
           phone,
           message,
         });
@@ -96,14 +95,13 @@ export default async function handler(req, res) {
         const transporter = await createTransporter();
         const adminMailOptions = {
           from: process.env.SENDER_EMAIL_ADDRESS,
-          to: process.env.ADMIN_EMAIL || 'bacgiangeco2@gmail.com', // Dùng biến môi trường hoặc mặc định
+          to: process.env.ADMIN_EMAIL || 'Anhtuanunivi@gmail.com', // Dùng biến môi trường hoặc mặc định
           subject: 'Thông báo: Yêu cầu tư vấn mới từ website',
           html: `
             <h3>Xin chào,</h3>
             <p>Một khách hàng mới vừa đăng ký:</p>
             <ul>
               <li><strong>Họ và tên:</strong> ${name}</li>
-              <li><strong>Email:</strong> ${email}</li>
               <li><strong>Số điện thoại:</strong> ${phone}</li>
               <li><strong>Yêu cầu:</strong> ${message || 'Không có'}</li>
               <li><strong>Thời gian gửi:</strong> ${new Date(newContact.createdAt).toLocaleString('vi-VN')}</li>

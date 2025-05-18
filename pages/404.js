@@ -29,7 +29,7 @@ export default function Custom404() {
         </h2>
 
         {/* Description */}
-        <p className="text-gray-300 text-sm md:text-lg max-w-md mx-auto mb-6">
+        <p className="text-gray-300 text-sm md:text-lg max-w-2xl mx-auto mb-6">
           Rất tiếc, trang bạn đang tìm kiếm không tồn tại. Vui lòng kiểm tra lại
           URL hoặc quay về trang chủ để tiếp tục khám phá đồng phục Univi.
         </p>
@@ -37,7 +37,7 @@ export default function Custom404() {
         {/* Back to Home Button */}
         <Link href="/">
           <button
-            className="flex items-center bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors"
+            className="flex items-center bg-blue-500 uppercase font-bold text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors"
             aria-label="Quay về trang chủ"
           >
             Quay Về Trang Chủ

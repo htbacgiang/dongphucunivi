@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { FiSearch, FiGrid, FiList } from 'react-icons/fi';
+import BannerCarousel from '../../../components/univisport/BannerCarousel';
 
 // Hàm bỏ dấu tiếng Việt và chuẩn hóa slug
 const removeDiacritics = (str) => {
@@ -24,7 +25,7 @@ const categories = [
   'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
 
-const DongPhucYoga = ({ initialProducts }) => {
+const DongPhucGym = ({ initialProducts }) => {
   const categorySlug = 'dong-phuc-yoga-pilates';
   const displayCategory = categories.find(category =>
     removeDiacritics(category).toLowerCase().replace(/\s+/g, '-') === categorySlug
@@ -89,13 +90,13 @@ const DongPhucYoga = ({ initialProducts }) => {
     "@type": "CollectionPage",
     "name": `Đồng phục Gym - Đồng phục Univi`,
     "description": `Khám phá bộ sưu tập đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại, thoải mái và phù hợp cho mọi hoạt động thể thao.`,
-    "url": "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
+    "url": "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://univisport.vn/" },
-        { "@type": "ListItem", "position": 2, "name": "Sản phẩm", "item": "https://univisport.vn/san-pham" },
-        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://univisport.vn/san-pham/dong-phuc-yoga-pilates" }
+        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://dongphucunivi.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sản phẩm", "item": "https://dongphucunivi.com/san-pham" },
+        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates" }
       ]
     },
     "mainEntity": {
@@ -104,7 +105,7 @@ const DongPhucYoga = ({ initialProducts }) => {
         "@type": "Product",
         "position": index + 1,
         "name": product.name,
-        "url": `https://univisport.vn/san-pham/${product.slug}`,
+        "url": `https://dongphucunivi.com/san-pham/${product.slug}`,
         "image": product.image,
         "description": product.description,
         "offers": {
@@ -142,7 +143,7 @@ const DongPhucYoga = ({ initialProducts }) => {
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             {displayCategory} - Đồng phục Univi
           </h1>
-          <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
+          <p className="text-sm md:text-lg mt-2 max-w-4xl text-gray-200">
             Khám phá bộ sưu tập {displayCategory.toLowerCase()} mới nhất từ Đồng phục Univi, thiết kế hiện đại và thoải mái.
           </p>
         </div>
@@ -185,17 +186,7 @@ const DongPhucYoga = ({ initialProducts }) => {
                 })}
               </ul>
             </div>
-            <div className="mt-4 hidden md:block">
-              <Link href="/khuyen-mai" className="block">
-                <Image
-                  src="/banner- ???.jpg"
-                  alt="Khuyến mãi Đồng phục Univi - Ưu đãi đặc biệt cho đồng phục thể thao"
-                  width={200}
-                  height={400}
-                  className="w-full h-auto object-cover rounded-lg"
-                />
-              </Link>
-            </div>
+            <BannerCarousel />
           </aside>
 
           <main className="w-full lg:w-4/5">
@@ -344,7 +335,7 @@ export async function getServerSideProps() {
         id: product._id || null,
         name: product.name || 'Untitled Product',
         price: product.price || 0,
-        maxPrice :product.maxPrice || 0,
+        maxPrice: product.maxPrice || 0,
         discountPrice: product.discountPrice || null,
         description: product.description || '',
         image: toCloudinaryUrl(product.image),
@@ -363,28 +354,28 @@ export async function getServerSideProps() {
       : [];
 
     const meta = {
-      title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-      description: "Khám phá bộ sưu tập đồng phục gym từ Đồng phục Univi với thiết kế hiện đại, chất liệu thoải mái, phù hợp cho mọi hoạt động thể thao.",
+      title: "Đồng phục Yoga - Pilates- Đồng phục Univi",
+      description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
       keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
       author: "Đồng phục Univi",
       robots: "index, follow",
-      canonical: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
+      canonical: "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates",
       og: {
-        title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-        description: "Khám phá đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại và thoải mái cho mọi hoạt động thể thao.",
+        title: "Đồng phục Yoga - Pilates - Đồng phục Univi",
+        description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
         type: "website",
-        image: "https://univisport.vn/images/banner-univi.png",
+        image: "https://dongphucunivi.com/images/dong-phuc-yoga-pilates.jpg",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
+        url: "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates",
         siteName: "Đồng phục Univi",
         locale: "vi_VN"
       },
       twitter: {
         card: "summary_large_image",
-        title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-        description: "Khám phá đồng phục gym từ Đồng phục Univi với thiết kế hiện đại và chất liệu thoải mái.",
-        image: "https://univisport.vn/images/banner-univi.png",
+        title: "Đồng phục Yoga - Pilates- Đồng phục Univi",
+        description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
+        image: "https://dongphucunivi.com/images/dong-phuc-yoga-pilates.jpg",
         site: "@UniviSport"
       }
     };
@@ -401,28 +392,28 @@ export async function getServerSideProps() {
       props: {
         initialProducts: [],
         meta: {
-          title: "Đồng phục Gym - Đồng phục Univi",
-          description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
+          title: "Đồng phục Yoga - Pilates- Đồng phục Univi",
+          description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
           keywords: "đồng phục gym, Đồng phục Univi",
           author: "Đồng phục Univi",
           robots: "noindex, nofollow",
-          canonical: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
+          canonical: "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates",
           og: {
-            title: "Đồng phục Gym - Đồng phục Univi",
-            description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
+            title: "Đồng phục Yoga - Pilates- Đồng phục Univi",
+            description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
             type: "website",
-            image: "https://univisport.vn/images/banner-univi.png",
+            image: "https://dongphucunivi.com/images/dong-phuc-yoga-pilates.jpg",
             imageWidth: "1200",
             imageHeight: "630",
-            url: "https://univisport.vn/san-pham/dong-phuc-yoga-pilates",
+            url: "https://dongphucunivi.com/san-pham/dong-phuc-yoga-pilates",
             siteName: "Đồng phục Univi",
             locale: "vi_VN"
           },
           twitter: {
             card: "summary_large_image",
-            title: "Đồng phục Gym - Đồng phục Univi",
-            description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
-            image: "https://univisport.vn/images/banner-univi.png",
+            title: "Đồng phục Yoga - Pilates- Đồng phục Univi",
+            description: "Univi chuyên thiết kế đồng phục Yoga, Pilates cho studio, HLV. Chất liệu cao cấp, form dáng chuẩn, in thêu logo tinh tế. Nâng tầm chuyên nghiệp cho lớp học",
+            image: "https://dongphucunivi.com/images/dong-phuc-yoga-pilates.jpg",
             site: "@UniviSport"
           }
         }
@@ -431,4 +422,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default DongPhucYoga;
+export default DongPhucGym;

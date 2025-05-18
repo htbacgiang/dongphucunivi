@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Head from "next/head"; // Thêm Head
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useState, useEffect } from "react"; // Thêm useEffect
@@ -91,6 +92,28 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
 
   return (
     <>
+         <Head>
+        <title>Đăng Nhập - Đồng Phục Univi</title>
+        <meta name="description" content="Đăng nhập vào tài khoản Đồng Phục Univi để quản lý đơn hàng, xem lịch sử mua sắm và nhận ưu đãi độc quyền. Chất lượng cao, thiết kế chuyên nghiệp." />
+        <meta name="keywords" content="đăng nhập, Đồng Phục Univi, đồng phục thể thao, đồng phục gym, tài khoản khách hàng" />
+        <meta name="robots" content="noindex, nofollow" /> {/* Login page không cần SEO */}
+        <meta name="author" content="Đồng Phục Univi" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://dongphucunivi.vn/auth/dang-nhap" />
+        {/* Open Graph */}
+        <meta property="og:title" content="Đăng Nhập - Đồng Phục Univi" />
+        <meta property="og:description" content="Đăng nhập để trải nghiệm dịch vụ của Đồng Phục Univi. Quản lý đơn hàng và nhận ưu đãi độc quyền." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://dongphucunivi.com/dang-nhap" />
+        <meta property="og:image" content="https://dongphucunivi.com/images/banner-univi.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Đăng Nhập - Đồng Phục Univi" />
+        <meta name="twitter:description" content="Đăng nhập để trải nghiệm dịch vụ của Đồng Phục Univi. Quản lý đơn hàng và nhận ưu đãi độc quyền." />
+        <meta name="twitter:image" content="https://dongphucunivi.com/images/banner-univi.webp" />
+      </Head>
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -102,7 +125,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
       <section
         className="min-h-screen flex items-center justify-center relative"
         style={{
-          backgroundImage: `url('/banner3.jpg')`, // Thay bằng đường dẫn hình ảnh của bạn
+          backgroundImage: `url('https://res.cloudinary.com/djbmybqt2/image/upload/v1747563139/banner-1_sf65rf.webp')`, // Thay bằng đường dẫn hình ảnh của bạn
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -110,7 +133,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
       >
         <div className="absolute inset-0 bg-black opacity-70"></div>
 
-        <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-md relative z-10 opacity-90">
+        <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-md relative z-10 opacity-80">
           <h2 className="text-3xl font-bold text-white text-center mb-8">Đăng nhập</h2>
 
           <Formik
@@ -133,10 +156,10 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                 {/* Username or Email */}
                 <div className="relative">
                   <label className="block text-white text-sm mb-2">
-                    Địa chỉ Email <span className="text-orange-500">*</span>
+                    Địa chỉ Email <span className="text-red-500">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-white">
                       <FaUser />
                     </span>
                     <input
@@ -144,7 +167,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                       name="login_email"
                       value={login_email}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Username or email address"
                       required
                     />
@@ -154,10 +177,10 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                 {/* Password */}
                 <div className="relative">
                   <label className="block text-white text-sm mb-2">
-                    Mật khẩu <span className="text-orange-500">*</span>
+                    Mật khẩu <span className="text-red-500">*</span>
                   </label>
                   <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800 gap-4">
-                    <span className="pl-3 text-orange-500">
+                    <span className="pl-3 text-white">
                       <FaLock />
                     </span>
                     <input
@@ -165,7 +188,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                       name="login_password"
                       value={login_password}
                       onChange={handleChange}
-                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97]"
                       placeholder="Password"
                       required
                     />
@@ -186,7 +209,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                     name="remember_me"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 text-orange-500 bg-gray-800 border-gray-600 rounded focus:ring-orange-500"
+                    className="h-4 w-4 text-[#105d97] bg-gray-800 border-gray-600 rounded focus:ring-[#105d97]"
                   />
                   <label className="ml-2 text-white text-sm">Lưu mật khẩu</label>
                 </div>
@@ -206,7 +229,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                 <button
                   type="submit"
                   disabled={isSubmitting || status === "Đang đăng nhập..."}
-                  className="w-full py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-3 bg-[#105d97] text-white font-semibold rounded-lg hover:bg-[#105d97] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Đăng nhập
                 </button>
@@ -215,7 +238,7 @@ export default function Signin({ providers, callbackUrl, csrfToken }) {
                 <div className="text-center">
                   <Link
                     href="/auth/quen-mat-khau"
-                    className="text-white text-sm hover:text-orange-500 transition-colors"
+                    className="text-white text-sm hover:text-[#105d97] transition-colors"
                   >
                     Quên mật khẩu
                   </Link>

@@ -24,7 +24,7 @@ export default function AboutUs({ meta }) {
             <p className="text-sm uppercase text-gray-300 mb-2">
               <Link href="/" className="hover:underline">Trang chủ</Link>
               <span className="mx-2">/</span>
-              <Link href="/san-pham" className="hover:underline">Giới thiệu</Link>
+              <Link href="/gioi-thieu" className="hover:underline">Giới thiệu</Link>
             </p>
           </nav>
           <h1 className="text-2xl md:text-4xl font-bold text-white">
@@ -95,29 +95,28 @@ export default function AboutUs({ meta }) {
 export async function getServerSideProps() {
   const meta = {
     title: "Giới Thiệu Đồng Phục Univi - Chuyên May Đồng Phục Cao Cấp",
-    content:
-      "Đồng Phục Univi – Chuyên cung cấp đồng phục thể thao, công ty, công sở, áo polo, áo sơ mi cao cấp với hơn 8 năm kinh nghiệm.",
+    description: "Đồng Phục Univi – Chuyên cung cấp đồng phục thể thao, công ty, công sở, áo polo, áo sơ mi cao cấp với hơn 8 năm kinh nghiệm.",
     keywords:
-      "đồng phục, đồng phục thể thao, đồng phục công ty, áo polo, Univi",
+      "đồng phục, đồng phục thể thao, đồng phục công ty, áo polo, Đồng phục Univi",
     robots: "index, follow",
     author: "Đồng Phục Univi",
-    canonical: "https://univi.vn/gioi-thieu",
+    canonical: "https://dongphucunivi.com/gioi-thieu",
     og: {
-      title: "Đồng Phục Univi – Chuyên May Đồng Phục Cao Cấp",
-      description:
-        "Khám phá dịch vụ may đồng phục chất lượng cao từ Univi, phục vụ hàng trăm doanh nghiệp và tập đoàn lớn.",
+    title: "Giới Thiệu Đồng Phục Univi - Chuyên May Đồng Phục Cao Cấp",
+    description: "Đồng Phục Univi – Chuyên cung cấp đồng phục thể thao, công ty, công sở, áo polo, áo sơ mi cao cấp với hơn 8 năm kinh nghiệm.",
+
       type: "website",
-      image: "https://univi.vn/images/gioi-thieu-univi.jpg",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://univi.vn/gioi-thieu",
+      url: "https://dongphucunivi.com/gioi-thieu",
     },
     twitter: {
       card: "summary_large_image",
       title: "Giới Thiệu Đồng Phục Univi",
-      description:
-        "Univi – Chuyên cung cấp đồng phục thể thao, công ty, công sở với chất lượng cao và thiết kế chuyên nghiệp.",
-      image: "https://univi.vn/images/gioi-thieu-univi.jpg",
+    description: "Đồng Phục Univi – Chuyên cung cấp đồng phục thể thao, công ty, công sở, áo polo, áo sơ mi cao cấp với hơn 8 năm kinh nghiệm.",
+
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
     },
   };
 

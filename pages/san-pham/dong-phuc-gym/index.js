@@ -90,13 +90,13 @@ const DongPhucGym = ({ initialProducts }) => {
     "@type": "CollectionPage",
     "name": `Đồng phục Gym - Đồng phục Univi`,
     "description": `Khám phá bộ sưu tập đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại, thoải mái và phù hợp cho mọi hoạt động thể thao.`,
-    "url": "https://univisport.vn/san-pham/dong-phuc-gym",
+    "url": "https://dongphucunivi.com/san-pham/dong-phuc-gym",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://univisport.vn/" },
-        { "@type": "ListItem", "position": 2, "name": "Sản phẩm", "item": "https://univisport.vn/san-pham" },
-        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://univisport.vn/san-pham/dong-phuc-gym" }
+        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://dongphucunivi.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sản phẩm", "item": "https://dongphucunivi.com/san-pham" },
+        { "@type": "ListItem", "position": 3, "name": "Đồng phục Gym", "item": "https://dongphucunivi.com/san-pham/dong-phuc-gym" }
       ]
     },
     "mainEntity": {
@@ -105,7 +105,7 @@ const DongPhucGym = ({ initialProducts }) => {
         "@type": "Product",
         "position": index + 1,
         "name": product.name,
-        "url": `https://univisport.vn/san-pham/${product.slug}`,
+        "url": `https://dongphucunivi.com/san-pham/${product.slug}`,
         "image": product.image,
         "description": product.description,
         "offers": {
@@ -143,7 +143,7 @@ const DongPhucGym = ({ initialProducts }) => {
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             {displayCategory} - Đồng phục Univi
           </h1>
-          <p className="text-sm md:text-lg mt-2 max-w-2xl text-gray-200">
+          <p className="text-sm md:text-lg mt-2 max-w-4xl text-gray-200">
             Khám phá bộ sưu tập {displayCategory.toLowerCase()} mới nhất từ Đồng phục Univi, thiết kế hiện đại và thoải mái.
           </p>
         </div>
@@ -354,28 +354,28 @@ export async function getServerSideProps() {
       : [];
 
     const meta = {
-      title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-      description: "Khám phá bộ sưu tập đồng phục gym từ Đồng phục Univi với thiết kế hiện đại, chất liệu thoải mái, phù hợp cho mọi hoạt động thể thao.",
+      title: "Đồng phục Gym - Đồng phục Univi",
+      description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
       keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
       author: "Đồng phục Univi",
       robots: "index, follow",
-      canonical: "https://univisport.vn/san-pham/dong-phuc-gym",
+      canonical: "https://dongphucunivi.com/san-pham/dong-phuc-gym",
       og: {
-        title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-        description: "Khám phá đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại và thoải mái cho mọi hoạt động thể thao.",
+        title: "Đồng phục Gym - Đồng phục Univi",
+      description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
         type: "website",
-        image: "https://univisport.vn/images/banner-univi.png",
+        image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://univisport.vn/san-pham/dong-phuc-gym",
+        url: "https://dongphucunivi.com/san-pham/dong-phuc-gym",
         siteName: "Đồng phục Univi",
         locale: "vi_VN"
       },
       twitter: {
         card: "summary_large_image",
-        title: "Đồng phục Gym - Đồng phục Univi | Bộ sưu tập thể thao chất lượng",
-        description: "Khám phá đồng phục gym từ Đồng phục Univi với thiết kế hiện đại và chất liệu thoải mái.",
-        image: "https://univisport.vn/images/banner-univi.png",
+        title: "Đồng phục Gym - Đồng phục Univi",
+      description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
+        image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
         site: "@UniviSport"
       }
     };
@@ -397,15 +397,15 @@ export async function getServerSideProps() {
           keywords: "đồng phục gym, Đồng phục Univi",
           author: "Đồng phục Univi",
           robots: "noindex, nofollow",
-          canonical: "https://univisport.vn/san-pham/dong-phuc-gym",
+          canonical: "https://dongphucunivi.com/san-pham/dong-phuc-gym",
           og: {
             title: "Đồng phục Gym - Đồng phục Univi",
             description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
             type: "website",
-            image: "https://univisport.vn/images/banner-univi.png",
+            image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
             imageWidth: "1200",
             imageHeight: "630",
-            url: "https://univisport.vn/san-pham/dong-phuc-gym",
+            url: "https://dongphucunivi.com/san-pham/dong-phuc-gym",
             siteName: "Đồng phục Univi",
             locale: "vi_VN"
           },
@@ -413,7 +413,7 @@ export async function getServerSideProps() {
             card: "summary_large_image",
             title: "Đồng phục Gym - Đồng phục Univi",
             description: "Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.",
-            image: "https://univisport.vn/images/banner-univi.png",
+            image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
             site: "@UniviSport"
           }
         }

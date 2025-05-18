@@ -55,11 +55,6 @@ const PostCard: FC<Props> = ({
 
         {/* Content */}
         <div className="p-4 flex flex-col space-y-2">
-          {/* Category Tag */}
-          <span className="category-tag p-2 cursor-pointer text-green-800 text-lg bg-green-500 hover:bg-green-400 hover:text-white">
-            {category || "Uncategorized"}
-          </span>
-
           {/* Title */}
           <Link href={`/bai-viet/${slug}`}>
             <h2 className="text-xl font-bold text-white">

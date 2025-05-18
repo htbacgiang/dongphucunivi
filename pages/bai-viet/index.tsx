@@ -213,8 +213,8 @@ const Blogs: NextPage<Props> = ({ posts, meta }) => {
                           <button
                             onClick={() => handlePageChange(page as number)}
                             className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${currentPage === page
-                                ? "bg-[#105d97] text-white"
-                                : "bg-transparent text-black border border-gray-300 hover:bg-[#105d97] hover:text-white"
+                              ? "bg-[#105d97] text-white"
+                              : "bg-transparent text-black border border-gray-300 hover:bg-[#105d97] hover:text-white"
                               } transition-all duration-300`}
                             aria-label={`Go to page ${page}`}
                           >
@@ -254,7 +254,7 @@ const Blogs: NextPage<Props> = ({ posts, meta }) => {
               </div>
             )}
           </div>
-      
+
         </div>
       </div>
     </DefaultLayout2>
@@ -266,34 +266,34 @@ export const getServerSideProps: GetServerSideProps<{
   meta: MetaData;
 }> = async () => {
   try {
-     const posts = await readPostsFromDb(10000, 0);
+    const posts = await readPostsFromDb(10000, 0);
     const formattedPosts = formatPosts(posts);
     const meta: MetaData = {
       title: "Bài viết - Đồng phục Univi",
-      description:
-        "Cập nhật các bài viết mới nhất về đồng phục, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi.",
+      description:"Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
       keywords:
-        "đồng phục, thiết kế đồng phục, đồng phục công ty, đồng phục học sinh, Univi",
+        "đồng phục, thiết kế đồng phục, đồng phục công ty,đồng phục thể thao, đồng phục doanh nghiệp đồng phục học sinh, Univi",
       author: "Đồng phục Univi",
       robots: "index, follow",
-      canonical: "https://dongphucunivi.com/tin-tuc",
+      canonical: "https://dongphucunivi.com/bai-viet",
       og: {
         title: "Bài viết - Đồng phục Univi",
         description:
-          "Khám phá các bài viết về đồng phục và mẹo chọn đồng phục từ Đồng phục Univi để nâng tầm phong cách.",
+          "Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
         type: "website",
-        image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
+        image: "https://dongphucunivi.com/images/banner-1.webp",
         imageWidth: "1200",
         imageHeight: "630",
-        url: "https://dongphucunivi.com/tin-tuc",
+        url: "https://dongphucunivi.com/bai-viet",
         siteName: "Đồng phục Univi",
       },
       twitter: {
         card: "summary_large_image",
         title: "Bài viết - Đồng phục Univi",
         description:
-          "Tìm hiểu về đồng phục và các xu hướng thiết kế mới nhất từ Đồng phục Univi.",
-        image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
+          "Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
+        image: "https://dongphucunivi.com/images/banner-1.webp",
+
       },
     };
 
@@ -310,26 +310,28 @@ export const getServerSideProps: GetServerSideProps<{
         posts: [],
         meta: {
           title: "Bài viết - Đồng phục Univi",
-          description: "Đã xảy ra lỗi khi tải bài viết.",
+          description: "Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
           keywords: "đồng phục, Univi",
           author: "Đồng phục Univi",
           robots: "noindex",
-          canonical: "https://dongphucunivi.com/tin-tuc",
+          canonical: "https://dongphucunivi.com/bai-viet",
           og: {
             title: "Bài viết - Đồng phục Univi",
-            description: "Đã xảy ra lỗi khi tải bài viết.",
+            description: "Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
             type: "website",
-            image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
+            image: "https://dongphucunivi.com/images/banner-1.webp",
+
             imageWidth: "1200",
             imageHeight: "630",
-            url: "https://dongphucunivi.com/tin-tuc",
+            url: "https://dongphucunivi.com/bai-viet",
             siteName: "Đồng phục Univi",
           },
           twitter: {
             card: "summary_large_image",
             title: "Bài viết - Đồng phục Univi",
-            description: "Đã xảy ra lỗi khi tải bài viết.",
-            image: "https://dongphucunivi.com/images/dong-phuc-1.jpg",
+            description: "Cập nhật các bài viết mới nhất về đồng phục thể thao, đồng phục doanh nghiệp, xu hướng thiết kế và kinh nghiệm chọn đồng phục chất lượng từ Đồng phục Univi",
+            image: "https://dongphucunivi.com/images/banner-1.webp",
+
           },
         },
       },

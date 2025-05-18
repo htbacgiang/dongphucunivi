@@ -58,9 +58,9 @@ type Props = {
   meta: MetaData;
 };
 
-const host = "https://greenlahome.vn/goc-chuyen-gia";
+const host = "https://dongphucunivi.com/bai-viet";
 
-export const APP_NAME = "Nội thất Greenla Home";
+export const APP_NAME = "Đồng phục Univi";
 const SinglePost: NextPage<Props> = ({ post }) => {
   const { title, content, meta, slug, thumbnail, category, createdAt, recentPosts } = post;
 
@@ -158,7 +158,7 @@ export const getServerSideProps: GetServerSideProps<
       id: p._id.toString(),
       title: p.title,
       slug: p.slug,
-      category: p.category || "Uncategorized",
+      category: p.category || "Không xác định",
       thumbnail: p.thumbnail?.url,
     }));
 
@@ -167,23 +167,23 @@ export const getServerSideProps: GetServerSideProps<
     const metaData: MetaData = {
       title,
       description: meta,
-      author: "Nội thất Greenla Home",
-      canonical: `https://greenlahome.vn/goc-chuyen-gia/${slug}`,
+      author: "Đồng phục Univi",
+      canonical: `https://dongphucunivi.com/bai-viet/${slug}`,
       og: {
         title,
         description: meta,
         type: "website",
-        image: thumbnail?.url || "https://greenlahome.vn/images/noi-that-1.jpg",
+        image: thumbnail?.url || "https://dongphucunivi.com/images/banner-univi.webp",
         imageWidth: "1200",
         imageHeight: "630",
-        url: `https://greenlahome.vn/goc-chuyen-gia/${slug}`,
-        siteName: "Nội thất Greenla Home",
+        url: `https://dongphucunivi.com/bai-viet/${slug}`,
+        siteName: "Đồng phục Univi",
       },
       twitter: {
         card: "summary_large_image",
         title,
         description: meta,
-        image: thumbnail?.url || "https://greenlahome.vn/images/noi-that-1.jpg",
+        image: thumbnail?.url || "https://dongphucunivi.com/images/banner-univi.webp",
       },
     };
 

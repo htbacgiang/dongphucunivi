@@ -13,7 +13,7 @@ import parse from 'html-react-parser';
 import ContactForm from '../../../components/header/ContactForm';
 
 // Environment variables
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dongphucdongphucunivi.com';
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/dcgtt1jza/image/upload/v1/';
 
 // Breadcrumb Component
@@ -428,7 +428,6 @@ export default function ProductDetailPage({ product }) {
               </button>
             </div>
             <div className="bg-white">
-              <h2 id="contact-form-title" className="sr-only">Contact Form</h2>
               <ContactForm />
             </div>
           </div>
@@ -449,21 +448,21 @@ export async function getServerSideProps({ params }) {
     }
 
     const product = data.product;
-    const defaultImage = '/default-image.jpg';
+    const defaultImage = '/images/banner-1.webp';
     const productName = product?.name || 'Đồng phục Univi';
     const productDescription = product?.description ||
-      'Khám phá bộ sưu tập đồng phục Univi chất lượng cao, thiết kế hiện đại, phù hợp cho nhiều nhu cầu.';
+      'Khám phá bộ sưu tập đồng phục thể thao Univi chất lượng cao, thiết kế hiện đại, phù hợp cho nhiều nhu cầu.';
     const productImage = product?.colors?.[0]?.image || product?.image || defaultImage;
     const productCategory = product?.category || 'Đồng phục';
     const categorySlug = productCategory.toLowerCase().replace(/\s+/g, '-');
 
     const meta = {
       title: `${productName} – Đồng phục Univi`,
-      description: `${productDescription} Mua sắm tại Univi để nhận được sản phẩm chất lượng với giá tốt nhất.`,
+      description: `${productDescription} Khám phá bộ sưu tập đồng phục thể thao Univi chất lượng cao, thiết kế hiện đại, phù hợp cho nhiều nhu cầu.`,
       keywords: `${productName}, đồng phục Univi, ${productCategory}, đồng phục chất lượng, thiết kế đồng phục, Univi, thời trang đồng phục`,
       author: 'Univi',
       robots: 'index, follow',
-      canonical: `https://univi.com/product/${params.slug}`,
+      canonical: `https://dongphucunivi.com/san-pham/${params.slug}`,
       og: {
         title: `${productName} – Đồng phục Univi`,
         description: productDescription,
@@ -471,7 +470,7 @@ export async function getServerSideProps({ params }) {
         image: productImage,
         imageWidth: '1200',
         imageHeight: '630',
-        url: `https://univi.com/product/${params.slug}`,
+        url: `https://dongphucunivi.com/san-pham/${params.slug}`,
         siteName: 'Đồng phục Univi',
         locale: 'vi_VN',
       },
@@ -487,9 +486,9 @@ export async function getServerSideProps({ params }) {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: 'https://univi.com' },
-            { '@type': 'ListItem', position: 2, name: productCategory, item: `https://univi.com/category/${categorySlug}` },
-            { '@type': 'ListItem', position: 3, name: productName, item: `https://univi.com/product/${params.slug}` },
+            { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: 'https://dongphucunivi.com' },
+            { '@type': 'ListItem', position: 2, name: productCategory, item: `https://dongphucunivi.com/danh-muc/${categorySlug}` },
+            { '@type': 'ListItem', position: 3, name: productName, item: `https://dongphucunivi.com/danh-muc/${params.slug}` },
           ],
         },
         {

@@ -24,10 +24,10 @@ const removeDiacritics = (str) => {
 const categories = [
   'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball',
   'Đồng phục Chạy bộ', 'Đồng phục Golf - Tennis', 'Đồng phục MMA',
-  'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
+  'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục Lễ tân', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
 const DongPhucGym = () => {
-  const categorySlug = 'dong-phuc-golf-tennis';
+  const categorySlug = 'dong-phuc-le-tan';
   const displayCategory = categories.find(category =>
     removeDiacritics(category).toLowerCase().replace(/\s+/g, '-') === categorySlug
   ) || categorySlug.replace(/-/g, ' ').toUpperCase();
@@ -98,9 +98,9 @@ const DongPhucGym = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": `Đồng phục Gym - Đồng phục Univi`,
+    "name": `Đồng phục Thể thao - Đồng phục Univi`,
     "description": `Khám phá bộ sưu tập đồng phục gym chất lượng cao từ Đồng phục Univi, thiết kế hiện đại, thoải mái và phù hợp cho mọi hoạt động thể thao.`,
-    "url": "https://dongphucunivi.com/san-pham/dong-phuc-golf-tennis",
+    "url": "https://dongphucunivi.com/san-pham/dong-phuc-le-tan",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -120,7 +120,7 @@ const DongPhucGym = () => {
           "@type": "ListItem",
           "position": 3,
           "name": "Đồng phục Gym",
-          "item": "https://dongphucunivi.com/san-pham/dong-phuc-golf-tennis"
+          "item": "https://dongphucunivi.com/san-pham/dong-phuc-le-tan"
         }
       ]
     },
@@ -368,27 +368,26 @@ export default DongPhucGym;
 
 export async function getServerSideProps() {
   const meta = {
-    title: "Đồng phục Golf và Tennis  - Đồng phục Univi",
-    description: "Tự tin thể hiện trên sân Golf và Tennis với đồng phục cao cấp từ Đồng Phục Univi. Chúng tôi sử dụng chất liệu vải thể thao chuyên biệt, siêu nhẹ, có khả năng thấm hút mồ hôi vượt trội, khô nhanh và co giãn 4 chiều, giúp bạn thoải mái trong từng cú đánh. Thiết kế hiện đại, đảm bảo phong thái chuyên nghiệp và tối ưu vận động",
-    keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
+    title: "Đồng phục Lễ tân - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục Lễ tân mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
     author: "Đồng phục Univi",
     robots: "index, follow",
-    canonical: "https://dongphucunivi.com/san-pham/dong-phuc-golf-tennis",
+    canonical: "https://dongphucunivi.com/san-pham/dong-phuc-le-tan",
     og: {
-      title: "Đồng phục Golf và Tennis  - Đồng phục Univi",
-    description: "Tự tin thể hiện trên sân Golf và Tennis với đồng phục cao cấp từ Đồng Phục Univi. Chúng tôi sử dụng chất liệu vải thể thao chuyên biệt, siêu nhẹ, có khả năng thấm hút mồ hôi vượt trội, khô nhanh và co giãn 4 chiều, giúp bạn thoải mái trong từng cú đánh. Thiết kế hiện đại, đảm bảo phong thái chuyên nghiệp và tối ưu vận động",
+      title: "Đồng phục Lễ tân - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục Lễ tân mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
       type: "website",
       image: "https://dongphucunivi.com/images/banner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://dongphucunivi.com/san-pham/dong-phuc-golf-tennis",
+      url: "https://dongphucunivi.com/san-pham/dong-phuc-le-tan",
       siteName: "Đồng phục Univi",
       locale: "vi_VN",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Đồng phục Golf và Tennis - Đồng phục Univi",
-    description: "Tự tin thể hiện trên sân Golf và Tennis với đồng phục cao cấp từ Đồng Phục Univi. Chúng tôi sử dụng chất liệu vải thể thao chuyên biệt, siêu nhẹ, có khả năng thấm hút mồ hôi vượt trội, khô nhanh và co giãn 4 chiều, giúp bạn thoải mái trong từng cú đánh. Thiết kế hiện đại, đảm bảo phong thái chuyên nghiệp và tối ưu vận động",
+      title: "Đồng phục Lễ tân - Đồng phục Univi",
+    description: "Đồng Phục Univi không chỉ may đo đồng phục Lễ tân mà còn tư vấn giải pháp toàn diện phù hợp với từng ngành nghề và đặc thù doanh nghiệp. Từ việc chọn lựa chất liệu vải tối ưu, thiết kế kiểu dáng hiện đại, đến việc tinh chỉnh từng chi tiết theo yêu cầu, chúng tôi cam kết mang đến sự hài lòng và sản phẩm chất lượng vượt trội.",
       image: "https://dongphucunivi.com/images/banner-univi.webp",
       site: "@UniviSport",
     },

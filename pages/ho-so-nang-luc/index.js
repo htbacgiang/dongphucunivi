@@ -31,51 +31,51 @@ export default function Profile({ meta }) {
 
   return (
     <DefaultLayout >
-    <div className={styles.container} >
+      <div className={styles.container} >
         <div className="mt-[60px] sm:mt-[91px]">
 
         </div>
-      <main className={styles.main}>
-        <div className={styles.pdfContainer}>
-          {error && <p className={styles.error}>{error}</p>}
-          {!useFallback ? (
-            <Document
-              file="/ho-so-nang-luc.pdf"
-              onLoadSuccess={onDocumentLoadSuccess}
-              onLoadError={onDocumentLoadError}
-            >
-              {numPages &&
-                Array.from(new Array(numPages), (el, index) => (
-                  <Page
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                    renderTextLayer={true}
-                    renderAnnotationLayer={true}
-                    className={styles.pdfPage}
-                    scale={1.0} /* Adjust scale if needed */
-                    width={window.innerWidth} /* Match viewport width */
-                  />
-                ))}
-            </Document>
-          ) : (
-            <iframe
-              src="/ho-so-nang-luc.pdf#toolbar=0&view=FitH"
-              width="100%"
-              height="100%"
-              title="Hồ sơ năng lực Đồng phục Univi"
-              className={styles.pdfIframe}
-              style={{ border: 'none' }} /* Remove iframe border */
-            />
-          )}
-        </div>
-        {/* Optionally hide the download link */}
-        {/* <p>
+        <main className={styles.main}>
+          <div className={styles.pdfContainer}>
+            {error && <p className={styles.error}>{error}</p>}
+            {!useFallback ? (
+              <Document
+                file="/ho-so-nang-luc.pdf"
+                onLoadSuccess={onDocumentLoadSuccess}
+                onLoadError={onDocumentLoadError}
+              >
+                {numPages &&
+                  Array.from(new Array(numPages), (el, index) => (
+                    <Page
+                      key={`page_${index + 1}`}
+                      pageNumber={index + 1}
+                      renderTextLayer={true}
+                      renderAnnotationLayer={true}
+                      className={styles.pdfPage}
+                      scale={1.0} /* Adjust scale if needed */
+                      width={window.innerWidth} /* Match viewport width */
+                    />
+                  ))}
+              </Document>
+            ) : (
+              <iframe
+                src="/ho-so-nang-luc.pdf#toolbar=0&view=FitH"
+                width="100%"
+                height="100%"
+                title="Hồ sơ năng lực Đồng phục Univi"
+                className={styles.pdfIframe}
+                style={{ border: 'none' }} /* Remove iframe border */
+              />
+            )}
+          </div>
+          {/* Optionally hide the download link */}
+          {/* <p>
           <a href="/ho-so-nang-luc.pdf" download className={styles.downloadLink}>
             Tải hồ sơ năng lực (PDF)
           </a>
         </p> */}
-      </main>
-    </div>
+        </main>
+      </div>
     </DefaultLayout>
   );
 }
@@ -89,23 +89,24 @@ export async function getServerSideProps() {
       "hồ sơ năng lực Đồng phục Univi, quần áo thể thao, công nghệ Uni Dry, vải thể thao, trang phục gym, quần áo yoga, chạy bộ, vải an toàn cho da",
     robots: "index, follow",
     author: "Đồng phục Univi",
-    canonical: "https://univisport.vn/profile",
+    canonical: "https://dongphucunivi.com/ho-so-nang-luc",
+
     og: {
       title: "Đồng phục Univi – Quần áo thể thao chuyên dụng",
       description:
         "Khám phá hồ sơ năng lực Đồng phục Univi: quần áo thể thao với công nghệ Uni Dry, chất liệu cao cấp, an toàn cho da, phù hợp cho gym, yoga, chạy bộ.",
       type: "website",
-      image: "https://univisport.vn/images/univi-sport-profile.jpg",
+      image: "https://dongphucunivi.com/images/banner-1.webp",
       imageWidth: "1200",
       imageHeight: "630",
-      url: "https://univisport.vn/profile",
+      url: "https://dongphucunivi.com/ho-so-nang-luc",
     },
     twitter: {
       card: "summary_large_image",
       title: "Hồ sơ năng lực Đồng phục Univi - Quần áo thể thao chất lượng cao",
       description:
         "Đồng phục Univi – Thương hiệu quần áo thể thao với công nghệ Uni Dry, chất liệu vải chuyên dụng cho gym, yoga, chạy bộ và golf.",
-      image: "https://univisport.vn/images/univi-sport-profile.jpg",
+      image: "https://dongphucunivi.com/images/banner-1.webp",
     },
   };
 

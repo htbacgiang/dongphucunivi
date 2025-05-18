@@ -172,35 +172,32 @@ const ProductsPage = ({ relatedPosts }) => {
   );
 };
 
-
 export const getServerSideProps = async () => {
   try {
     const posts = await readPostsFromDb(3, 0);
     const formattedPosts = formatPosts(posts);
     const meta = {
-      title: "Thiết Kế Nội Thất Chung Cư Từ A-Z | Phong Cách, Diện Tích, Phong Thủy",
-      description: "Khám phá hướng dẫn chi tiết thiết kế nội thất chung cư từ A-Z, cập nhật xu hướng 2025! Tìm hiểu cách tối ưu không gian sống cho căn hộ từ 30-120m² với các phong cách hiện đại, tối giản, Scandinavian, Japandi, Indochine. Nhận gợi ý bố trí phòng khách, bếp, ngủ, ban công, kết hợp phong thủy hợp mệnh gia chủ để thu hút tài lộc, sức khỏe.",
-      content: "Khám phá hướng dẫn chi tiết thiết kế nội thất chung cư từ A-Z, cập nhật xu hướng 2025! Tìm hiểu cách tối ưu không gian sống cho căn hộ từ 30-120m² với các phong cách hiện đại, tối giản, Scandinavian, Japandi, Indochine. Nhận gợi ý bố trí phòng khách, bếp, ngủ, ban công, kết hợp phong thủy hợp mệnh gia chủ để thu hút tài lộc, sức khỏe.",
+      title: 'Sản Phẩm Đồng Phục Univi - Đồng Phục Thể Thao Chuyên Nghiệp',
+      description:'Đồng phục Univi: Giải pháp đồng phục thể thao & doanh nghiệp chuyên nghiệp. Thiết kế đẳng cấp, chất liệu cao cấp, form chuẩn, khẳng định vị thế thương hiệu. Hotline: 083 420 4999.',
       keywords:
-        "thi công nội thất trọn gói, nội thất chung cư, nội thất nhà phố, nội thất gỗ công nghiệp, GreenLa Home, thiết kế nội thất",
-      robots: "index, follow",
-      author: "GreenLa Home",
-      canonical: "https://greenlahome.vn/thiet-ke-noi-that-chung-cu",
+        'đồng phục thể thao, đồng phục gym, đồng phục PT, may đồng phục, Đồng Phục Univi',
+      robots: 'index, follow',
+      author: 'Đồng Phục Univi',
+      canonical: 'https://dongphucunivi.com/san-pham',
       og: {
-        title: "GreenLa Home – Thi Công Nội Thất Trọn Gói Chuyên Nghiệp",
-        description:
-          "Khám phá dịch vụ thi công nội thất trọn gói từ GreenLa Home: chung cư, nhà phố, gỗ công nghiệp chất lượng cao, tối ưu chi phí.",
-        type: "website",
-        image: "https://greenlahome.vn/images/thiet-ke-noi-that-chung-cu.png",
-        imageWidth: "1200",
-        imageHeight: "630",
-        url: "https://greenlahome.vn/thiet-ke-noi-that-chung-cu",
+        title: 'Sản Phẩm Đồng Phục Univi - Đồng Phục Thể Thao Chuyên Nghiệp',
+      description:'Đồng phục Univi: Giải pháp đồng phục thể thao & doanh nghiệp chuyên nghiệp. Thiết kế đẳng cấp, chất liệu cao cấp, form chuẩn, khẳng định vị thế thương hiệu. Hotline: 083 420 4999.',
+        type: 'website',
+        image: 'https://dongphucunivi.com/images/banner-univi.webp',
+        imageWidth: '1200',
+        imageHeight: '630',
+        url: 'https://dongphucunivi.com/san-pham',
       },
       twitter: {
-        card: "summary_large_image",
-        title: "Thiết Kế Nội Thất Chung Cư Từ A-Z | Phong Cách, Diện Tích, Phong Thủy",
-        description: "Khám phá hướng dẫn chi tiết thiết kế nội thất chung cư từ A-Z, cập nhật xu hướng 2025! Tìm hiểu cách tối ưu không gian sống cho căn hộ từ 30-120m² với các phong cách hiện đại, tối giản, Scandinavian, Japandi, Indochine. Nhận gợi ý bố trí phòng khách, bếp, ngủ, ban công, kết hợp phong thủy hợp mệnh gia chủ để thu hút tài lộc, sức khỏe.",
-        image: "https://greenlahome.vn/images/thiet-ke-noi-that-chung-cu.png",
+        card: 'summary_large_image',
+        title: 'Sản Phẩm Đồng Phục Univi - Đồng Phục Thể Thao Chuyên Nghiệp',
+      description:'Đồng phục Univi: Giải pháp đồng phục thể thao & doanh nghiệp chuyên nghiệp. Thiết kế đẳng cấp, chất liệu cao cấp, form chuẩn, khẳng định vị thế thương hiệu. Hotline: 083 420 4999.',
+        image: 'https://dongphucunivi.com/images/banner-univi.webp',
       },
     };
 
@@ -216,12 +213,13 @@ export const getServerSideProps = async () => {
       props: {
         relatedPosts: [],
         meta: {
-          title: "Thiết Kế Nội Thất Chung Cư Từ A-Z | Phong Cách, Diện Tích, Phong Thủy",
-          description: "Khám phá hướng dẫn chi tiết thiết kế nội thất chung cư từ A-Z, cập nhật xu hướng 2025! Tìm hiểu cách tối ưu không gian sống cho căn hộ từ 30-120m² với các phong cách hiện đại, tối giản, Scandinavian, Japandi, Indochine. Nhận gợi ý bố trí phòng khách, bếp, ngủ, ban công, kết hợp phong thủy hợp mệnh gia chủ để thu hút tài lộc, sức khỏe.",
-          canonical: "https://greenlahome.vn/thiet-ke-noi-that-chung-cu",
+          title: 'Sản Phẩm Đồng Phục Univi - Đồng Phục Thể Thao Chuyên Nghiệp',
+      description:'Đồng phục Univi: Giải pháp đồng phục thể thao & doanh nghiệp chuyên nghiệp. Thiết kế đẳng cấp, chất liệu cao cấp, form chuẩn, khẳng định vị thế thương hiệu. Hotline: 083 420 4999.',
+          canonical: 'https://dongphucunivi.com/san-pham',
         },
       },
     };
   }
 };
+
 export default ProductsPage;

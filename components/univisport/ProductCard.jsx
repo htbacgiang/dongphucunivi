@@ -27,7 +27,7 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
           <div className="w-2/3 p-4">
             <Link href={`/san-pham/${slug}`} legacyBehavior>
               <a>
-                <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">{name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800 line-clamp-1 mt-2">{name}</h3>
                 <p className="text-gray-600 text-sm mt-2 line-clamp-2 ">
                   {description || 'Không có mô tả sản phẩm.'}
                 </p>
@@ -38,12 +38,13 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
               <div className="mt-1 font-semibold flex items-center">
                 {price > 0 && maxPrice > 0 ? (
                   <span className="text-lg text-[#105d97]">
-                    Giá từ {price.toLocaleString('vi-VN')}đ đến {maxPrice.toLocaleString('vi-VN')}đ
+                    <span className="text-lg text-[#105d97]">{price.toLocaleString('vi-VN')}đ</span> {" "}
+                    <span className="text-sm text-gray-400 line-through">{maxPrice.toLocaleString('vi-VN')}đ</span>
                   </span>
                 ) : (
                   <span className="text-lg text-[#105d97]">
-                    Giá từ {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
-                    
+                    {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
+
                   </span>
                 )}
               </div>
@@ -84,7 +85,7 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
                 </div>
               </div>
               <div className="px-4">
-                <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">{name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800 line-clamp-1 mt-2">{name}</h3>
               </div>
             </a>
           </Link>
@@ -93,11 +94,12 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
             <div className="mt-1 font-semibold flex items-center px-4">
               {price > 0 && maxPrice > 0 ? (
                 <span className="text-lg text-[#105d97]">
-                  Giá từ {price.toLocaleString('vi-VN')}đ đến {maxPrice.toLocaleString('vi-VN')}đ
+                  <span className="text-lg text-[#105d97]">{price.toLocaleString('vi-VN')}đ</span> {" "}
+                  <span className="text-sm text-gray-400 line-through">{maxPrice.toLocaleString('vi-VN')}đ</span>
                 </span>
               ) : (
                 <span className="text-lg text-[#105d97]">
-                  Giá từ {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
+                  {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
                 </span>
               )}
             </div>

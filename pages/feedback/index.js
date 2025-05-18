@@ -37,9 +37,9 @@ export default function DuAn({ meta = {} }) {
     og: {
       title: "Phản Hồi Khách Hàng – Đồng Phục Univi",
       description:
-        "Đọc đánh giá từ khách hàng về đồng phục Univi. Chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc.",
+      "Xem đánh giá từ khách hàng về đồng phục Univi: chất lượng cao, thiết kế miễn phí, giao hàng toàn quốc. Gửi phản hồi của bạn ngay!",
       type: "website",
-        image: "/baner-univi.webp",
+      image: "https://dongphucunivi.com/images/banner-univi.webp",
       imageWidth: "1200",
       imageHeight: "630",
       url: "https://dongphucunivi.com/feedback",
@@ -136,7 +136,7 @@ export default function DuAn({ meta = {} }) {
               </h1>
               <p className="text-lg md:text-xl text-white mt-2">
                 Khám phá các dự án đồng phục thể thao, đồng phục doanh nghiệp từ
-               Univi. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.
+                Univi. Thiết kế miễn phí, may đo tận nơi, giao hàng toàn quốc.
               </p>
             </div>
           </div>
@@ -148,11 +148,10 @@ export default function DuAn({ meta = {} }) {
               <button
                 key={id}
                 onClick={() => setFilter(id)}
-                className={`pb-1 transition-colors duration-300 ${
-                  filter === id
+                className={`pb-1 transition-colors duration-300 ${filter === id
                     ? "text-[#105d97] border-b-2 border-[#105d97]"
                     : "text-gray-400"
-                }`}
+                  }`}
                 aria-pressed={filter === id}
               >
                 {label}

@@ -5,47 +5,12 @@ import { projects } from "../../components/tantruonggiang/data/projects";
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-const SEO = ({ project }) => {
-  const title = `${project.title} | Phản hồi khách hàng - Đồng phục Univi`;
-  const description = `Xem chi tiết dự án ${project.title} cho ${project.customer} – ${project.description}`;
-  const image = project.image ?? "/images/dong-phuc-1.jpg";
-  const url = `https://dongphucunivi.com/feedback/${project.slug}`;
-
-  return (
-    <Head>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta
-        name="keywords"
-        content={`đồng phục, ${project.category.toLowerCase()}, phản hồi khách hàng, Đồng phục Univi, ${project.title}, ${project.customer}`}
-      />
-      <meta name="author" content="Đồng phục Univi" />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={url} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:url" content={url} />
-      <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="Đồng phục Univi" />
-      <meta property="og:locale" content="vi_VN" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:site" content="@DongPhucUnivi" />
-    </Head>
-  );
-};
 
 const PropertyDetail = ({ project }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phone: "",
     message: "",
   });
@@ -70,6 +35,10 @@ const PropertyDetail = ({ project }) => {
 
   const images = project.images?.length > 0 ? project.images : [project.image ?? "/fallback-image.jpg"];
   const swipeThreshold = 50;
+  const maxDots = 5; // Maximum number of dots
+  const totalDots = Math.min(maxDots, images.length); // Cap at 5 dots
+  // Calculate which dot should be active based on currentImage
+  const activeDot = Math.floor((currentImage / images.length) * totalDots);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -127,7 +96,7 @@ const PropertyDetail = ({ project }) => {
       }
 
       setStatus("Gửi thông tin thành công!");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", phone: "", message: "" });
       setTimeout(() => setStatus(""), 3000);
     } catch (error) {
       setStatus(`Lỗi: ${error.message || "Không thể gửi thông tin. Vui lòng thử lại sau."}`);
@@ -152,9 +121,15 @@ const PropertyDetail = ({ project }) => {
     setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  // Handle dot click: Jump to the first image of the corresponding segment
+  const handleDotClick = (dotIndex) => {
+    const imagesPerDot = Math.ceil(images.length / totalDots);
+    const targetImage = dotIndex * imagesPerDot;
+    setCurrentImage(Math.min(targetImage, images.length - 1));
+  };
+
   return (
     <>
-      <SEO project={project} />
       <div className="min-h-screen">
         {/* Hero Section */}
         <div className="relative md:h-[40vh] h-[30vh] w-full">
@@ -200,15 +175,14 @@ const PropertyDetail = ({ project }) => {
                   src={images[currentImage]}
                   alt={`Hình ảnh ${currentImage + 1} của ${project.title}`}
                   layout="fill"
-                  objectFit="contain" // Giữ tỷ lệ gốc, không cắt ảnh
-                  objectPosition="center" // Căn giữa ảnh
+                  objectFit="contain"
+                  objectPosition="center"
                   quality={100}
-                  fetchPriority="high" // Sửa lỗi chính tả từ fetchpriority
                   className="rounded-lg"
                 />
                 <button
                   onClick={handlePrevImage}
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white p-3 rounded-full hover:bg-blue-400"
+                  className="absolute opacity-80 left-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white md:p-3 p-1 rounded-full hover:bg-blue-400"
                   aria-label="Xem hình ảnh trước"
                 >
                   <svg
@@ -224,7 +198,7 @@ const PropertyDetail = ({ project }) => {
                 </button>
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white p-3 rounded-full hover:bg-blue-400"
+                  className="absolute opacity-80 right-2 top-1/2 transform -translate-y-1/2 bg-[#105d97] text-white md:p-3 p-1 rounded-full hover:bg-blue-400"
                   aria-label="Xem hình ảnh tiếp theo"
                 >
                   <svg
@@ -239,12 +213,12 @@ const PropertyDetail = ({ project }) => {
                   </svg>
                 </button>
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {images.map((_, index) => (
+                  {Array.from({ length: totalDots }).map((_, index) => (
                     <button
                       key={index}
-                      className={`w-3 h-3 rounded-full ${currentImage === index ? "bg-[#105d97]" : "bg-gray-400"}`}
-                      onClick={() => setCurrentImage(index)}
-                      aria-label={`Xem hình ảnh ${index + 1}`}
+                      className={`w-3 h-3 rounded-full ${activeDot === index ? "bg-[#105d97]" : "bg-gray-400"}`}
+                      onClick={() => handleDotClick(index)}
+                      aria-label={`Xem nhóm hình ảnh ${index + 1}`}
                     />
                   ))}
                 </div>
@@ -308,8 +282,9 @@ const PropertyDetail = ({ project }) => {
                       placeholder="Họ và tên *"
                       aria-label="Họ và tên"
                       aria-required="true"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? "border-red-500" : "border-none"
-                        }`}
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.name ? "border-red-500" : "border-none"
+                      }`}
                     />
                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
@@ -322,25 +297,12 @@ const PropertyDetail = ({ project }) => {
                       placeholder="Số điện thoại *"
                       aria-label="Số điện thoại"
                       aria-required="true"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.phone ? "border-red-500" : "border-none"
-                        }`}
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.phone ? "border-red-500" : "border-none"
+                      }`}
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email"
-                      aria-label="Email"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-none"
-                        }`}
-                    />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                  </div>
-
                   <div>
                     <textarea
                       name="message"
@@ -348,8 +310,9 @@ const PropertyDetail = ({ project }) => {
                       onChange={handleChange}
                       placeholder="Yêu cầu thiết kế đồng phục của bạn"
                       aria-label="Yêu cầu thiết kế đồng phục"
-                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.message ? "border-red-500" : "border-none"
-                        }`}
+                      className={`w-full p-3 bg-gray-700 text-white placeholder-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.message ? "border-red-500" : "border-none"
+                      }`}
                     />
                     {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                   </div>

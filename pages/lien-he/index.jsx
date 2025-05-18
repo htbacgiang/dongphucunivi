@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { MdLocationOn, MdEmail, MdPhone } from "react-icons/md";
-import DefaultLayout2 from "../../components/layout/DefaultLayout2";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 import ContactForm from "../../components/header/ContactForm";
 
 const contactInfo = {
@@ -14,10 +14,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://dongphucunivi.com"
 export default function ContactPage({ meta }) {
   return (
     <>
-      <DefaultLayout2>
-        <section className="min-h-screen py-10 bg-black">
+      <DefaultLayout>
+        <section className="min-h-screen py-10 ">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-bold text-white text-center mb-10 mt-10 md:mt-20">
+            <h1 className="text-4xl font-bold text-black text-center mb-10 mt-10 md:mt-20">
               Liên Hệ
             </h1>
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center items-center mb-12">
@@ -26,7 +26,7 @@ export default function ContactPage({ meta }) {
                 role="region"
                 aria-label="Thông tin địa chỉ"
               >
-                <div className="text-pink-500 text-4xl mb-4 flex justify-center">
+                <div className="text-white text-4xl mb-4 flex justify-center">
                   <MdLocationOn aria-hidden="true" />
                 </div>
                 <h3 className="text-white text-xl font-semibold mb-2">Địa chỉ</h3>
@@ -37,14 +37,14 @@ export default function ContactPage({ meta }) {
                 role="region"
                 aria-label="Thông tin email"
               >
-                <div className="text-pink-500 text-4xl mb-4 flex justify-center">
+                <div className="text-white text-4xl mb-4 flex justify-center">
                   <MdEmail aria-hidden="true" />
                 </div>
                 <h3 className="text-white text-xl font-semibold mb-2">E-Mail</h3>
                 <p className="text-gray-400">
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="hover:text-pink-500 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className=" transition-colors focus:outline-none focus:ring-2 "
                     aria-label={`Gửi email đến ${contactInfo.email}`}
                   >
                     {contactInfo.email}
@@ -56,14 +56,14 @@ export default function ContactPage({ meta }) {
                 role="region"
                 aria-label="Thông tin số điện thoại"
               >
-                <div className="text-pink-500 text-4xl mb-4 flex justify-center">
+                <div className="text-white text-4xl mb-4 flex justify-center">
                   <MdPhone aria-hidden="true" />
                 </div>
                 <h3 className="text-white text-xl font-semibold mb-2">Số điện thoại</h3>
                 <p className="text-gray-400">
                   <a
                     href={`tel:${contactInfo.phone}`}
-                    className="hover:text-pink-500 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className=" transition-colors focus:outline-none focus:ring-2"
                     aria-label={`Gọi số ${contactInfo.phone}`}
                   >
                     {contactInfo.phone}
@@ -74,7 +74,7 @@ export default function ContactPage({ meta }) {
             <ContactForm />
           </div>
         </section>
-      </DefaultLayout2>
+      </DefaultLayout>
     </>
   );
 }
@@ -88,16 +88,16 @@ export async function getServerSideProps() {
       "liên hệ, Đồng phục Univi, địa chỉ, email, số điện thoại, đồng phục, may đồng phục",
     author: "Đồng phục Univi",
     robots: "index, follow",
-    canonical: `${BASE_URL}/lien-he`,
+    canonical: 'https://dongphucunivi.com/lien-he',
     og: {
       title: "Liên Hệ – Đồng phục Univi",
       description:
         "Liên hệ với Đồng phục Univi qua địa chỉ, email và số điện thoại để được tư vấn về may đồng phục chất lượng cao.",
       type: "website",
-      image: `${BASE_URL}/images/banner4.png`,
+      image:'https://dongphucunivi.com/images/banner-univi.webp',
       imageWidth: "1200",
       imageHeight: "630",
-      url: `${BASE_URL}/lien-he`,
+      url: 'https://dongphucunivi.com/lien-he',
       siteName: "Đồng phục Univi",
       locale: "vi_VN",
     },
@@ -106,7 +106,7 @@ export async function getServerSideProps() {
       title: "Liên Hệ – Đồng phục Univi",
       description:
         "Liên hệ với Đồng phục Univi để được tư vấn về may đồng phục chất lượng cao.",
-      image: `${BASE_URL}/images/banner4.png`,
+      image: 'https://dongphucunivi.com/images/banner-univi.webp',
       site: "@DongphucUnivi", // Updated to reflect brand
     },
   };

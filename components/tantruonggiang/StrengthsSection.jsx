@@ -5,7 +5,7 @@ export default function ServicesSection() {
     {
       imageSrc: "/images/chat-lieu-vai.webp",
       alt: "CHẤT LIỆU & CÔNG NGHỆ VẢI",
-      title: "CCHẤT LIỆU & CÔNG NGHỆ VẢI",
+      title: "CHẤT LIỆU & CÔNG NGHỆ VẢI",
       description:
       "Đồng phục UNIVI tập trung phát triển các dòng vải thể thao chuyên dụng (Quick Dry, Super Cool, Blended) đáp ứng được nhiều bộ môn thể thao. Với công nghệ UNI DRY độc quyền, đảm bảo thoáng khí, thoát ẩm tốt, mềm mại, bền màu tạo sự khác biệt vượt trội.Đặc biệt tất cả dòng vải của Univi đều có kiểm định an toàn với da (không chứa Formaldehyde, Amin thơm Azo)"
     },

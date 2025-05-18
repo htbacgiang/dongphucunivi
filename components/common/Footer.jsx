@@ -46,13 +46,13 @@ const SOCIAL_LINKS = [
 const CONTACT_INFO = [
   {
     Icon: FaPhone,
-    label: '096.292.2332',
-    href: 'tel:0962922332',
+    label: '083.420.4999',
+    href: 'tel:0834204999',
   },
   {
     Icon: FaEnvelope,
-    label: 'lienhe@greenlahome.vn',
-    href: 'mailto:lienhe@greenlahome.vn',
+    label: 'lienhe@dongphucunivi.com',
+    href: 'mailto:lienhe@dongphucunivi.com',
   },
   {
     Icon: FaClock,
