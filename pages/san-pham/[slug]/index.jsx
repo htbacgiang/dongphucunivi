@@ -13,7 +13,7 @@ import parse from 'html-react-parser';
 import ContactForm from '../../../components/header/ContactForm';
 
 // Environment variables
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dongphucdongphucunivi.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dongphucunivi.com';
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/dcgtt1jza/image/upload/v1/';
 
 // Breadcrumb Component
@@ -330,9 +330,10 @@ export default function ProductDetailPage({ product }) {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Giá sản phẩm</span>
-                <a href="#contact" className="font-semibold uppercase">
-                  Giá từ {product.price.toLocaleString('vi-VN')}đ đến {product.maxPrice.toLocaleString('vi-VN')}đ
-                </a>
+                 <div>
+                     <span className="text-lg text-[#105d97] mr-2">{product.price.toLocaleString('vi-VN')}đ</span> {" "}
+                  <span className="text-sm text-gray-400 line-through">{product.originalPrice.toLocaleString('vi-VN')}đ</span>
+                 </div>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Chất liệu</span>

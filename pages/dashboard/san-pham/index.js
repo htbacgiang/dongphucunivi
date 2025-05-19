@@ -257,7 +257,7 @@ export default function ProductsListPage() {
                       </td>
                       <td className="px-4 py-2 text-black dark:text-white">
                         {(typeof product.price === 'number' ? product.price : 0).toLocaleString('vi-VN')} - 
-                        {(typeof product.maxPrice === 'number' ? product.maxPrice : 0).toLocaleString('vi-VN')}
+                        {(typeof product.originalPrice === 'number' ? product.originalPrice : 0).toLocaleString('vi-VN')}
                       </td>
                       <td className="px-4 py-2 flex space-x-2">
                         <Link href={`/dashboard/them-san-pham/?id=${product._id}`}>

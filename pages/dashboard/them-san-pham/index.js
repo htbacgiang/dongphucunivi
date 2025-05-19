@@ -50,21 +50,15 @@ const generateSlug = (title) =>
 
 // Transform Cloudinary URL to relative path
 const toRelativePath = (url) => {
-  if (!url) return '';
-  if (url.startsWith('/') && !url.includes('/image/upload/') && !url.includes('dcgtt1jza')) {
-    return url;
-  }
   const parts = url.split('/');
   const versionIndex = parts.findIndex((part) => part.startsWith('v') && !isNaN(part.slice(1)));
-  if (versionIndex !== -1 && parts[versionIndex - 1] === 'image' && parts[versionIndex - 2] === 'upload') {
-    return `/${parts.slice(versionIndex + 1).join('/')}`;
-  }
-  const cloudNameIndex = parts.findIndex((part) => part === 'dcgtt1jza');
-  if (cloudNameIndex !== -1 && parts.length > cloudNameIndex + 1) {
-    return `/${parts.slice(cloudNameIndex + 1).join('/')}`;
+  if (versionIndex !== -1 && parts[versionIndex - 1] === 'upload') {
+    const baseIndex = parts.findIndex((p) => p === 'image');
+    return '/' + parts.slice(baseIndex).join('/');
   }
   return url.startsWith('/') ? url : `/${url.split('/').pop()}`;
 };
+
 
 // Transform relative path to full Cloudinary URL
 const toCloudinaryUrl = (relativePath) => {
@@ -86,7 +80,7 @@ const initialState = {
   categoryNameVN: '',
   material: '',
   price: 0,
-  maxPrice: 0,
+  originalPrice: 0,
   isNew: false,
   isFeatured: false,
   rating: 0,
@@ -235,7 +229,7 @@ export default function CreateProductPage() {
           category: product.category || '',
           categoryNameVN: selCat.categoryNameVN || product.categoryNameVN || '',
           price: product.price || 0,
-          maxPrice: product.maxPrice || 0,
+          originalPrice: product.originalPrice || 0,
           isNew: product.isNew || false,
           isFeatured: product.isFeatured || false,
           material: product.material || '',
@@ -477,15 +471,9 @@ export default function CreateProductPage() {
         setIsSubmitting(false);
         return;
       }
-      if (formData.price < 0 || formData.maxPrice < 0) {
+      if (formData.price < 0 || formData.originalPrice < 0) {
         setErrors((prev) => [...prev, 'Giá không được âm']);
         toast.error('Giá không được âm');
-        setIsSubmitting(false);
-        return;
-      }
-      if (formData.maxPrice < formData.price) {
-        setErrors((prev) => [...prev, 'Giá giảm phải lớn hơn hoặc bằng giá gốc']);
-        toast.error('Giá giảm phải nhỏ hơn hoặc bằng giá gốc');
         setIsSubmitting(false);
         return;
       }
@@ -512,18 +500,19 @@ export default function CreateProductPage() {
       }
 
       // Construct product data
-      const colorImages = images.filter((img) => img.name !== 'Main Image');
+      const mainImage = images.find((img) => img.name === 'Main Image') || images[0];
+      const colorImages = images.filter((img) => img !== mainImage);
       const productData = {
         name: formData.name,
         maSanPham: formData.maSanPham,
-        image: toRelativePath(uploadedUrls[0]) || '',
+        image: toRelativePath(mainImage.src),
         slug: formData.slug,
         content: formData.content,
         description: formData.description,
         category: formData.category,
         categoryNameVN: formData.categoryNameVN,
         price: formData.price,
-        maxPrice: formData.maxPrice,
+        originalPrice: formData.originalPrice,
         isNew: formData.isNew,
         material: formData.material,
         isFeatured: formData.isFeatured,
@@ -554,14 +543,14 @@ export default function CreateProductPage() {
         }
       }
 
-      // Submit to backend (backend will validate maSanPham uniqueness)
+      // Submit to backend
       if (id) {
         await axios.put(`/api/products?id=${id}`, productData);
         toast.success('Sản phẩm đã được cập nhật thành công!', {
           position: 'top-right',
           autoClose: 3000,
         });
-        router.push('/admin/products');
+        router.push('/dashboard/san-pham');
       } else {
         const response = await axios.post('/api/products', productData);
         if (response.data.status === 'success') {
@@ -578,11 +567,16 @@ export default function CreateProductPage() {
     } catch (error) {
       console.error('API error:', error.response?.data || error.message);
       const errorMessage = error.response?.data?.err || 'Không thể lưu sản phẩm.';
-      setErrors((prev) => [...prev, errorMessage]);
-      toast.error(errorMessage, {
-        position: 'top-right',
-        autoClose: 3000,
-      });
+      if (errorMessage.includes('maSanPham')) {
+        setErrors((prev) => [...prev, 'Mã sản phẩm đã tồn tại, vui lòng chọn mã khác']);
+        toast.error('Mã sản phẩm đã tồn tại');
+      } else if (errorMessage.includes('slug')) {
+        setErrors((prev) => [...prev, 'Slug đã tồn tại, vui lòng chọn slug khác']);
+        toast.error('Slug đã tồn tại');
+      } else {
+        setErrors((prev) => [...prev, errorMessage]);
+        toast.error(errorMessage);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -776,34 +770,32 @@ export default function CreateProductPage() {
                 onChange={(e) => dispatch({ type: 'UPDATE_FIELD', field: 'material', value: e.target.value })}
                 className="w-full border rounded px-3 py-2 bg-white dark:bg-slate-700 text-black dark:text-white"
                 placeholder="Chất liệu (ví dụ: Cotton, Polyester)"
-                required
                 aria-label="Chất liệu"
               />
             </div>
             <div className="flex-1 min-w-0">
-              <label className="block text-sm font-medium mb-1 text-black dark:text-white">Giá gốc</label>
+              <label className="block text-sm font-medium mb-1 text-black dark:text-white">Giá bán</label>
               <input
                 type="number"
                 value={formData.price}
                 onChange={(e) => dispatch({ type: 'UPDATE_FIELD', field: 'price', value: Number(e.target.value) })}
                 className="w-full border rounded px-3 py-2 bg-white dark:bg-slate-700 text-black dark:text-white"
                 min="0"
-                placeholder='Giá gốc'
+                placeholder="Giá bán"
                 required
-                aria-label="Giá gốc"
+                aria-label="Giá bán"
               />
             </div>
-
             <div className="flex-1 min-w-0">
-              <label className="block text-sm font-medium mb-1 text-black dark:text-white">Giá tối đa</label>
+              <label className="block text-sm font-medium mb-1 text-black dark:text-white">Giá gốc</label>
               <input
                 type="number"
-                value={formData.maxPrice}
-                onChange={(e) => dispatch({ type: 'UPDATE_FIELD', field: 'maxPrice', value: Number(e.target.value) })}
+                value={formData.originalPrice}
+                onChange={(e) => dispatch({ type: 'UPDATE_FIELD', field: 'originalPrice', value: Number(e.target.value) })}
                 className="w-full border rounded px-3 py-2 bg-white dark:bg-slate-700 text-black dark:text-white"
                 min="0"
-                placeholder='Giá tối đa'
-                aria-label="Giá max"
+                placeholder="Giá gốc"
+                aria-label="Giá gốc"
               />
             </div>
           </div>
@@ -829,7 +821,6 @@ export default function CreateProductPage() {
                 aria-label="Sản phẩm nổi bật"
               />
             </div>
-
             <div className="flex-1 min-w-0">
               <label className="block text-sm font-medium mb-1 text-black dark:text-white">Đánh giá (0-5)</label>
               <input

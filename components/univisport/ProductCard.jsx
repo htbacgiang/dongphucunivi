@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, isFeatured, colors = [], image, slug, layout }) => {
+const ProductCard = ({ id, name, description, price, originalPrice, discount, isNew, isFeatured, colors = [], image, slug, layout }) => {
   const [selectedColorImage, setSelectedColorImage] = useState(image);
 
   const handleColorChange = (img) => {
@@ -34,16 +34,16 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
               </a>
             </Link>
 
-            {(price > 0 || maxPrice > 0) && (
+            {(price > 0 || originalPrice > 0) && (
               <div className="mt-1 font-semibold flex items-center">
-                {price > 0 && maxPrice > 0 ? (
+                {price > 0 && originalPrice > 0 ? (
                   <span className="text-lg text-[#105d97]">
                     <span className="text-lg text-[#105d97]">{price.toLocaleString('vi-VN')}đ</span> {" "}
-                    <span className="text-sm text-gray-400 line-through">{maxPrice.toLocaleString('vi-VN')}đ</span>
+                    <span className="text-sm text-gray-400 line-through">{maxProriginalPriceice.toLocaleString('vi-VN')}đ</span>
                   </span>
                 ) : (
                   <span className="text-lg text-[#105d97]">
-                    {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
+                    {(price > 0 ? price : originalPrice).toLocaleString('vi-VN')}đ
 
                   </span>
                 )}
@@ -90,16 +90,16 @@ const ProductCard = ({ id, name, description, price, maxPrice, discount, isNew, 
             </a>
           </Link>
 
-          {(price > 0 || maxPrice > 0) && (
+          {(price > 0 || originalPrice > 0) && (
             <div className="mt-1 font-semibold flex items-center px-4">
-              {price > 0 && maxPrice > 0 ? (
+              {price > 0 && originalPrice > 0 ? (
                 <span className="text-lg text-[#105d97]">
                   <span className="text-lg text-[#105d97]">{price.toLocaleString('vi-VN')}đ</span> {" "}
-                  <span className="text-sm text-gray-400 line-through">{maxPrice.toLocaleString('vi-VN')}đ</span>
+                  <span className="text-sm text-gray-400 line-through">{originalPrice.toLocaleString('vi-VN')}đ</span>
                 </span>
               ) : (
                 <span className="text-lg text-[#105d97]">
-                  {(price > 0 ? price : maxPrice).toLocaleString('vi-VN')}đ
+                  {(price > 0 ? price : originalPrice).toLocaleString('vi-VN')}đ
                 </span>
               )}
             </div>

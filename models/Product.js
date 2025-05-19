@@ -10,15 +10,17 @@ const colorSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    match: [/^#([0-9A-F]{6}|[0-9A-F]{3}|[0-9A-F]{8})$/i, "Invalid hex color code"],
+    match: [/^#([0-9A-F]{3,4}|[0-9A-F]{6}|[0-9A-F]{8})$/i, "Invalid hex color code"],
   },
   image: {
     type: String,
     required: true,
     trim: true,
     validate: {
-      validator: (url) => /^\/[^/\s]+\.[a-zA-Z]{2,4}$/.test(url),
-      message: "Invalid image path",
+      validator: (url) =>
+        /^\/(image\/upload\/)?v\d+\/[^\s]+\.[a-zA-Z]{3,4}$/.test(url) ||
+        /^https?:\/\/[^\s$.?#].[^\s]*$/.test(url),
+      message: "Invalid image path or URL",
     },
   },
 });
@@ -47,15 +49,9 @@ const productSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    maxPrice: {
+    originalPrice: {
       type: Number,
       min: 0,
-      validate: {
-        validator: function (value) {
-          return value <= this.price;
-        },
-        message: "Discount price cannot exceed regular price",
-      },
     },
     content: {
       type: String,
@@ -91,8 +87,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
       validate: {
-        validator: (url) => /^\/[^/\s]+\.[a-zA-Z]{2,4}$/.test(url),
-        message: "Invalid image path",
+        validator: (url) =>
+          /^\/image\/upload\/v\d+\/[^\s]+\.[a-zA-Z]{3,4}$/.test(url) ||
+          /^https?:\/\/[^\s$.?#].[^\s]*$/.test(url),
+        message: "Invalid image path or URL",
       },
     },
     slug: {
@@ -100,16 +98,6 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
-    },
-    unit: {
-      type: String,
-      required: true,
-      trim: true,
-      default: "Kg",
-      enum: {
-        values: ["Kg", "gam", "túi", "chai"],
-        message: "Unit must be one of: Kg, gam, túi, chai",
-      },
     },
     rating: {
       type: Number,
@@ -133,20 +121,23 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-// Ensure case-insensitive uniqueness for maSanPham and slug
-productSchema.pre("save", function (next) {
-  this.maSanPham = this.maSanPham.toLowerCase();
-  this.slug = this.slug.toLowerCase();
-  next();
-});
-
-// Indexes
+// Indexes with case-insensitive collation
 productSchema.index({ id: 1 }, { unique: true });
-productSchema.index({ maSanPham: 1 }, { unique: true });
-productSchema.index({ slug: 1 }, { unique: true });
+productSchema.index({ maSanPham: 1 }, { unique: true, collation: { locale: "en", strength: 2 } });
+productSchema.index({ slug: 1 }, { unique: true, collation: { locale: "en", strength: 2 } });
 productSchema.index({ category: 1 });
 productSchema.index({ isNew: 1 });
 productSchema.index({ isFeatured: 1 });
+productSchema.index({ createdAt: -1 });
+
+// Error handling middleware
+productSchema.post("save", function (error, doc, next) {
+  if (error.name === "ValidationError") {
+    next(new Error(`Validation failed: ${error.message}`));
+  } else {
+    next(error);
+  }
+});
 
 let Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 export default Product;
