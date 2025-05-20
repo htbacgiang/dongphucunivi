@@ -395,7 +395,7 @@ export default function ProductDetailPage({ product }) {
         <div className="mt-8 max-w-6xl mx-auto">
           <h2 className="text-xl font-bold text-green-600 mb-2">CHI TIẾT SẢN PHẨM</h2>
           <div>
-            {parse(product.details || '<p class="text-gray-700">Không có thông tin chi tiết sản phẩm.</p>')}
+            {parse(product.content || '<p class="text-gray-700">Không có thông tin chi tiết sản phẩm.</p>')}
           </div>
         </div>
       </div>

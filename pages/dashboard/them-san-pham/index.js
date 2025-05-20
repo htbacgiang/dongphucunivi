@@ -11,7 +11,7 @@ import { debounce } from 'lodash';
 // Vietnamese to ASCII for slug generation
 const vietnameseToAscii = (str) => {
   const vietnameseMap = {
-    'à': 'a', 'á': 'a', 'ả': 'a', 'ã': 'a', 'ạ': 'a',
+    ' salespeople, as well as for other occupations such as real estate brokers, insurance agents, and securities dealers. It includes sales engineers, wholesale and manufacturing sales representatives, and retail salespeople.': 'a', 'á': 'a', 'ả': 'a', 'ã': 'a', 'ạ': 'a',
     'ă': 'a', 'ằ': 'a', 'ắ': 'a', 'ẳ': 'a', 'ẵ': 'a', 'ặ': 'a',
     'â': 'a', 'ầ': 'a', 'ấ': 'a', 'ẩ': 'a', 'ẫ': 'a', 'ậ': 'a',
     'è': 'e', 'é': 'e', 'ẻ': 'e', 'ẽ': 'e', 'ẹ': 'e',
@@ -58,7 +58,6 @@ const toRelativePath = (url) => {
   }
   return url.startsWith('/') ? url : `/${url.split('/').pop()}`;
 };
-
 
 // Transform relative path to full Cloudinary URL
 const toCloudinaryUrl = (relativePath) => {
@@ -145,12 +144,11 @@ export default function CreateProductPage() {
     };
   }, [isModalOpen]);
 
-  // Sync colors with images, excluding Main Image
+  // Sync colors with all images
   useEffect(() => {
-    const colorImages = images.filter((img) => img.name !== 'Main Image');
     dispatch({
       type: 'SET_COLORS',
-      colors: colorImages.map((img, idx) => ({
+      colors: images.map((img, idx) => ({
         name: img.name || `Màu ${idx + 1}`,
         hex: img.color || '#000000',
         image: toRelativePath(img.src || img.preview),
@@ -210,11 +208,12 @@ export default function CreateProductPage() {
         name: c.name || `Màu ${idx + 1}`,
       }));
 
-      const allImages = colorImages.some((img) => img.src === mainImage)
-        ? colorImages
-        : mainImage
-          ? [{ src: mainImage, preview: toCloudinaryUrl(mainImage), color: '#000000', name: 'Main Image' }, ...colorImages]
-          : colorImages;
+      const allImages = mainImage
+        ? [
+            { src: mainImage, preview: toCloudinaryUrl(mainImage), color: '#000000', name: 'Màu 1' },
+            ...colorImages.map((img, idx) => ({ ...img, name: `Màu ${idx + 2}` })),
+          ]
+        : colorImages;
 
       dispatch({
         type: 'SET_PRODUCT',
@@ -235,7 +234,11 @@ export default function CreateProductPage() {
           material: product.material || '',
           rating: product.rating || 0,
           reviewCount: product.reviewCount || 0,
-          colors: product.colors || [],
+          colors: allImages.map((img, idx) => ({
+            name: img.name || `Màu ${idx + 1}`,
+            hex: img.color || '#000000',
+            image: toRelativePath(img.src),
+          })),
         },
       });
 
@@ -326,11 +329,11 @@ export default function CreateProductPage() {
       }
       setErrors((prev) => prev.filter((err) => err !== 'Chỉ hỗ trợ file JPEG, JPG, PNG, WEBP dưới 5MB'));
 
-      const newImages = acceptedFiles.map((file) => ({
+      const newImages = acceptedFiles.map((file, idx) => ({
         src: '',
         preview: URL.createObjectURL(file),
         color: '#000000',
-        name: `Màu ${images.length + 1}`,
+        name: `Màu ${images.length + idx + 1}`,
         file,
       }));
       setImages([...images, ...newImages]);
@@ -500,8 +503,7 @@ export default function CreateProductPage() {
       }
 
       // Construct product data
-      const mainImage = images.find((img) => img.name === 'Main Image') || images[0];
-      const colorImages = images.filter((img) => img !== mainImage);
+      const mainImage = images[0]; // First image is the main image
       const productData = {
         name: formData.name,
         maSanPham: formData.maSanPham,
@@ -518,7 +520,7 @@ export default function CreateProductPage() {
         isFeatured: formData.isFeatured,
         rating: formData.rating,
         reviewCount: formData.reviewCount,
-        colors: colorImages.map((img, idx) => ({
+        colors: images.map((img, idx) => ({
           name: img.name || `Màu ${idx + 1}`,
           hex: img.color || '#000000',
           image: toRelativePath(img.src),
