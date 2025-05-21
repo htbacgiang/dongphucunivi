@@ -6,6 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { FiSearch, FiGrid, FiList } from 'react-icons/fi';
 import BannerCarousel from '../../../components/univisport/BannerCarousel';
+import GymUniviPage from '../../../components/univisport/bai-viet/GymUniviPage';
 
 // Hàm bỏ dấu tiếng Việt và chuẩn hóa slug
 const removeDiacritics = (str) => {
@@ -21,7 +22,7 @@ const removeDiacritics = (str) => {
 
 const categories = [
   'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball',
-  'Đồng phục Chạy bộ', 'Đồng phục Golf - Tennis', 'Đồng phục MMA',
+  'Đồng phục Chạy bộ', 'Đồng phục Lễ tân', 'Đồng phục MMA',
   'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
 
@@ -37,6 +38,8 @@ const DongPhucGym = ({ initialProducts }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2; // Number of items per page
 
   const searchRef = useRef(null);
 
@@ -56,6 +59,7 @@ const DongPhucGym = ({ initialProducts }) => {
       product.name.toLowerCase().includes(query)
     );
     setProducts(filteredProducts);
+    setCurrentPage(1); // Reset to first page on new search
   };
 
   const handleSort = (e) => {
@@ -71,6 +75,7 @@ const DongPhucGym = ({ initialProducts }) => {
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setProducts(filteredProducts);
+    setCurrentPage(1); // Reset to first page on new sort
   };
 
   useEffect(() => {
@@ -118,6 +123,89 @@ const DongPhucGym = ({ initialProducts }) => {
     }
   };
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+
+  const renderPagination = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Number of visible page links
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    if (startPage > 1) {
+      pageNumbers.push(
+        <button
+          key={1}
+          onClick={() => paginate(1)}
+          className="px-3 py-1 mx-1 text-gray-700 hover:text-blue-500"
+        >
+          1
+        </button>
+      );
+      if (startPage > 2) {
+        pageNumbers.push(<span key="start-ellipsis" className="px-2">...</span>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => paginate(i)}
+          className={`px-3 py-1 mx-1 rounded-full ${currentPage === i ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-blue-500'}`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push(<span key="end-ellipsis" className="px-2">...</span>);
+      }
+      pageNumbers.push(
+        <button
+          key={totalPages}
+          onClick={() => paginate(totalPages)}
+          className="px-3 py-1 mx-1 text-gray-700 hover:text-blue-500"
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return (
+      <div className="flex justify-center items-center mt-6 space-x-2">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="px-3 py-1 text-gray-700 hover:text-blue-500 disabled:text-gray-300"
+        >
+          &lt;
+        </button>
+        {pageNumbers}
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 text-gray-700 hover:text-blue-500 disabled:text-gray-300"
+        >
+          &gt;
+        </button>
+      </div>
+    );
+  };
+
   return (
     <DefaultLayout2>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
@@ -149,9 +237,9 @@ const DongPhucGym = ({ initialProducts }) => {
         </div>
       </div>
 
-      <div className="min-h-screen bg-gray-100 p-4 md:p-6">
+      <div className="bg-gray-100 p-4 md:p-6">
         <div className="flex flex-col lg:flex-row gap-6">
-          <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg">
+          <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg h-fit">
             <div className="flex items-center justify-between mb-4">
               <h2
                 className="text-lg font-semibold flex items-center justify-between w-full cursor-pointer lg:cursor-default"
@@ -186,7 +274,7 @@ const DongPhucGym = ({ initialProducts }) => {
                 })}
               </ul>
             </div>
-          <BannerCarousel />
+            <BannerCarousel />
           </aside>
 
           <main className="w-full lg:w-4/5">
@@ -271,9 +359,9 @@ const DongPhucGym = ({ initialProducts }) => {
               </div>
             </div>
 
-            {products.length > 0 ? (
+            {currentProducts.length > 0 ? (
               <section className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`} aria-label="Danh sách sản phẩm đồng phục gym">
-                {products.map((product) => (
+                {currentProducts.map((product) => (
                   <div key={product.id}>
                     <ProductCard
                       id={product.id}
@@ -295,6 +383,8 @@ const DongPhucGym = ({ initialProducts }) => {
             ) : (
               <p className="text-center text-gray-500">Không tìm thấy sản phẩm nào trong danh mục {displayCategory}.</p>
             )}
+            {renderPagination()}
+            <GymUniviPage />
           </main>
         </div>
       </div>
@@ -307,7 +397,6 @@ const toCloudinaryUrl = (relativePath) => {
   if (!relativePath) {
     return '/images/placeholder.jpg';
   }
-  // Handle full Cloudinary URLs (e.g., /image/upload/v1746031101/tantruonggiang/akg3fkt1yudbobzwmej5.png)
   if (relativePath.includes('/image/upload/')) {
     const parts = relativePath.split('/');
     const versionIndex = parts.findIndex((part) => part.startsWith('v') && !isNaN(part.slice(1)));
@@ -316,7 +405,6 @@ const toCloudinaryUrl = (relativePath) => {
       return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
     }
   }
-  // Handle relative paths (e.g., /tantruonggiang/akg3fkt1yudbobzwmej5.png or /akg3fkt1yudbobzwmej5.png)
   const cleanPath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
   return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
 };
@@ -329,13 +417,12 @@ export async function getServerSideProps() {
     }
     const data = await response.json();
 
-    // Ensure data.products is an array and map safely
     const initialProducts = Array.isArray(data.products)
       ? data.products.map(product => ({
         id: product._id || null,
         name: product.name || 'Untitled Product',
         price: product.price || 0,
-        maxPrice :product.maxPrice || 0,
+        maxPrice: product.maxPrice || 0,
         discountPrice: product.discountPrice || null,
         description: product.description || '',
         image: toCloudinaryUrl(product.image),
@@ -362,7 +449,7 @@ export async function getServerSideProps() {
       canonical: "https://dongphucunivi.com/san-pham/dong-phuc-gym",
       og: {
         title: "Đồng phục Gym - Đồng phục Univi",
-      description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
+        description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
         type: "website",
         image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
         imageWidth: "1200",
@@ -374,7 +461,7 @@ export async function getServerSideProps() {
       twitter: {
         card: "summary_large_image",
         title: "Đồng phục Gym - Đồng phục Univi",
-      description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
+        description: "Univi chuyên thiết kế & may đồng phục gym cho PT, CLB. Mẫu mã đa dạng, hiện đại, in thêu logo sắc nét. Nâng tầm thương hiệu phòng gym của bạn. Tư vấn ngay!",
         image: "https://dongphucunivi.com/images/dong-phuc-gym.jpg",
         site: "@UniviSport"
       }

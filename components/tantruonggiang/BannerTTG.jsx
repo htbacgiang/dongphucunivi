@@ -26,7 +26,7 @@ export default function Banner() {
       smallHeading: "ĐỒNG PHỤC THỂ THAO",
       heading: "Năng Động & Sáng Tạo",
       description:
-      "Bộ sưu tập đồng phục thể thao Univi đa dạng bộ môn, thiết kế theo ý tưởng riêng của các đội nhóm",
+        "Bộ sưu tập đồng phục thể thao Univi đa dạng bộ môn, thiết kế theo ý tưởng riêng của các đội nhóm",
       align: "right",
       animation: "slideFromRight",
       collectionLink: "/san-pham",
@@ -36,7 +36,7 @@ export default function Banner() {
       smallHeading: "GIẢI PHÁP SMART SPORT UNIFORM",
       heading: "Cho Các Phòng Tập",
       description:
-      "Được đánh giá cao nhờ tính ứng dụng vượt trội, tối ưu hiệu suất tập luyện. BST 2S Uniform không chỉ tạo sự đồng bộ thương hiệu mà còn mang đến diện mạo trẻ trung, khoắn cho đội ngũ nhân sự.",
+        "Được đánh giá cao nhờ tính ứng dụng vượt trội, tối ưu hiệu suất tập luyện. BST 2S Uniform không chỉ tạo sự đồng bộ thương hiệu mà còn mang đến diện mạo trẻ trung, khoắn cho đội ngũ nhân sự.",
       align: "center",
       animation: "slideFromBottom",
       collectionLink: "/san-pham",
@@ -145,10 +145,10 @@ export default function Banner() {
           layout="fill"
           objectFit="cover"
           quality={100}
-          className="brightness-90 transition-opacity duration-1000"
-          priority={currentSlide === 0}
-          onError={(e) => (e.target.src = "/images/fallback.png")}
+          priority={true}
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
+
         <div className="absolute inset-0 bg-black bg-opacity-40" />
       </div>
 
@@ -227,39 +227,39 @@ export default function Banner() {
       </div>
 
       {isFormOpen && (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-    onClick={(e) => e.target === e.currentTarget && toggleForm()}
-  >
-    <div
-      ref={modalRef}
-      className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-5xl"
-    >
-      {/* Header: chỉ chứa nút Close */}
-      <div className="bg-white rounded-t-lg px-4 py-3 flex justify-end">
-        <button
-          onClick={toggleForm}
-          aria-label="Close"
-          className="text-gray-600 hover:text-gray-800 focus:outline-none"
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={(e) => e.target === e.currentTarget && toggleForm()}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
+          <div
+            ref={modalRef}
+            className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-5xl"
+          >
+            {/* Header: chỉ chứa nút Close */}
+            <div className="bg-white rounded-t-lg px-4 py-3 flex justify-end">
+              <button
+                onClick={toggleForm}
+                aria-label="Close"
+                className="text-gray-600 hover:text-gray-800 focus:outline-none"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
 
-      {/* Body: form */}
-      <div className="bg-white">
-        <ContactForm />
-      </div>
-    </div>
-  </div>
-)}
+            {/* Body: form */}
+            <div className="bg-white">
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+      )}
 
     </section>
   );

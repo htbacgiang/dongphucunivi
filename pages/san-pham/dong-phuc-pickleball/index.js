@@ -1,14 +1,13 @@
 import ProductCard from '../../../components/univisport/ProductCard';
-import DefaultLayout2 from "../../../components/layout/DefaultLayout2";
+import DefaultLayout2 from '../../../components/layout/DefaultLayout2';
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
-import productsData from '../../../components/univisport/data/products';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { FiSearch, FiGrid, FiList } from 'react-icons/fi';
 import BannerCarousel from '../../../components/univisport/BannerCarousel';
+import PickleballUniviPage from '../../../components/univisport/bai-viet/PickleballUniviPage';
 
-// Hàm bỏ dấu tiếng Việt để tạo slug không dấu
 // Hàm bỏ dấu tiếng Việt và chuẩn hóa slug
 const removeDiacritics = (str) => {
   return str
@@ -17,31 +16,30 @@ const removeDiacritics = (str) => {
     .replace(/đ/g, 'd')
     .replace(/Đ/g, 'D')
     .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with single hyphen
-    .replace(/-+/g, '-'); // Replace multiple hyphens with single hyphen
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 };
 
 const categories = [
   'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball',
-  'Đồng phục Chạy bộ', 'Đồng phục Golf - Tennis', 'Đồng phục MMA',
+  'Đồng phục Chạy bộ', 'Đồng phục Lễ tân', 'Đồng phục MMA',
   'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
-const DongPhucGym = () => {
+
+const DongPhucGym = ({ initialProducts }) => {
   const categorySlug = 'dong-phuc-pickleball';
   const displayCategory = categories.find(category =>
     removeDiacritics(category).toLowerCase().replace(/\s+/g, '-') === categorySlug
   ) || categorySlug.replace(/-/g, ' ').toUpperCase();
 
-  const initialProducts = productsData.filter(product =>
-    product.category?.toLowerCase().replace(/\s+/g, '-') === categorySlug
-  );
-
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(Array.isArray(initialProducts) ? initialProducts : []);
   const [layout, setLayout] = useState('grid');
   const [sortOption, setSortOption] = useState('default');
   const [searchQuery, setSearchQuery] = useState('');
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2; // Number of items per page
 
   const searchRef = useRef(null);
 
@@ -57,27 +55,27 @@ const DongPhucGym = () => {
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-    const filteredProducts = initialProducts.filter(product =>
+    const filteredProducts = (Array.isArray(initialProducts) ? initialProducts : []).filter(product =>
       product.name.toLowerCase().includes(query)
     );
     setProducts(filteredProducts);
+    setCurrentPage(1); // Reset to first page on new search
   };
 
   const handleSort = (e) => {
     const option = e.target.value;
     setSortOption(option);
-    let sortedProducts = [...initialProducts];
+    let sortedProducts = [...(Array.isArray(initialProducts) ? initialProducts : [])];
     if (option === 'price-asc') {
-      sortedProducts.sort((a, b) => a.discountPrice - b.discountPrice);
+      sortedProducts.sort((a, b) => (a.maxPrice || a.price) - (b.maxPrice || b.price));
     } else if (option === 'price-desc') {
-      sortedProducts.sort((a, b) => b.discountPrice - a.discountPrice);
-    } else if (option === 'newest') {
-      sortedProducts.sort((a, b) => b.isNew - a.isNew);
+      sortedProducts.sort((a, b) => (b.maxPrice || b.price) - (a.maxPrice || b.price));
     }
     const filteredProducts = sortedProducts.filter(product =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setProducts(filteredProducts);
+    setCurrentPage(1); // Reset to first page on new sort
   };
 
   useEffect(() => {
@@ -87,11 +85,8 @@ const DongPhucGym = () => {
         setSearchQuery('');
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isSearchOpen]);
 
   // Structured Data for SEO
@@ -143,15 +138,97 @@ const DongPhucGym = () => {
     }
   };
 
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+
+  const renderPagination = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5; // Number of visible page links
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    if (startPage > 1) {
+      pageNumbers.push(
+        <button
+          key={1}
+          onClick={() => paginate(1)}
+          className="px-3 py-1 mx-1 text-gray-700 hover:text-blue-500"
+        >
+          1
+        </button>
+      );
+      if (startPage > 2) {
+        pageNumbers.push(<span key="start-ellipsis" className="px-2">...</span>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => paginate(i)}
+          className={`px-3 py-1 mx-1 rounded-full ${currentPage === i ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-blue-500'}`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push(<span key="end-ellipsis" className="px-2">...</span>);
+      }
+      pageNumbers.push(
+        <button
+          key={totalPages}
+          onClick={() => paginate(totalPages)}
+          className="px-3 py-1 mx-1 text-gray-700 hover:text-blue-500"
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return (
+      <div className="flex justify-center items-center mt-6 space-x-2">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="px-3 py-1 text-gray-700 hover:text-blue-500 disabled:text-gray-300"
+        >
+          &lt;
+        </button>
+        {pageNumbers}
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 text-gray-700 hover:text-blue-500 disabled:text-gray-300"
+        >
+          &gt;
+        </button>
+      </div>
+    );
+  };
+
   return (
     <DefaultLayout2>
-      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-
       <div className="relative w-full h-[30vh] md:h-[40vh]">
         <Image
           src="/images/banner-univi.png"
-          alt={"Đồng phục Pickleball"}
+          alt={`Đồng phục Gym Đồng phục Univi - Bộ sưu tập thể thao chất lượng cao`}
           fill
           className="brightness-50 object-cover"
           priority
@@ -176,10 +253,10 @@ const DongPhucGym = () => {
         </div>
       </div>
 
-      <div className="min-h-screen bg-gray-100 p-4 md:p-6">
+      <div className="bg-gray-100 p-4 md:p-6">
         <div className="flex flex-col lg:flex-row gap-6">
-          <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg">
-            <div className="flex items-center justify-between mb-4 lg:mb-4">
+          <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg h-fit">
+            <div className="flex items-center justify-between mb-4">
               <h2
                 className="text-lg font-semibold flex items-center justify-between w-full cursor-pointer lg:cursor-default"
                 onClick={toggleCategory}
@@ -187,11 +264,7 @@ const DongPhucGym = () => {
               >
                 TẤT CẢ DANH MỤC
                 <span className="lg:hidden">
-                  {isCategoryOpen ? (
-                    <IoChevronUp className="w-5 h-5" />
-                  ) : (
-                    <IoChevronDown className="w-5 h-5" />
-                  )}
+                  {isCategoryOpen ? <IoChevronUp className="w-5 h-5" /> : <IoChevronDown className="w-5 h-5" />}
                 </span>
               </h2>
             </div>
@@ -201,22 +274,15 @@ const DongPhucGym = () => {
             >
               <ul className="uppercase cursor-pointer font-semibold">
                 {categories.map((category, index) => {
-                  const categorySlugFromCategory = removeDiacritics(category)
-                    .toLowerCase()
-                    .replace(/\s+/g, '-');
+                  const categorySlugFromCategory = removeDiacritics(category).toLowerCase().replace(/\s+/g, '-');
                   const isActive = categorySlugFromCategory === categorySlug;
-                  const isGymCategory = category === 'Đồng phục Pickleball';
-
                   return (
                     <li
                       key={index}
-                      className={`py-2 cursor-pointer flex justify-between items-center hover:translate-x-2 transition-all duration-300 ${isActive ? 'text-[#105d97] font-bold' : isGymCategory ? 'text-gray-700 hover:text-black' : 'text-gray-700 hover:text-black'
+                      className={`py-2 cursor-pointer flex justify-between items-center hover:translate-x-2 transition-all duration-300 ${isActive ? 'text-[#105d97] font-bold' : 'text-gray-700 hover:text-black'
                         }`}
                     >
-                      <Link
-                        href={`/san-pham/${categorySlugFromCategory}`}
-                        aria-current={isActive ? 'page' : undefined}
-                      >
+                      <Link href={`/san-pham/${categorySlugFromCategory}`} aria-current={isActive ? 'page' : undefined}>
                         {category}
                       </Link>
                     </li>
@@ -225,7 +291,6 @@ const DongPhucGym = () => {
               </ul>
             </div>
             <BannerCarousel />
-
           </aside>
 
           <main className="w-full lg:w-4/5">
@@ -236,61 +301,37 @@ const DongPhucGym = () => {
                     value={sortOption}
                     onChange={handleSort}
                     className="appearance-none p-2 pl-4 pr-8 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#105d97] text-gray-700"
-                    aria-label="Sắp xếp sản phẩm theo giá hoặc thời gian"
+                    aria-label="Sắp xếp sản phẩm"
                   >
                     <option value="default">Sắp xếp</option>
                     <option value="price-asc">Giá: Thấp đến Cao</option>
                     <option value="price-desc">Giá: Cao đến Thấp</option>
-                    <option value="newest">Mới nhất</option>
                   </select>
                   <IoChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-700 pointer-events-none" />
                 </div>
                 <div className="flex gap-2">
-                  <div className="flex gap-2 lg:hidden">
-                    <button
-                      onClick={() => setLayout('grid')}
-                      className={`p-2 rounded-lg ${layout === 'grid' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
-                      aria-label="Hiển thị sản phẩm dạng lưới"
-                    >
-                      <FiGrid className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={() => setLayout('list')}
-                      className={`p-2 rounded-lg ${layout === 'list' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
-                      aria-label="Hiển thị sản phẩm dạng danh sách"
-                    >
-                      <FiList className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <div className="hidden lg:flex gap-2">
-                    <button
-                      onClick={() => setLayout('grid')}
-                      className={`p-2 rounded-lg ${layout === 'grid' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
-                      aria-label="Hiển thị sản phẩm dạng lưới"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h6v6H4V6zm10 0h6v6h-6V6zm-10 10h6v6H4v-6zm10 0h6v6h-6v-6z" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => setLayout('list')}
-                      className={`p-2 rounded-lg ${layout === 'list' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
-                      aria-label="Hiển thị sản phẩm dạng danh sách"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                      </svg>
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => setLayout('grid')}
+                    className={`p-2 rounded-lg ${layout === 'grid' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
+                    aria-label="Hiển thị dạng lưới"
+                  >
+                    <FiGrid className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setLayout('list')}
+                    className={`p-2 rounded-lg ${layout === 'list' ? 'bg-[#105d97] text-white' : 'bg-gray-200 text-gray-700'}`}
+                    aria-label="Hiển thị dạng danh sách"
+                  >
+                    <FiList className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
-
               <div className="flex items-center gap-2">
                 <div className="relative flex items-center gap-2 lg:hidden">
                   <button
                     onClick={toggleSearch}
                     className="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none z-0"
-                    aria-label="Mở thanh tìm kiếm sản phẩm"
+                    aria-label="Mở thanh tìm kiếm"
                   >
                     <FiSearch className="w-5 h-5" />
                   </button>
@@ -306,8 +347,8 @@ const DongPhucGym = () => {
                         placeholder="Tìm kiếm đồng phục gym"
                         value={searchQuery}
                         onChange={handleSearch}
-                        className="w-full p-2 pl-10 border rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700"
-                        aria-label="Tìm kiếm sản phẩm đồng phục gym"
+                        className="w-full p-2 pl-10 border rounded-full focus:outline-none  text-gray-700"
+                        aria-label="Tìm kiếm sản phẩm"
                       />
                       <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     </div>
@@ -320,7 +361,7 @@ const DongPhucGym = () => {
                     value={searchQuery}
                     onChange={handleSearch}
                     className="pl-10 p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#105d97] w-48"
-                    aria-label="Tìm kiếm sản phẩm đồng phục gym"
+                    aria-label="Tìm kiếm sản phẩm"
                   />
                   <svg
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -334,18 +375,19 @@ const DongPhucGym = () => {
               </div>
             </div>
 
-            {products.length > 0 ? (
+            {currentProducts.length > 0 ? (
               <section className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`} aria-label="Danh sách sản phẩm đồng phục gym">
-                {products.map((product) => (
+                {currentProducts.map((product) => (
                   <div key={product.id}>
                     <ProductCard
                       id={product.id}
                       name={product.name}
                       price={product.price}
                       description={product.description}
-                      discountPrice={product.discountPrice}
+                      maxPrice={product.maxPrice}
                       discount={product.discount}
                       isNew={product.isNew}
+                      isFeatured={product.isFeatured}
                       colors={product.colors}
                       image={product.image}
                       slug={product.slug}
@@ -357,6 +399,8 @@ const DongPhucGym = () => {
             ) : (
               <p className="text-center text-gray-500">Không tìm thấy sản phẩm nào trong danh mục {displayCategory}.</p>
             )}
+            {renderPagination()}
+            <PickleballUniviPage />
           </main>
         </div>
       </div>
@@ -364,7 +408,22 @@ const DongPhucGym = () => {
   );
 };
 
-export default DongPhucGym;
+// Hàm chuyển đổi đường dẫn tương đối thành URL Cloudinary
+const toCloudinaryUrl = (relativePath) => {
+  if (!relativePath) {
+    return '/images/placeholder.jpg';
+  }
+  if (relativePath.includes('/image/upload/')) {
+    const parts = relativePath.split('/');
+    const versionIndex = parts.findIndex((part) => part.startsWith('v') && !isNaN(part.slice(1)));
+    if (versionIndex !== -1) {
+      const cleanPath = parts.slice(versionIndex + 1).join('/');
+      return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
+    }
+  }
+  const cleanPath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+  return `https://res.cloudinary.com/dcgtt1jza/image/upload/v1/${cleanPath}`;
+};
 
 export async function getServerSideProps() {
   const meta = {
@@ -400,3 +459,5 @@ export async function getServerSideProps() {
     },
   };
 }
+
+export default DongPhucGym;

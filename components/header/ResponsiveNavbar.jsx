@@ -3,8 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { X, ChevronUp, ChevronDown, ChevronRight } from "lucide-react";
 import logo from "../../public/logo-univi.webp";
-import ContactForm from "../profiles/ContactForm";
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 // Icon container with fixed size to unify icon appearance
 const IconWrapper = ({ children }) => (
   <span className="w-5 h-5 flex items-center justify-center text-lg">
@@ -181,34 +179,8 @@ const ResponsiveMenu = ({ isOpen, toggleMenu }) => {
           ))}
         </ul>
 
-        {/* contact button */}
-        <div className="px-4 mt-6">
-          <button
-            onClick={toggleContactPopup}
-            className="w-full bg-[#105d97] text-white py-2 rounded-md hover:bg-[#2a6a9b]"
-          >
-            Liên hệ tư vấn
-          </button>
-        </div>
-      </div>
 
-      {/* contact popup */}
-      {contactPopupOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
-          onClick={toggleContactPopup}
-        >
-          <div
-            className="bg-white rounded-2xl shadow-lg w-11/12 max-w-3xl p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-end">
-              <X size={20} className="cursor-pointer text-gray-700" onClick={toggleContactPopup} />
-            </div>
-            <ContactForm onSubmit={toggleContactPopup} />
-          </div>
-        </div>
-      )}
+      </div>
     </>
   );
 };

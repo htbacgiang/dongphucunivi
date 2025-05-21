@@ -23,7 +23,7 @@ const removeDiacritics = (str) => {
 
 const categories = [
   'Đồng phục Gym', 'Đồng phục Yoga - Pilates', 'Đồng phục Pickleball',
-  'Đồng phục Chạy bộ', 'Đồng phục Golf - Tennis', 'Đồng phục MMA',
+  'Đồng phục Chạy bộ', 'Đồng phục Lễ tân', 'Đồng phục MMA',
   'Đồng phục áo Polo', 'Đồng phục áo thun', 'Đồng phục công sở', 'Đồng phục Team building', 'Đồng phục Sự kiện'
 ];
 const DongPhucGym = () => {
