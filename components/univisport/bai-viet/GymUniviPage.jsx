@@ -262,7 +262,7 @@ export default function GymUniviPage() {
                     </figure>
                 </div>
                 <div className={`prose max-w-none ${styles.customProse}`}>
-                    <h2>Nhận Tư Vấn & Báo Giá Đồng Phục Gym Univi Ngay Hôm Nay!</h2>
+                    <h3>Nhận Tư Vấn & Báo Giá Đồng Phục Gym Univi Ngay Hôm Nay!</h3>
                     <p>
                         Đã đến lúc nâng cấp trải nghiệm tập luyện của bạn và đội ngũ với những bộ đồng phục Gym đẳng cấp từ Univi Sport! Đừng để trang phục kém chất lượng cản trở hành trình chinh phục mục tiêu sức khỏe và vóc dáng của bạn.
                     </p>

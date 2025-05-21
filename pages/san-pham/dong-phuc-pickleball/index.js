@@ -257,7 +257,7 @@ const DongPhucGym = ({ initialProducts }) => {
         <div className="flex flex-col lg:flex-row gap-6">
           <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg h-fit">
             <div className="flex items-center justify-between mb-4">
-              <h2
+              <h3
                 className="text-lg font-semibold flex items-center justify-between w-full cursor-pointer lg:cursor-default"
                 onClick={toggleCategory}
                 aria-label="Mở hoặc đóng danh sách danh mục sản phẩm"
@@ -266,7 +266,7 @@ const DongPhucGym = ({ initialProducts }) => {
                 <span className="lg:hidden">
                   {isCategoryOpen ? <IoChevronUp className="w-5 h-5" /> : <IoChevronDown className="w-5 h-5" />}
                 </span>
-              </h2>
+              </h3>
             </div>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
@@ -428,14 +428,14 @@ const toCloudinaryUrl = (relativePath) => {
 export async function getServerSideProps() {
   const meta = {
     title: "Đồng phục PickleBall - Đồng phục Univi",
-    description: "Đồng phục pickleball Univi: Thiết kế theo yêu cầu, in logo CLB chuyên nghiệp. Nâng tầm đội của bạn trên sân đấu! Chất lượng làm nên sự khác biệt",
+    description: "Trải nghiệm đồng phục Pickleball Univi cao cấp và BST UniPick sành điệu. Chất liệu chuyên dụng, co giãn tối đa, thoáng khí vượt trội cho mọi chuyển động. Univi mang đến sự thoải mái và phong cách cho người chơi Pickleball. Khám phá ngay!",
     keywords: "đồng phục gym, Đồng phục Univi, quần áo thể thao, đồng phục thể thao, thiết kế gym, thể thao chất lượng",
     author: "Đồng phục Univi",
     robots: "index, follow",
     canonical: "https://dongphucunivi.com/san-pham/dong-phuc-pickleball",
     og: {
       title: "Đồng phục PickleBall - Đồng phục Univi",
-      description: "Đồng phục pickleball Univi: Thiết kế theo yêu cầu, in logo CLB chuyên nghiệp. Nâng tầm đội của bạn trên sân đấu! Chất lượng làm nên sự khác biệt",
+      description: "Trải nghiệm đồng phục Pickleball Univi cao cấp và BST UniPick sành điệu. Chất liệu chuyên dụng, co giãn tối đa, thoáng khí vượt trội cho mọi chuyển động. Univi mang đến sự thoải mái và phong cách cho người chơi Pickleball. Khám phá ngay!",
       type: "website",
       image: "https://dongphucunivi.com/images/dong-phuc-pikeaball.jpg",
       imageWidth: "1200",
@@ -447,7 +447,7 @@ export async function getServerSideProps() {
     twitter: {
       card: "summary_large_image",
       title: "Đồng phục PickleBall - Đồng phục Univi",
-      description: "Đồng phục pickleball Univi: Thiết kế theo yêu cầu, in logo CLB chuyên nghiệp. Nâng tầm đội của bạn trên sân đấu! Chất lượng làm nên sự khác biệt",
+      description: "Trải nghiệm đồng phục Pickleball Univi cao cấp và BST UniPick sành điệu. Chất liệu chuyên dụng, co giãn tối đa, thoáng khí vượt trội cho mọi chuyển động. Univi mang đến sự thoải mái và phong cách cho người chơi Pickleball. Khám phá ngay!",
       image: "https://dongphucunivi.com/images/dong-phuc-pikeaball.jpg",
       site: "@UniviSport",
     },

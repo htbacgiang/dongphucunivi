@@ -153,7 +153,7 @@ const DongPhucGym = ({ initialProducts }) => {
         <div className="flex flex-col lg:flex-row gap-6">
           <aside className="w-full lg:w-1/5 bg-white shadow-md p-4 rounded-lg">
             <div className="flex items-center justify-between mb-4">
-              <h2
+              <h3
                 className="text-lg font-semibold flex items-center justify-between w-full cursor-pointer lg:cursor-default"
                 onClick={toggleCategory}
                 aria-label="Mở hoặc đóng danh sách danh mục sản phẩm"
@@ -162,7 +162,7 @@ const DongPhucGym = ({ initialProducts }) => {
                 <span className="lg:hidden">
                   {isCategoryOpen ? <IoChevronUp className="w-5 h-5" /> : <IoChevronDown className="w-5 h-5" />}
                 </span>
-              </h2>
+              </h3>
             </div>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
