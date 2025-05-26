@@ -13,14 +13,14 @@
   .customProse :where(h2):not(:where([class~="not-prose"] *)) {
     margin-top: 0.75rem;
     margin-bottom: 0.25rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
   }
   
   .customProse :where(h3):not(:where([class~="not-prose"] *)) {
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: bold;
   }
   
