@@ -1,32 +1,45 @@
-# Architecture — Live VTON Cloud PoC
+# Architecture — UNIVI Live VTON Cloud PoC
 
-## Flow
-Browser consent screen -> user gesture -> getUserMedia -> Decart Lucy VTON 3.6 realtime WebRTC -> remote transformed MediaStream -> output video.
+## Runtime flow
+
+Browser consent -> Start click -> getUserMedia (video only) -> short-lived Decart client token -> Decart Lucy Virtual Try-On 3.5 over WebRTC -> transformed remote MediaStream -> output video element.
+
+The model ID is `lucy-vton-3.5` according to the current official model page reviewed on 2026-11-14. Do not use the earlier unverified 3.6 or latest aliases.
+
+## Garment replacement
+
+- User selects a reference image (JPEG/PNG/WebP, max 5 MB).
+- The image is previewed locally and is not uploaded merely by selecting it.
+- After consent and Start, the app sends the camera stream to Decart.
+- The selected garment File and product-specific prompt are passed atomically with `realtimeClient.set({ prompt, image, enhance: false })`.
+- The same `set()` flow supports garment switching in-session.
+- The AI output may alter product details; human Product/Studio inspection is required.
 
 ## Token security
-- Permanent DECART_API_KEY stays server-side.
-- Browser requests a short-lived client token from a same-origin server route.
-- The token route must enforce Origin/CSRF checks, rate limiting, and non-cacheable responses.
-- Never include secrets in NEXT_PUBLIC_* variables, logs, source control, or client bundles.
 
-## Camera lifecycle
-- No getUserMedia before affirmative consent and a Start click.
-- Explicitly state that the live camera stream is transmitted to Decart's GPU Cloud.
-- Stop must disconnect the realtime client and stop every camera track.
-- Cleanup must also run on unmount, tab close, and connection failure.
-- Do not persist the camera stream or transformed stream.
+- Permanent `DECART_API_KEY` exists only server-side.
+- Server creates a client token scoped to `lucy-vton-3.5` and a 300-second expiry.
+- Token route requires exact Origin, same-origin fetch metadata, internal access code, and process-local rate limiting.
+- Token response uses no-store cache headers.
+- Real token issuance is server-blocked unless both `UNIVI_LIVE_VTON_ENABLED=true` and `UNIVI_DECART_LEGAL_APPROVED=true`.
 
-## Garment reference
-- Only approved product reference images may be presented as UNIVI products.
-- Start with one clean product-only top image.
-- Keep prompt conservative and product-specific; AI output is not guaranteed to preserve exact branding.
-- Product/Studio must visually inspect logo, color, panels, collar, sleeves, and pattern.
+## Camera and stream lifecycle
 
-## Failures
-- No silent local 2.5D fallback.
-- On provider or network failure, stop or pause visibly and offer explicit retry.
-- Never label local input video as successful AI output.
+- No camera access before explicit consent and user click.
+- No microphone/audio track.
+- Stop disconnects provider client, stops every local camera track, stops remote tracks, and clears the output element.
+- Stopping during startup invalidates the attempt; any stream/client arriving afterward is immediately disconnected/stopped.
+- Cleanup also runs on component unmount.
 
-## Scope
-- Isolated PoC only.
-- Do not alter existing production pages, package manifests, dependencies, Next config, or Sprint 03E 2.5D prototype.
+## Data minimization
+
+- No database persistence of camera or output media.
+- No browser storage for images/video.
+- No payload logging.
+- Do not claim that the provider does not retain, train on, or reuse Inputs/Outputs; public API Terms and privacy policy currently disclose broad rights and retention conditions.
+
+## Isolation
+
+- All code resides under `poc/live-vton-cloud/`.
+- Does not modify the existing website source, root package manifests, production UI, or Sprint 03E 2.5D prototype.
+- This is not production-ready. Rate limiting is process-local and requires a shared distributed control before public deployment.
