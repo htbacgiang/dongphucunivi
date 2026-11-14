@@ -38,11 +38,14 @@ export default function LiveTryOn() {
   const realtimeRef = useRef<RealtimeClient | null>(null);
   const activeRef = useRef(false);
   const startingRef = useRef(false);
+  const attemptRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const isBusy = status === "requesting-camera" || status === "connecting" || status === "applying" || status === "switching" || status === "stopping";
 
   const stopSession = useCallback(async () => {
+    attemptRef.current += 1;
+    const wasStarting = startingRef.current;
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
@@ -58,11 +61,12 @@ export default function LiveTryOn() {
     remoteRef.current = null;
     if (outputRef.current) outputRef.current.srcObject = null;
     setSessionSeconds(0);
-    setStatus("idle");
+    setStatus(wasStarting ? "stopping" : "idle");
   }, []);
 
   useEffect(() => {
     return () => {
+      attemptRef.current += 1;
       activeRef.current = false;
       if (timerRef.current) clearInterval(timerRef.current);
       try { realtimeRef.current?.disconnect(); } catch { /* best-effort cleanup */ }
@@ -117,6 +121,7 @@ export default function LiveTryOn() {
     if (!navigator.mediaDevices?.getUserMedia) { setError("Trình duyệt không hỗ trợ camera hoặc trang chưa chạy qua HTTPS/localhost."); return; }
 
     startingRef.current = true;
+    const attemptId = ++attemptRef.current;
     setError("");
     setStatus("requesting-camera");
     try {
@@ -125,14 +130,23 @@ export default function LiveTryOn() {
         audio: false,
         video: { facingMode: "user", frameRate: model.fps, width: model.width, height: model.height },
       });
+      if (attemptId !== attemptRef.current) {
+        camera.getTracks().forEach((track) => track.stop());
+        return;
+      }
       cameraRef.current = camera;
       setStatus("connecting");
       const token = await getProviderToken();
+      if (attemptId !== attemptRef.current) return;
       const client = createDecartClient({ apiKey: token });
       const realtime = await client.realtime.connect(camera, {
         model,
         mirror: "auto",
         onRemoteStream: (stream) => {
+          if (attemptId !== attemptRef.current) {
+            stream.getTracks().forEach((track) => track.stop());
+            return;
+          }
           remoteRef.current = stream;
           if (activeRef.current && outputRef.current) {
             outputRef.current.srcObject = stream;
@@ -140,6 +154,11 @@ export default function LiveTryOn() {
           }
         },
       });
+      if (attemptId !== attemptRef.current) {
+        realtime.disconnect();
+        camera.getTracks().forEach((track) => track.stop());
+        return;
+      }
       realtimeRef.current = realtime;
       realtime.on("connectionChange", (state) => {
         if (state === "generating") setStatus("live");
@@ -152,6 +171,12 @@ export default function LiveTryOn() {
       });
       setStatus("applying");
       await realtime.set({ prompt: GARMENT_PROMPT, image: garment, enhance: false });
+      if (attemptId !== attemptRef.current) {
+        realtime.disconnect();
+        camera.getTracks().forEach((track) => track.stop());
+        remoteRef.current?.getTracks().forEach((track) => track.stop());
+        return;
+      }
       activeRef.current = true;
       if (remoteRef.current && outputRef.current) {
         outputRef.current.srcObject = remoteRef.current;
@@ -160,6 +185,7 @@ export default function LiveTryOn() {
       setStatus("live");
       timerRef.current = setInterval(() => setSessionSeconds((s) => s + 1), 1000);
     } catch (err) {
+      if (attemptId !== attemptRef.current) return;
       const message = err instanceof Error ? err.message : "Không thể khởi động phiên thử áo.";
       setError(message);
       setStatus("error");
@@ -172,7 +198,11 @@ export default function LiveTryOn() {
       remoteRef.current = null;
       if (outputRef.current) outputRef.current.srcObject = null;
     } finally {
-      startingRef.current = false;
+      if (attemptId === attemptRef.current) startingRef.current = false;
+      else {
+        startingRef.current = false;
+        setStatus("idle");
+      }
     }
   };
 
@@ -226,14 +256,14 @@ export default function LiveTryOn() {
           <input ref={inputRef} className="hidden-input" type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => selectGarment(e.target.files?.[0])} />
           <div className="step"><span>02</span><div><h2>Đồng ý xử lý Cloud</h2><p>Video camera sẽ được truyền trực tiếp đến nhà cung cấp AI.</p></div></div>
           <div className="privacy-box">
-            <p>Để tạo hình ảnh thử áo, video camera trực tiếp và ảnh áo tham chiếu sẽ được gửi đến Decart AI để xử lý trên GPU Cloud. Chính sách công khai của Decart cho biết dữ liệu video trực tiếp có thể được xử lý nhằm cung cấp, cải thiện và phát triển dịch vụ; thời hạn lưu giữ không được xác định là tự động xóa ngay. UNIVI chưa xác nhận thỏa thuận lưu giữ riêng với nhà cung cấp.</p>
-            <label className="consent"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /><span>Tôi đã đọc thông báo và đồng ý truyền video camera cùng ảnh áo tham chiếu đến Decart AI để xử lý cho phiên thử đồ này.</span></label>
+            <p>Để tạo hình ảnh thử áo, video camera trực tiếp và ảnh áo tham chiếu sẽ được gửi đến Decart AI để xử lý trên GPU Cloud. Chính sách công khai của Decart cho biết Điều khoản API công khai của Decart hiện cấp cho họ quyền sử dụng Input/Output để vận hành, cải thiện và huấn luyện mô hình; dữ liệu Input/Output không được coi là thông tin mật. Chính sách quyền riêng tư cũng không cam kết xóa video ngay sau phiên. Vì vậy, chỉ được bật phiên thật sau khi UNIVI Legal thẩm định DPA và có phê duyệt hợp đồng/điều khoản bằng văn bản. Không tải ảnh sản phẩm bí mật hoặc dữ liệu khách hàng lên khi chưa được duyệt.</p>
+            <label className="consent"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /><span>Tôi hiểu video camera và ảnh áo tham chiếu sẽ được gửi đến Decart; tôi đã đọc các rủi ro sử dụng/lưu giữ dữ liệu và đồng ý cho phiên thử nghiệm này.</span></label>
           </div>
           <label className="field-label" htmlFor="access-code">Mã truy cập thử nghiệm nội bộ</label>
           <input id="access-code" className="access-input" type="password" autoComplete="off" value={accessCode} onChange={(e) => setAccessCode(e.target.value)} placeholder="Nhập mã do quản trị viên cung cấp" />
           <div className="actions">
             <button className="primary" type="button" disabled={isBusy || status === "live" || !consent || !garment || !accessCode.trim()} onClick={startSession}>Bắt đầu thử áo</button>
-            <button className="secondary" type="button" disabled={!activeRef.current && status === "idle"} onClick={() => void stopSession()}>Kết thúc phiên</button>
+            <button className="secondary" type="button" disabled={status === "idle" || status === "stopping"} onClick={() => void stopSession()}>Kết thúc phiên</button>
           </div>
           {status === "live" && <button className="apply" type="button" onClick={applyNewGarment} disabled={!garment}>Áp dụng ảnh áo đang chọn</button>}
           <p className="cost">Chi phí nhà cung cấp công bố: 2 credits/giây ở 720p. Hãy kết thúc phiên ngay sau khi kiểm thử.</p>
