@@ -24,6 +24,9 @@ function jsonError(message: string, status: number) {
 }
 
 export async function POST(request: Request) {
+  if (process.env.UNIVI_DECART_LEGAL_APPROVED !== "true") {
+    return jsonError("Live provider sessions are blocked until UNIVI Legal approves the Decart API terms and data-processing conditions.", 403);
+  }
   if (process.env.UNIVI_LIVE_VTON_ENABLED !== "true") {
     return jsonError("Live VTON PoC is disabled by the server.", 403);
   }
