@@ -44,12 +44,20 @@ export async function POST(request: Request) {
 
   const expectedCode = process.env.UNIVI_POC_ACCESS_CODE;
   const suppliedCode = request.headers.get("x-univi-poc-code") || "";
-  if (!expectedCode || !suppliedCode || !constantTimeMatch(expectedCode, suppliedCode)) {
+  if (!expectedCode || expectedCode.length < 24) {
+    return jsonError("Internal PoC access code is not configured securely.", 503);
+  }
+  if (!suppliedCode || !constantTimeMatch(expectedCode, suppliedCode)) {
     return jsonError("Invalid PoC access code.", 401);
   }
 
   const ip = request.headers.get("x-real-ip") || "unknown";
   const now = Date.now();
+  if (attempts.size > 5000) {
+    for (const [key, value] of attempts) {
+      if (value.resetAt <= now) attempts.delete(key);
+    }
+  }
   const current = attempts.get(ip);
   if (current && current.resetAt > now && current.count >= MAX_REQUESTS_PER_WINDOW) {
     return jsonError("Too many token requests. Try again later.", 429);
